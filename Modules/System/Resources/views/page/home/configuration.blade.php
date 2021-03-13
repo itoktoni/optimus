@@ -121,9 +121,9 @@
                                                 <select class="form-control" name="developer_setting">
                                                     @foreach($group as $g)
                                                     <option
-                                                        {{ config('website.developer_setting') == $g->group_user_code ? 'selected' : '' }}
-                                                        value="{{ $g->group_user_code }}">
-                                                        {{ $g->group_user_name }}
+                                                        {{ config('website.developer_setting') == $g->system_group_user_code ? 'selected' : '' }}
+                                                        value="{{ $g->system_group_user_code }}">
+                                                        {{ $g->system_group_user_name }}
                                                     </option>
                                                     @endforeach
                                                 </select>
