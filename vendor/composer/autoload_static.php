@@ -743,7 +743,7 @@ class ComposerStaticInitec153ae97542422ebd7f95238a1bc36e
         ),
         'Alkhachatryan\\LaravelWebConsole\\' => 
         array (
-            0 => __DIR__ . '/../..' . '/Terminal/alkhachatryan/laravel-web-console/src',
+            0 => __DIR__ . '/../..' . '/plugin/alkhachatryan/laravel-web-console/src',
         ),
     );
 
@@ -791,10 +791,10 @@ class ComposerStaticInitec153ae97542422ebd7f95238a1bc36e
 
     public static $classMap = array (
         'ActionsTableSeeder' => __DIR__ . '/../..' . '/database/seeds/ActionsTableSeeder.php',
-        'Alkhachatryan\\LaravelWebConsole\\BaseJsonRpcServer' => __DIR__ . '/../..' . '/Terminal/alkhachatryan/laravel-web-console/src/BaseJsonRpcServer.php',
-        'Alkhachatryan\\LaravelWebConsole\\LaravelWebConsole' => __DIR__ . '/../..' . '/Terminal/alkhachatryan/laravel-web-console/src/LaravelWebConsole.php',
-        'Alkhachatryan\\LaravelWebConsole\\LaravelWebConsoleServiceProvider' => __DIR__ . '/../..' . '/Terminal/alkhachatryan/laravel-web-console/src/LaravelWebConsoleServiceProvider.php',
-        'Alkhachatryan\\LaravelWebConsole\\WebConsoleRPCServer' => __DIR__ . '/../..' . '/Terminal/alkhachatryan/laravel-web-console/src/WebConsoleRPCServer.php',
+        'Alkhachatryan\\LaravelWebConsole\\BaseJsonRpcServer' => __DIR__ . '/../..' . '/plugin/alkhachatryan/laravel-web-console/src/BaseJsonRpcServer.php',
+        'Alkhachatryan\\LaravelWebConsole\\LaravelWebConsole' => __DIR__ . '/../..' . '/plugin/alkhachatryan/laravel-web-console/src/LaravelWebConsole.php',
+        'Alkhachatryan\\LaravelWebConsole\\LaravelWebConsoleServiceProvider' => __DIR__ . '/../..' . '/plugin/alkhachatryan/laravel-web-console/src/LaravelWebConsoleServiceProvider.php',
+        'Alkhachatryan\\LaravelWebConsole\\WebConsoleRPCServer' => __DIR__ . '/../..' . '/plugin/alkhachatryan/laravel-web-console/src/WebConsoleRPCServer.php',
         'App\\Console\\Commands\\CancelOrder' => __DIR__ . '/../..' . '/app/Console/Commands/CancelOrder.php',
         'App\\Console\\Commands\\Console' => __DIR__ . '/../..' . '/app/Console/Commands/Console.php',
         'App\\Console\\Commands\\Installation' => __DIR__ . '/../..' . '/app/Console/Commands/Installation.php',
@@ -4253,6 +4253,7 @@ class ComposerStaticInitec153ae97542422ebd7f95238a1bc36e
         'Modules\\System\\Dao\\Facades\\GroupUserConnectionGroupModuleFacades' => __DIR__ . '/../..' . '/Modules/System/Dao/Facades/GroupUserConnectionGroupModuleFacades.php',
         'Modules\\System\\Dao\\Facades\\GroupUserFacades' => __DIR__ . '/../..' . '/Modules/System/Dao/Facades/GroupUserFacades.php',
         'Modules\\System\\Dao\\Facades\\HoldingFacades' => __DIR__ . '/../..' . '/Modules/System/Dao/Facades/HoldingFacades.php',
+        'Modules\\System\\Dao\\Facades\\LocationFacades' => __DIR__ . '/../..' . '/Modules/System/Dao/Facades/LocationFacades.php',
         'Modules\\System\\Dao\\Facades\\ModuleConnectionActionFacades' => __DIR__ . '/../..' . '/Modules/System/Dao/Facades/ModuleConnectionActionFacades.php',
         'Modules\\System\\Dao\\Facades\\ModuleFacades' => __DIR__ . '/../..' . '/Modules/System/Dao/Facades/ModuleFacades.php',
         'Modules\\System\\Dao\\Facades\\TeamFacades' => __DIR__ . '/../..' . '/Modules/System/Dao/Facades/TeamFacades.php',
@@ -4266,6 +4267,7 @@ class ComposerStaticInitec153ae97542422ebd7f95238a1bc36e
         'Modules\\System\\Dao\\Models\\GroupUser' => __DIR__ . '/../..' . '/Modules/System/Dao/Models/GroupUser.php',
         'Modules\\System\\Dao\\Models\\GroupUserConnectionGroupModule' => __DIR__ . '/../..' . '/Modules/System/Dao/Models/GroupUserConnectionGroupModule.php',
         'Modules\\System\\Dao\\Models\\Holding' => __DIR__ . '/../..' . '/Modules/System/Dao/Models/Holding.php',
+        'Modules\\System\\Dao\\Models\\Location' => __DIR__ . '/../..' . '/Modules/System/Dao/Models/Location.php',
         'Modules\\System\\Dao\\Models\\Module' => __DIR__ . '/../..' . '/Modules/System/Dao/Models/Module.php',
         'Modules\\System\\Dao\\Models\\ModuleConnectionAction' => __DIR__ . '/../..' . '/Modules/System/Dao/Models/ModuleConnectionAction.php',
         'Modules\\System\\Dao\\Repositories\\ActionRepository' => __DIR__ . '/../..' . '/Modules/System/Dao/Repositories/ActionRepository.php',
@@ -4273,6 +4275,7 @@ class ComposerStaticInitec153ae97542422ebd7f95238a1bc36e
         'Modules\\System\\Dao\\Repositories\\GroupModuleRepository' => __DIR__ . '/../..' . '/Modules/System/Dao/Repositories/GroupModuleRepository.php',
         'Modules\\System\\Dao\\Repositories\\GroupUserRepository' => __DIR__ . '/../..' . '/Modules/System/Dao/Repositories/GroupUserRepository.php',
         'Modules\\System\\Dao\\Repositories\\HoldingRepository' => __DIR__ . '/../..' . '/Modules/System/Dao/Repositories/HoldingRepository.php',
+        'Modules\\System\\Dao\\Repositories\\LocationRepository' => __DIR__ . '/../..' . '/Modules/System/Dao/Repositories/LocationRepository.php',
         'Modules\\System\\Dao\\Repositories\\ModuleActionRepository' => __DIR__ . '/../..' . '/Modules/System/Dao/Repositories/ModuleActionRepository.php',
         'Modules\\System\\Dao\\Repositories\\ModuleRepository' => __DIR__ . '/../..' . '/Modules/System/Dao/Repositories/ModuleRepository.php',
         'Modules\\System\\Dao\\Repositories\\TeamRepository' => __DIR__ . '/../..' . '/Modules/System/Dao/Repositories/TeamRepository.php',
@@ -4284,6 +4287,7 @@ class ComposerStaticInitec153ae97542422ebd7f95238a1bc36e
         'Modules\\System\\Http\\Controllers\\GroupUserController' => __DIR__ . '/../..' . '/Modules/System/Http/Controllers/GroupUserController.php',
         'Modules\\System\\Http\\Controllers\\HoldingController' => __DIR__ . '/../..' . '/Modules/System/Http/Controllers/HoldingController.php',
         'Modules\\System\\Http\\Controllers\\HomeController' => __DIR__ . '/../..' . '/Modules/System/Http/Controllers/HomeController.php',
+        'Modules\\System\\Http\\Controllers\\LocationController' => __DIR__ . '/../..' . '/Modules/System/Http/Controllers/LocationController.php',
         'Modules\\System\\Http\\Controllers\\ModuleController' => __DIR__ . '/../..' . '/Modules/System/Http/Controllers/ModuleController.php',
         'Modules\\System\\Http\\Controllers\\TeamController' => __DIR__ . '/../..' . '/Modules/System/Http/Controllers/TeamController.php',
         'Modules\\System\\Http\\Middleware\\AccessMiddleware' => __DIR__ . '/../..' . '/Modules/System/Http/Middleware/AccessMiddleware.php',

@@ -117,6 +117,6 @@ return array(
     'Balping\\JsonRaw\\' => array($vendorDir . '/balping/json-raw-encoder/src'),
     'Appstract\\Options\\' => array($vendorDir . '/appstract/laravel-options/src'),
     'App\\' => array($baseDir . '/app'),
-    'Alkhachatryan\\LaravelWebConsole\\' => array($baseDir . '/Terminal/alkhachatryan/laravel-web-console/src'),
+    'Alkhachatryan\\LaravelWebConsole\\' => array($baseDir . '/plugin/alkhachatryan/laravel-web-console/src'),
     '' => array($vendorDir . '/larapack/config-writer/src'),
 );

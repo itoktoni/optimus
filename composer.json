@@ -52,7 +52,7 @@
         "psr-4": {
             "App\\": "app/",
             "Modules\\": "Modules/",
-            "Alkhachatryan\\LaravelWebConsole\\": "Terminal/alkhachatryan/laravel-web-console/src/"
+            "Alkhachatryan\\LaravelWebConsole\\": "plugin/alkhachatryan/laravel-web-console/src/"
         }
     },
     "autoload-dev": {
