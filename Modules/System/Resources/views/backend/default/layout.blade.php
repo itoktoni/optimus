@@ -33,6 +33,7 @@
     }
     </script>
     @endif
+    @stack('style')
     @stack('js')
 
     @livewireStyles
@@ -68,7 +69,6 @@
     </section>
     <script src="{{ Helper::backend('javascripts/script.js') }}"></script>
     @include(Views::backend('alert'))
-    @stack('style')
     @stack('javascript')
     @livewireScripts
 </body>
