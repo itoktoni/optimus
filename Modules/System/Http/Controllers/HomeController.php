@@ -38,7 +38,7 @@ class HomeController extends Controller
             });
         }
 
-        return view(Views::form('route'), [
+        return view(Views::form('route', 'home'), [
             'routes' => $routes,
             'middlewareClosure' => $middlewareClosure,
         ]);
@@ -49,7 +49,7 @@ class HomeController extends Controller
         return LaravelWebConsole::show();
     }
 
-    public function homepage()
+    public function dashboard()
     {
         if (!config('website.application') && auth()->user()->group_user == 'customer') {
             return redirect('/');
@@ -67,7 +67,7 @@ class HomeController extends Controller
             ]
         ]);
 
-        return view(Views::dashboard())->with(['chart' => $chart]);
+        return view(Views::form('dashboard', 'home'))->with(['chart' => $chart]);
     }
 
     public function configuration()
@@ -137,7 +137,7 @@ class HomeController extends Controller
             return Response::redirectBack();
         }
 
-        return view('page.home.configuration')->with([
+        return view(Views::form('configuration', 'home'))->with([
             'group'           => Cache::get('group'),
             'frontend'        => array_combine($frontend, $frontend),
             'backend'         => array_combine($backend, $backend),

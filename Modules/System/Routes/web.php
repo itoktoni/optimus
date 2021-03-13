@@ -68,10 +68,10 @@ Route::group(
 developer
  */
 
-Route::get('dashboard', [HomeController::class, 'homepage'])->name('home');
+Route::get('dashboard', [HomeController::class, 'dashboard'])->name('home');
 Route::get('route', [HomeController::class, 'route'])->name('route');
 Route::get('console', [HomeController::class, 'console'])->name('console');
-Route::get('home', [HomeController::class, 'homepage']);
+Route::get('home', [HomeController::class, 'dashboard']);
 Route::match(['get', 'post'], 'configuration', [HomeController::class, 'configuration'])->name('configuration');
 route::post('upload', function () {
     $data = request()->file('image');

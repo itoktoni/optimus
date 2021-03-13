@@ -6,11 +6,6 @@ use PHPUnit\TextUI\Help;
 
 class Views
 {
-    public static function dashboard($page = 'master', $module = 'system')
-    {
-        return ucfirst($module) . '::page.' . $page . '.dashboard';
-    }
-
     public static function create($page = 'master', $module = 'system')
     {
         return ucfirst($module) . '::page.' . $page . '.create';
