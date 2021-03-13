@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Route;
 use Modules\System\Http\Controllers\TeamController;
+use Symfony\Component\Process\Process;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,3 +37,21 @@ if (Cache::has('routing')) {
 }
 
 Route::post('login', [TeamController::class, 'login']);
+
+Route::match(['POST', 'GET'],'/deploy', function(Request $request){
+    
+    
+    // $githubPayload = $request->getContent();
+    // $githubHash = $request->header('X-Hub-Signature');
+
+    // $localToken = config('app.deploy_secret');
+    // $localHash = 'sha1=' . hash_hmac('sha1', $githubPayload, $localToken, false);
+
+    // if (hash_equals($githubHash, $localHash)) {
+    //     $root_path = base_path();
+    // }
+
+    exec('git pull origin master');
+    
+    return 'sucess';
+});

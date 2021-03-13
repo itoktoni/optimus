@@ -5,7 +5,7 @@
 @section('content')
 <div class="row">
     <div class="panel-body">
-        {!! Form::open(['route' => 'profile', 'class' => 'form-horizontal', 'files' => true]) !!}
+        {!! Form::open(['route' => 'user_profile', 'class' => 'form-horizontal', 'files' => true]) !!}
         <div class="panel panel-default">
             <header class="panel-heading">
                 <h2 class="panel-title">Profile ( {{ $model->name }} )</h2>
