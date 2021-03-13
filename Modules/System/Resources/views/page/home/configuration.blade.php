@@ -1,4 +1,4 @@
-@extends(Helper::setExtendBackend())
+@extends(Views::backend())
 @component('components.date', ['array' => ['date']])
 @endcomponent
 @component('components.editor', ['array' => ['editor']])
