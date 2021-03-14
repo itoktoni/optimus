@@ -90,6 +90,11 @@ use Illuminate\Support\Collection;
                                             <th colspan="2">* jika gagal login ada informasi
                                                 <code>{ status : false }</code></th>
                                         </tr>
+                                        <tr>
+                                            <th colspan="2">
+                                                * Login tidak membutuhkan header Authorization Bearer
+                                            </th>
+                                        </tr>
                                     </thead>
                                 </table>
                             </div>
