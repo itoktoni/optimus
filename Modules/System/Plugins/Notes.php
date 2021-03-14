@@ -9,6 +9,7 @@ class Notes
     const delete = 'Delete';
     const error = 'Error';
     const data = 'List';
+    const single = 'Single';
     const token = 'Token';
 
     public static function data($data = null)
@@ -16,6 +17,15 @@ class Notes
         $log['status'] = true;
         $log['code'] = 200;
         $log['name'] = self::data;
+        $log['data'] = $data;
+        return $log;
+    }
+
+    public static function single($data = null)
+    {
+        $log['status'] = true;
+        $log['code'] = 200;
+        $log['name'] = self::single;
         $log['data'] = $data;
         return $log;
     }

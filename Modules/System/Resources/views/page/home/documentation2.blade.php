@@ -35,10 +35,6 @@ use Illuminate\Support\Arr;
     .tag {
         padding: 0.30em 0.8em;
     }
-
-    table.hide-domains .domain {
-        display: none;
-    }
     </style>
 </head>
 
@@ -47,39 +43,47 @@ use Illuminate\Support\Arr;
     <h1 class="display-4">Routes ({{ count($routes) }})</h1>
     <a style="position:fixed;top:0px;right:0px;" class="btn btn-primary" href="{{ route('home') }}">Go Home</a>
 
-    <table class="table table-sm table-bordered table-hover" style="visibility: hidden;">
+    <table class="table table-sm table-bordered">
         <thead>
             <tr>
-                <th>Methods</th>
-                <th class="domain">Domain</th>
-                <th>End Point</th>
-                <th>Name</th>
-                <th>Action</th>
-                <th>Middleware</th>
-                <th class="text-center">Readme</th>
+                <th style="width: 30%;">End Point</th>
+                <th style="width: 20px;">Methods</th>
+                <th>Request</th>
+                <th style="width: 30px;" class="text-center">Readme</th>
             </tr>
         </thead>
         <tbody>
 
             <?php $methodColours = ['GET' => 'success', 'HEAD' => 'default', 'POST' => 'primary', 'PUT' => 'warning', 'PATCH' => 'info', 'DELETE' => 'danger']; ?>
-            @foreach ($routes as $route)
-            @php $api = isset($route->middleware()[0]) ? $route->middleware()[0] : false; @endphp
-            @if($api == 'api' && $route->getActionName() != 'Closure')
+            @foreach ($routes as $key => $group)
+            <tr>
+                <td colspan="4">
+                    <h2>
+                        {{ Str::of($key)->kebab()->replace('-',' ')->title() }}
+                    </h2>
+                </td>
+            </tr>
+            @foreach($group as $api)
+            @php
+            $code = in_array($api->system_action_function, ['update', 'get']) ? '/{code}' : '';
+            @endphp
             <tr>
                 <td>
-                    @foreach (array_diff($route->methods(), config('pretty-routes.hide_methods')) as $method)
-                    <span class="btn btn-sm btn-block btn-{{ Arr::get($methodColours, $method) }}">{{ $method }}</span>
-                    @endforeach
-                </td>
-                <td class="domain{{ strlen($route->domain()) == 0 ? ' domain-empty' : '' }}">{{ $route->domain() }}</td>
-                <td>{{ url('/') }}/{!! preg_replace('#({[^}]+})#', '<span class="text-warning">$1</span>',
-                    $route->uri()) !!}</td>
-                <td>{{ $route->getName() }}</td>
-                <td>{!! preg_replace('#(@.*)$#', '<span class="text-warning">$1</span>', $route->getActionName()) !!}
+                    {{ url('/api/').'/'.$api->system_action_link }}<span
+                        class="text-danger"><strong>{{ $code }}</strong></span>
                 </td>
                 <td>
-                    {{ implode(', ', $route->middleware()) }}
+                    <span class="btn btn-sm btn-block btn-{{ Arr::get($methodColours, $api->system_action_method) }}">
+                        {{ $api->system_action_method }}
+                    </span>
                 </td>
+                <td>
+                    <ul>
+                        <li>Code</li>
+                        <li>Name</li>
+                    </ul>
+                </td>
+
                 <td>
                     <button data-toggle="collapse" data-target="#collapse{{ $loop->index }}"
                         class="btn btn-secondary btn-block btn-sm">SHOW</button>
@@ -99,7 +103,7 @@ use Illuminate\Support\Arr;
                     </div>
                 </td>
             </tr>
-            @endif
+            @endforeach
             @endforeach
         </tbody>
     </table>
@@ -112,21 +116,6 @@ use Illuminate\Support\Arr;
     </script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
-    </script>
-
-    <script type="text/javascript">
-    function hideEmptyDomainColumn() {
-        var table = document.querySelector('.table');
-        var domains = table.querySelectorAll('tbody .domain');
-        var emptyDomains = table.querySelectorAll('tbody .domain-empty');
-        if (domains.length == emptyDomains.length) {
-            table.className += ' hide-domains';
-        }
-
-        table.style.visibility = 'visible';
-    }
-
-    hideEmptyDomainColumn();
     </script>
 
 </body>

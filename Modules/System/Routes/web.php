@@ -18,6 +18,8 @@ use Modules\System\Dao\Facades\ActionFacades;
 use Modules\System\Http\Controllers\HomeController;
 use Modules\System\Http\Controllers\TeamController;
 use Modules\System\Plugins\Helper;
+use Modules\System\Plugins\Views;
+use Illuminate\Support\Str;
 
 /*
 routing for admin
@@ -45,7 +47,7 @@ Route::group(
                             $link = $route->system_action_link;
                         }
                         $path = $route->system_action_path . '@' . $route->system_action_function;
-                        Route::match($route->system_action_method,$link, $path)->name($route->system_action_code);
+                        Route::match($route->system_action_method, $link, $path)->name($route->system_action_code);
                     }
                 } else {
                     $cache_query = Cache::rememberForever('routing', function () {
@@ -79,48 +81,78 @@ route::post('upload', function () {
 
     $response = [
         'success' => true,
-        'url' => Helper::files('test/'.$name)
+        'url' => Helper::files('test/' . $name),
     ];
 
     /*
     #return url used by ckeditor
-    
+
     $file = request()->file('upload');
     $name = Helper::uploadImage($file, 'test');
 
     $response = [
-         'uploaded' => true,
-         'url' => Helper::files('test/'.$name),
-     ];
-    */
+    'uploaded' => true,
+    'url' => Helper::files('test/'.$name),
+    ];
+     */
 
     return response()->json($response);
 })->name('upload');
 
 Route::group(['middleware' => ['auth', 'verified']], function () {
     Route::group(['prefix' => 'dashboard'], function () {
-        Route::get('groups/{code}', [HomeController::class,'session_group'])->name('access_group');
-        Route::get('user/reset', [TeamController::class,'reset_password'])->name('reset_password');
-        Route::post('user/change_password', [TeamController::class,'change_password'])->name('lock');
+        Route::get('groups/{code}', [HomeController::class, 'session_group'])->name('access_group');
+        Route::get('user/reset', [TeamController::class, 'reset_password'])->name('reset_password');
+        Route::post('user/change_password', [TeamController::class, 'change_password'])->name('lock');
         Route::match(
             [
                 'get',
-                'post'
+                'post',
             ],
             'user/profile',
-            [TeamController::class,'show_profile']
+            [TeamController::class, 'show_profile']
         )->name('user_profile');
     });
 });
 
 /*
 auth mechanizme
-*/
+ */
 Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
 Route::get('register', 'PublicController@register')->name('register');
 Route::get('reset', [TeamController::class, 'reset_redis'])->name('reset');
-Route::get('reboot', [TeamController::class,'reset_routing'])->name('reboot');
+Route::get('reboot', [TeamController::class, 'reset_routing'])->name('reboot');
 
-Route::get('/', function(){
-    return redirect()->route('home');
+Route::get('/', function () {
+
+    $middlewareClosure = function ($middleware) {
+        return $middleware instanceof Closure ? 'Closure' : $middleware;
+    };
+
+    $routes = collect(Route::getRoutes())->mapWithKeys(function($map){
+        $check = $map->getName();
+        if(Str::of($check)->contains('api')){
+            return [$map->getName() => $map];
+        }
+        return [];
+    });
+
+    foreach (config('pretty-routes.hide_matching') as $regex) {
+        $routes = $routes->filter(function ($value, $key) use ($regex) {
+            return !preg_match($regex, $value->uri());
+        });
+    }
+
+    $mapping = Cache::get('routing')->where('system_action_api', 1)
+    
+        ->mapToGroups(function ($model) {
+            return [$model->system_action_controller => $model];
+        });
+
+    return view(Views::form('documentation', 'home'), [
+        'routes' => $routes,
+        'middlewareClosure' => $middlewareClosure,
+        'mapping' => $mapping,
+    ]);
+
 });
