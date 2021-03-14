@@ -42,8 +42,110 @@ use Illuminate\Support\Collection;
 
 <body>
 
-    <h1 class="display-4">Routes ({{ count($routes) }})</h1>
-    <a style="position:fixed;top:0px;right:0px;" class="btn btn-primary" href="{{ route('home') }}">Go Home</a>
+    <h1 class="display-4">Documentation API with ({{ count($routes) }}) Endpoint </h1>
+
+    <div class="mb-3">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4>
+                            Login with method <button class="btn btn-primary btn-sm">POST</button> :
+                            <code>{{ route('api_login') }}</code>
+                        </h4>
+                    </div>
+                    <div class="card-body">
+
+                        <div class="row">
+                            <div class="col-md-4">
+
+                                <h4>For login parameter :</h4>
+                                <table class="table table-bordered mt-3">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Parameter</th>
+                                            <th scope="col">Descripton</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <code>username</code>
+                                            </td>
+                                            <td>
+                                                masukan username yang telah diberikan
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <code>password</code>
+                                            </td>
+                                            <td>
+                                                masukan password yang telah diberikan
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                    <thead>
+                                        <tr>
+                                            <th colspan="2">* jika gagal login ada informasi
+                                                <code>{ status : false }</code></th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
+
+                            <col-md-8>
+                                <h2 class="text-danger">CATATAN PENTING UNTUK MENGAKSES API !!!</h2>
+                                <h6>* untuk mengakses api membutuhkan <code>token</code> yang diambil dari data login :
+                                    <code>{ "api_token": "xxxxxxxxxxxxxxxxxxxxxx" }</code> </h6>
+                                <table class="table table-bordered mt-3">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Header</th>
+                                            <th scope="col">Value</th>
+                                            <th scope="col">Descripton</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <code>Accept</code>
+                                            </td>
+                                            <td>
+                                                <code>application/json</code>
+                                            </td>
+                                            <td>
+                                                Harus dimasukan ketika mengirim
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <code>Accept</code>
+                                            </td>
+                                            <td>
+                                                <code>Content-Type</code>
+                                            </td>
+                                            <td>
+                                                Harus dimasukan ketika mengirim
+                                            </td>
+                                        </tr>
+                                        <thead>
+                                            <tr>
+                                                <th scope="col"><code>Authorization</code></th>
+                                                <th scope="col"><code>Bearer xxxxxxxxxx</code></th>
+                                                <th scope="col">Masukan xxxxxxxxxx (token) yang telah didapat dari login</th>
+                                            </tr>
+                                        </thead>
+                                    </tbody>
+                                </table>
+                            </col-md-8>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <table class="table table-sm table-bordered">
         <tbody>

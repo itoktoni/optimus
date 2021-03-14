@@ -36,7 +36,7 @@ if (Cache::has('routing')) {
     });
 }
 
-Route::post('login', [TeamController::class, 'login']);
+Route::post('login', [TeamController::class, 'login'])->name('api_login');
 
 Route::match(['POST', 'GET'],'/deploy', function(Request $request){
     
