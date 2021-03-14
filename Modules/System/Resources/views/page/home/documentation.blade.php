@@ -438,13 +438,13 @@ use Illuminate\Support\Collection;
                 </td>
 
                 <td>
-                    <button data-toggle="collapse" data-target="#collapse{{ $loop->index }}"
+                    <button data-toggle="collapse" data-target="#collapse{{ $api->system_action_code }}"
                         class="btn btn-secondary btn-block btn-sm">SHOW</button>
                 </td>
             </tr>
             <tr>
                 <td colspan="7">
-                    <div class="collapse" id="collapse{{ $loop->index }}">
+                    <div class="collapse" id="collapse{{ $api->system_action_code }}">
                         @switch($api->system_action_function)
 
                         @case('save')
