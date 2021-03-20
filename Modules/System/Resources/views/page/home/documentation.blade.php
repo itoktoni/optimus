@@ -54,7 +54,9 @@ use Illuminate\Support\Collection;
                             <code>{{ route('api_login') }}</code>
                         </h4>
                         <p>kamu bisa menggunakan applikasi seperti <a href="https://insomnia.rest/">Insomnia</a> or <a href="https://www.postman.com/">Postman</a> dan ikuti petujuk di documentasi ini</p>
-                        <p>untuk melihat relasi table (ERD) terbaru, silahkan liat di <a href="https://drawsql.app/benline/diagrams/lts">Link berikut</a></p>
+                        
+                        <iframe width="100%" height="500px" style="box-shadow: 0 2px 8px 0 rgba(63,69,81,0.16); border-radius:15px;" allowtransparency="true" allowfullscreen="true" scrolling="no" title="Embedded DrawSQL IFrame" frameborder="0" src="https://drawsql.app/benline/diagrams/lts/embed"></iframe>
+                        
                     </div>
                     <div class="card-body">
 
