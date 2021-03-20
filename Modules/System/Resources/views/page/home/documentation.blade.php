@@ -54,6 +54,7 @@ use Illuminate\Support\Collection;
                             <code>{{ route('api_login') }}</code>
                         </h4>
                         <p>kamu bisa menggunakan applikasi seperti <a href="https://insomnia.rest/">Insomnia</a> or <a href="https://www.postman.com/">Postman</a> dan ikuti petujuk di documentasi ini</p>
+                        <p>untuk melihat relasi table (ERD) terbaru, silahkan liat di <a href="https://drawsql.app/benline/diagrams/lts">Link berikut</a></p>
                     </div>
                     <div class="card-body">
 
