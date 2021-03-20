@@ -53,6 +53,7 @@ use Illuminate\Support\Collection;
                             Login with method <button class="btn btn-primary btn-sm">POST</button> :
                             <code>{{ route('api_login') }}</code>
                         </h4>
+                        <p>kamu bisa menggunakan applikasi seperti <a href="https://insomnia.rest/">Insomnia</a> or <a href="https://www.postman.com/">Postman</a> dan ikuti petujuk di documentasi ini</p>
                     </div>
                     <div class="card-body">
 
