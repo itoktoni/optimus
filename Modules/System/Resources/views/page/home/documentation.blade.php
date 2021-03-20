@@ -136,10 +136,10 @@ use Illuminate\Support\Collection;
                                         </tr>
                                         <tr>
                                             <td>
-                                                <code>Accept</code>
+                                                <code>Content-Type</code>
                                             </td>
                                             <td>
-                                                <code>Content-Type</code>
+                                                <code>application/json</code>
                                             </td>
                                             <td>
                                                 Harus dimasukan ketika mengirim
