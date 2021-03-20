@@ -53,10 +53,15 @@ use Illuminate\Support\Collection;
                             Login with method <button class="btn btn-primary btn-sm">POST</button> :
                             <code>{{ route('api_login') }}</code>
                         </h4>
-                        <p>kamu bisa menggunakan applikasi seperti <a href="https://insomnia.rest/">Insomnia</a> or <a href="https://www.postman.com/">Postman</a> dan ikuti petujuk di documentasi ini</p>
-                        
-                        <iframe width="100%" height="500px" style="box-shadow: 0 2px 8px 0 rgba(63,69,81,0.16); border-radius:15px;" allowtransparency="true" allowfullscreen="true" scrolling="no" title="Embedded DrawSQL IFrame" frameborder="0" src="https://drawsql.app/benline/diagrams/lts/embed"></iframe>
-                        
+                        <p>kamu bisa menggunakan applikasi seperti <a href="https://insomnia.rest/">Insomnia</a> or <a
+                                href="https://www.postman.com/">Postman</a> dan ikuti petujuk di documentasi ini</p>
+
+                        <iframe width="100%" height="500px"
+                            style="box-shadow: 0 2px 8px 0 rgba(63,69,81,0.16); border-radius:15px;"
+                            allowtransparency="true" allowfullscreen="true" scrolling="no"
+                            title="Embedded DrawSQL IFrame" frameborder="0"
+                            src="https://drawsql.app/benline/diagrams/lts/embed"></iframe>
+
                     </div>
                     <div class="card-body">
 
@@ -92,7 +97,8 @@ use Illuminate\Support\Collection;
                                     <thead>
                                         <tr>
                                             <th colspan="2">* jika gagal login ada informasi
-                                                <code>{ status : false }</code></th>
+                                                <code>{ status : false }</code>
+                                            </th>
                                         </tr>
                                         <tr>
                                             <th colspan="2">
@@ -106,7 +112,8 @@ use Illuminate\Support\Collection;
                             <col-md-8>
                                 <h2 class="text-danger">CATATAN PENTING UNTUK MENGAKSES API !!!</h2>
                                 <h6>* untuk mengakses api membutuhkan <code>token</code> yang diambil dari data login :
-                                    <code>{ "api_token": "xxxxxxxxxxxxxxxxxxxxxx" }</code> </h6>
+                                    <code>{ "api_token": "xxxxxxxxxxxxxxxxxxxxxx" }</code>
+                                </h6>
                                 <table class="table table-bordered mt-3">
                                     <thead>
                                         <tr>
@@ -142,7 +149,8 @@ use Illuminate\Support\Collection;
                                             <tr>
                                                 <th scope="col"><code>Authorization</code></th>
                                                 <th scope="col"><code>Bearer xxxxxxxxxx</code></th>
-                                                <th scope="col">Masukan xxxxxxxxxx (token) yang telah didapat dari login</th>
+                                                <th scope="col">Masukan xxxxxxxxxx (token) yang telah didapat dari login
+                                                </th>
                                             </tr>
                                         </thead>
                                     </tbody>
@@ -171,7 +179,7 @@ use Illuminate\Support\Collection;
                 <th style="width: 10%">Methods</th>
                 <th style="width: 25%;">End Point</th>
                 <th style="width: 50%;">Request Parameter</th>
-                <th style="width: 10%;" class="text-center">Readme</th>
+                <th style="width: 10%;" class="text-center">Show</th>
             </tr>
             @foreach($group as $api)
             @php
@@ -189,8 +197,12 @@ use Illuminate\Support\Collection;
                 </td>
 
                 <td>
-                    {{ url('/api/').'/'.$api->system_action_link }}<span
-                        class="text-danger"><strong>{{ $code }}</strong></span>
+                    <h4>API {{ strtoupper($api->system_action_function) }}</h4>
+
+                    {{ url('/api/').'/'.$api->system_action_link }}
+                    <span class="text-danger">
+                        <strong>{{ $code }}</strong>
+                    </span>
                 </td>
 
                 <td>
@@ -443,7 +455,9 @@ use Illuminate\Support\Collection;
 
                 <td>
                     <button data-toggle="collapse" data-target="#collapse{{ $api->system_action_code }}"
-                        class="btn btn-secondary btn-block btn-sm">SHOW</button>
+                        class="btn btn-secondary btn-block btn-sm">
+                        RESPONSE
+                    </button>
                 </td>
             </tr>
             <tr>
