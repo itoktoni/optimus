@@ -3,24 +3,24 @@
 namespace Modules\Item\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use Modules\Item\Dao\Repositories\ActionRepository;
-use Modules\Item\Http\Requests\GeneralRequest;
-use Modules\Item\Http\Services\CreateService;
-use Modules\Item\Http\Services\DataService;
-use Modules\Item\Http\Services\DeleteService;
-use Modules\Item\Http\Services\SingleService;
-use Modules\Item\Http\Services\UpdateService;
-use Modules\Item\Plugins\Helper;
-use Modules\Item\Plugins\Response;
-use Modules\Item\Plugins\Views;
+use Modules\Item\Dao\Repositories\CategoryRepository;
+use Modules\System\Http\Requests\GeneralRequest;
+use Modules\System\Http\Services\CreateService;
+use Modules\System\Http\Services\DataService;
+use Modules\System\Http\Services\DeleteService;
+use Modules\System\Http\Services\SingleService;
+use Modules\System\Http\Services\UpdateService;
+use Modules\System\Plugins\Helper;
+use Modules\System\Plugins\Response;
+use Modules\System\Plugins\Views;
 
-class ActionController extends Controller
+class CategoryController extends Controller
 {
     public static $template;
     public static $service;
     public static $model;
 
-    public function __construct(ActionRepository $model, SingleService $service)
+    public function __construct(CategoryRepository $model, SingleService $service)
     {
         self::$model = self::$model ?? $model;
         self::$service = self::$service ?? $service;
@@ -55,8 +55,7 @@ class ActionController extends Controller
         return $service
             ->setModel(self::$model)
             ->EditStatus([
-                'system_action_show' => self::$model->show,
-                'system_action_api' => self::$model->api,
+                'item_category_status' => self::$model->status,
             ])->make();
     }
 

@@ -1,7 +1,5 @@
 @if(!config('website.pjax'))
 @push('css')
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Trumbowyg/2.21.0/ui/trumbowyg.min.css">
-<link rel="stylesheet" href="{{ Helper::backend('vendor/jquery-ui/css/jquery-ui.min.css') }}" />
 <link rel="stylesheet" href="{{ Helper::backend('vendor/trumbowyg/trumbowyg.min.css') }}">
 @endpush
 
@@ -12,6 +10,7 @@
 @endpush
 
 @push('js')
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Trumbowyg/2.23.0/trumbowyg.min.js"></script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Trumbowyg/2.23.0/plugins/colors/trumbowyg.colors.min.js"></script>

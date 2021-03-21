@@ -11,7 +11,7 @@
             </header>
 
             <div class="panel-body line">
-                @includeIf(Views::include($template))
+                @includeIf(Views::include($template, $folder))
             </div>
 
             @include($template_action)

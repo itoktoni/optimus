@@ -2,28 +2,26 @@
 
 namespace Modules\System\Plugins;
 
-use PHPUnit\TextUI\Help;
-
 class Views
 {
-    public static function create($page = 'master', $module = 'system')
+    public static function create($page = 'master', $folder = 'system')
     {
-        return ucfirst($module) . '::page.' . $page . '.create';
+        return ucfirst($folder) . '::page.' . $page . '.create';
     }
 
-    public static function update($page = 'master', $module = 'system')
+    public static function update($page = 'master', $folder = 'system')
     {
-        return ucfirst($module) . '::page.' . $page . '.update';
+        return ucfirst($folder) . '::page.' . $page . '.update';
     }
 
-    public static function index($page = 'master', $module = 'system')
+    public static function index($page = 'master', $folder = 'system')
     {
-        return ucfirst($module) . '::page.' . $page . '.index';
+        return ucfirst($folder) . '::page.' . $page . '.index';
     }
 
-    public static function show($page = 'master', $module = 'system')
+    public static function show($page = 'master', $folder = 'system')
     {
-        return ucfirst($module) . '::page.' . $page . '.show';
+        return ucfirst($folder) . '::page.' . $page . '.show';
     }
 
     public static function backend($file = false)
@@ -32,24 +30,25 @@ class Views
         return $file ? $path . $file : $path . 'layout';
     }
 
-    public static function include ($page, $module = 'system')
+    public static function include ($page, $folder = false)
     {
-        return ucfirst($module) . '::page.' . $page . '.form';
+        $folder = $folder ? $folder : config('folder');
+        return ucfirst($folder) . '::page.' . $page . '.form';
     }
 
-    public static function action($page = 'master', $module = 'system')
+    public static function action($page = 'master', $folder = 'system')
     {
-        return ucfirst($module) . '::page.' . $page . '.actions';
+        return ucfirst($folder) . '::page.' . $page . '.actions';
     }
 
-    public static function checkbox($page = 'master', $module = 'system')
+    public static function checkbox($page = 'master', $folder = 'system')
     {
-        return ucfirst($module) . '::page.' . $page . '.checkbox';
+        return ucfirst($folder) . '::page.' . $page . '.checkbox';
     }
 
-    public static function form($form, $page = 'master', $module = 'system')
+    public static function form($form, $page = 'master', $folder = 'system')
     {
-        return ucfirst($module) . '::page.' . $page . '.' . $form;
+        return ucfirst($folder) . '::page.' . $page . '.' . $form;
     }
 
     public static function option($option, $placeholder = true, $raw = false, $cache = false)

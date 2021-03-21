@@ -7,6 +7,7 @@ use Closure;
 use Alkhachatryan\LaravelWebConsole\LaravelWebConsole;
 use Illuminate\Support\Facades\Cache;
 use Config;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Route;
@@ -47,6 +48,12 @@ class HomeController extends Controller
     public function console()
     {
         return LaravelWebConsole::show();
+    }
+
+    public function session_group($code)
+    {
+        session()->put(Auth::User()->username . '_group_access', $code);
+        return redirect()->to(route('home'));
     }
 
     public function dashboard()

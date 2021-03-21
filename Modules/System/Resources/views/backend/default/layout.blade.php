@@ -15,6 +15,8 @@
     <link href="{{ Helper::files('logo/'.config('website.favicon')) }}" rel="shortcut icon">
 
     <link rel="stylesheet" href="{{ Helper::backend('stylesheets/theme.css') }}" />
+    @stack('css')
+
     <script src="{{ Helper::backend('javascripts/main.js') }}"></script>
     
     @if(config('website.pjax'))

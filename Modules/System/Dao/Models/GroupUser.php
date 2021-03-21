@@ -10,7 +10,7 @@ use Modules\System\Dao\Models\GroupUserConnectionGroupModule;
 
 class GroupUser extends Model
 {
-    protected $table      = 'system_group_users';
+    protected $table      = 'system_group_user';
     protected $primaryKey = 'system_group_user_code';
     protected $fillable = [
         'system_group_user_code',
@@ -23,7 +23,7 @@ class GroupUser extends Model
     public $timestamps   = false;
     public $incrementing = false;
     public $rules        = [
-        'system_group_user_code' => 'required|min:3|unique:core_system_group_users',
+        'system_group_user_code' => 'required|min:3|unique:system_group_user',
         'system_group_user_name' => 'required|min:3',
     ];
 

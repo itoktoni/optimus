@@ -32,7 +32,7 @@ class GroupModule extends Model
     public $timestamps = false;
     public $incrementing = true;
     public $rules = [
-        'system_group_module_code' => 'required|min:3|unique:core_system_group_modules',
+        'system_group_module_code' => 'required|min:3|unique:system_group_module',
         'system_group_module_name' => 'required|min:3',
     ];
 
@@ -56,26 +56,6 @@ class GroupModule extends Model
         'system_group_module_enable'      => [true => 'Active', 'width' => '100', 'class' => 'text-center'],
     ];
 
-    public static function boot()
-    {
-        parent::boot();
-        parent::saving(function ($model) {
-
-            if(request()->get('system_group_module_code')){
-                $model->system_group_module_code = request()->get('system_group_module_code');
-            }
-            if (empty($model->system_group_module_sort)) {
-                $model->system_group_module_sort = 0;
-            }
-            if ($model->system_group_module_folder) {
-                $model->system_group_module_modular = 1;
-            }
-            $model->system_group_module_folder = ucfirst($model->system_group_module_folder);
-            $model->system_group_module_name = strtoupper($model->system_group_module_name);
-            $model->system_group_module_link = $model->system_group_module_code;
-        });
-    }
-
     public function connection_module()
 	{
 		return $this->belongsToMany(Module::class, GroupModuleConnectionModuleFacades::getTable(), GroupModuleFacades::getKeyName(), ModuleFacades::getKeyName());
@@ -94,6 +74,26 @@ class GroupModule extends Model
     public function scopeActive()
     {
         return $this->modules()->where('system_module_enable', 1);
+    }
+
+    public static function boot()
+    {
+        parent::boot();
+        parent::saving(function ($model) {
+
+            if(request()->get('system_group_module_code')){
+                $model->system_group_module_code = request()->get('system_group_module_code');
+            }
+            if (empty($model->system_group_module_sort)) {
+                $model->system_group_module_sort = 0;
+            }
+            if ($model->system_group_module_folder) {
+                $model->system_group_module_modular = 1;
+            }
+            $model->system_group_module_folder = ucfirst($model->system_group_module_folder);
+            $model->system_group_module_name = strtoupper($model->system_group_module_name);
+            $model->system_group_module_link = $model->system_group_module_code;
+        });
     }
     
 }

@@ -3,12 +3,12 @@
 namespace Modules\Item\Dao\Repositories;
 
 use Illuminate\Database\QueryException;
-use Modules\Item\Dao\Interfaces\CrudInterface;
-use Modules\Item\Dao\Models\Action;
-use Modules\Item\Plugins\Helper;
-use Modules\Item\Plugins\Notes;
+use Modules\Item\Dao\Models\Category;
+use Modules\System\Dao\Interfaces\CrudInterface;
+use Modules\System\Plugins\Helper;
+use Modules\System\Plugins\Notes;
 
-class ActionRepository extends Action implements CrudInterface
+class CategoryRepository extends Category implements CrudInterface
 {
     public function dataRepository()
     {

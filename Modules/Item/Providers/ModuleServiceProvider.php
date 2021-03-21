@@ -30,38 +30,8 @@ class ModuleServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->register(RouteServiceProvider::class);
-        $this->app->bind('action_facades', function () {
-            return new \Modules\Item\Dao\Repositories\ActionRepository();
-        });
-        $this->app->bind('module_facades', function () {
-            return new \Modules\Item\Dao\Repositories\ModuleRepository();
-        });
-        $this->app->bind('company_facades', function () {
-            return new \Modules\Item\Dao\Repositories\CompanyRepository();
-        });
-        $this->app->bind('holding_facades', function () {
-            return new \Modules\Item\Dao\Repositories\HoldingRepository();
-        });
-        $this->app->bind('team_facades', function () {
-            return new \Modules\Item\Dao\Repositories\TeamRepository();
-        });
-        $this->app->bind('group_user_facades', function () {
-            return new \Modules\Item\Dao\Repositories\GroupUserRepository();
-        });
-        $this->app->bind('group_module_facades', function () {
-            return new \Modules\Item\Dao\Repositories\GroupModuleRepository();
-        });
-        $this->app->bind('module_connection_action_facades', function () {
-            return new \Modules\Item\Dao\Models\ModuleConnectionAction();
-        });
-        $this->app->bind('group_module_connection_module_facades', function () {
-            return new \Modules\Item\Dao\Models\GroupModuleConnectionModule();
-        });
-        $this->app->bind('group_user_connection_group_module_facades', function () {
-            return new \Modules\Item\Dao\Models\GroupUserConnectionGroupModule();
-        });
-        $this->app->bind('filter_facades', function () {
-            return new \Modules\Item\Dao\Models\Filter();
+        $this->app->bind('category_facades', function () {
+            return new \Modules\Item\Dao\Repositories\CategoryRepository();
         });
     }
 
