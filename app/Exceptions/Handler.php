@@ -62,7 +62,7 @@ class Handler extends ExceptionHandler
         $class = '';
         $message = '';
 
-        if (!config('app.debug') && $request->expectsJson()) {
+        if ($request->expectsJson()) {
 
             if ($exception instanceof ValidationException) {
 
