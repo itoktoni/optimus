@@ -188,6 +188,7 @@ use Illuminate\Support\Collection;
             $model = $data->getController()::$model;
             $json = $model->first();
             $list = $model->limit(2);
+            $link = $api->system_action_function == 'save' ? $api->system_action_module.'/create' : $api->system_action_function; 
             @endphp
             <tr>
                 <td>
@@ -198,11 +199,7 @@ use Illuminate\Support\Collection;
 
                 <td>
                     <h4>API {{ strtoupper($api->system_action_function) }}</h4>
-
-                    {{ url('/api/').'/'.$api->system_action_link }}
-                    <span class="text-danger">
-                        <strong>{{ $code }}</strong>
-                    </span>
+                    {{ url('/api/').'/'.$link }}<span class="text-danger"><strong>{{ $code }}</strong></span>
                 </td>
 
                 <td>
@@ -361,7 +358,7 @@ use Illuminate\Support\Collection;
                                     <br> jika ingin ke halaman selanjutnya (next) tinggal mengganti 1 menjadi
                                     (iteration) <br>
                                     secara default page akan di batasi hanya
-                                    <code>{ { config('website.pagination') } }</code> baris
+                                    <code>{{ config('website.pagination') }}</code> baris
                                 </td>
                             </tr>
 

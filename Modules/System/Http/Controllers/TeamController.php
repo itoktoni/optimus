@@ -2,14 +2,8 @@
 
 namespace Modules\System\Http\Controllers;
 
-use App\Models\User;
 use App\Http\Controllers\Controller;
-use Modules\System\Http\Requests\GeneralRequest;
-use Modules\System\Http\Services\CreateService;
-use Modules\System\Http\Services\DataService;
-use Modules\System\Http\Services\DeleteService;
-use Modules\System\Http\Services\SingleService;
-use Modules\System\Http\Services\UpdateService;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
@@ -18,11 +12,18 @@ use Modules\System\Dao\Repositories\CompanyRepository;
 use Modules\System\Dao\Repositories\GroupUserRepository;
 use Modules\System\Dao\Repositories\HoldingRepository;
 use Modules\System\Dao\Repositories\TeamRepository;
-use Modules\System\Plugins\Views;
-use Modules\System\Plugins\Helper;
-use Modules\System\Plugins\Response;
-use Modules\System\Plugins\Notes;
+use Modules\System\Http\Requests\GeneralRequest;
+use Modules\System\Http\Requests\LoginRequest;
+use Modules\System\Http\Services\CreateService;
+use Modules\System\Http\Services\DataService;
+use Modules\System\Http\Services\DeleteService;
+use Modules\System\Http\Services\SingleService;
+use Modules\System\Http\Services\UpdateService;
 use Modules\System\Plugins\Alert;
+use Modules\System\Plugins\Helper;
+use Modules\System\Plugins\Notes;
+use Modules\System\Plugins\Response;
+use Modules\System\Plugins\Views;
 
 class TeamController extends Controller
 {
@@ -117,17 +118,14 @@ class TeamController extends Controller
         return Response::redirectBack($data);
     }
 
-    public function login(Request $request)
+    public function login(LoginRequest $request)
     {
-        $this->validate($request, [
-            'username' => 'required|exists:users,username',
-            'password' => 'required',
-        ]);
-
         $user = User::where('username', $request->username)->first();
 
         if (!Hash::check($request->password, $user->password)) {
-            return response()->json(['status' => 'failed', 'data' => 'Password Anda Salah']);
+            return Notes::error([
+                'password' => 'Password Tidak Di temukan',
+            ],'Login Gagal');
         }
 
         $token = $user->createToken($user->name);

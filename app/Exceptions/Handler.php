@@ -68,27 +68,31 @@ class Handler extends ExceptionHandler
 
                 $code = $exception->status;
                 $class = (new \ReflectionClass($exception))->getShortName();
-                $message = $exception->validator->errors()->getMessages();
+                $message = 'Validasi Gagal';
+                $data = $exception->validator->errors()->getMessages();
             }
             elseif ($exception instanceof QueryException) {
                 
                 $code = $exception->getCode();
                 $class = (new \ReflectionClass($exception))->getShortName();
-                $message = $exception->getMessage();
+                $message = 'Query database Error';
+                $data = $exception->getMessage();
                 
             }
             elseif ($exception instanceof PDOException) {
                 
                 $code = $exception->getCode();
                 $class = (new \ReflectionClass($exception))->getShortName();
-                $message = $exception->getMessage();
+                $message = 'Processing Database Error';
+                $data = $exception->getMessage();
                 
             }
             elseif ($exception instanceof AuthenticationException) {
                 
                 $code = 401;
                 $class = (new \ReflectionClass($exception))->getShortName();
-                $message = $exception->getMessage();
+                $message = 'Autorisasi Gagal';
+                $data = $exception->getMessage();
                 
             }
             elseif ($exception instanceof NotFoundHttpException) {
@@ -96,6 +100,7 @@ class Handler extends ExceptionHandler
                 $code = 404;
                 $class = (new \ReflectionClass($exception))->getShortName();
                 $message = 'Url Not Found';
+                $data = $exception->getMessage();
                 
             }
             elseif ($exception instanceof MethodNotAllowedHttpException) {
@@ -103,6 +108,7 @@ class Handler extends ExceptionHandler
                 $code = 405;
                 $class = (new \ReflectionClass($exception))->getShortName();
                 $message = 'HTTP method is not allowed';
+                $data = $exception->getMessage();
                 
             }
             elseif ($exception instanceof NotAcceptableHttpException) {
@@ -110,6 +116,7 @@ class Handler extends ExceptionHandler
                 $code = 406;
                 $class = (new \ReflectionClass($exception))->getShortName();
                 $message = 'HTTP Accept header is not allowed';
+                $data = $exception->getMessage();
                 
             }
             elseif ($exception instanceof ModelNotFoundException) {
@@ -117,6 +124,7 @@ class Handler extends ExceptionHandler
                 $code = 422;
                 $class = (new \ReflectionClass($exception))->getShortName();
                 $message = 'Model Not Found';
+                $data = $exception->getMessage();
                 
             }
             elseif ($exception instanceof MethodNotAllowedHttpException) {
@@ -124,19 +132,22 @@ class Handler extends ExceptionHandler
                 $code = 405;
                 $class = (new \ReflectionClass($exception))->getShortName();
                 $message = 'Method Not Allow';
+                $data = $exception->getMessage();
             }
             else{
 
                 $code = $exception->getCode() ?? 404;
                 $class = (new \ReflectionClass($exception))->getShortName();
                 $message = 'Unknow Exeption';
+                $data = $exception->getMessage();
             }
             
             $return = [
                 "status" => false,
                 "code" => $code,
                 "name" => $class,
-                "data" => $message,
+                "message" => $message,
+                "data" => $data,
             ];
 
             if (config('app.debug')) {
