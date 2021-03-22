@@ -31,7 +31,7 @@
         @case('show')
         <a id="linkMenu" href="{!! route($route_index) !!}" class="btn btn-warning">@lang('pages.back')</a>
         @isset($actions['update'])
-        <a id="linkMenu" href="{{ route($route_edit, ['code' => $model->{$model->getKeyName()} ]) !!}" class="btn
+        <a id="linkMenu" href="{!! route($route_edit, ['code' => $model->{$model->getKeyName()} ]) !!}" class="btn
             btn-primary">@lang('pages.update')</a>
         @endisset
         @break
