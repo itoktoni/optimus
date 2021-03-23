@@ -188,7 +188,7 @@ use Illuminate\Support\Collection;
             $model = $data->getController()::$model;
             $json = $model->first();
             $list = $model->limit(2);
-            $link = $api->system_action_function == 'save' ? $api->system_action_module.'/create' : $api->system_action_function; 
+            $link = $api->system_action_function == 'save' ? $api->system_action_module.'/create' : $api->system_action_link; 
             @endphp
             <tr>
                 <td>
