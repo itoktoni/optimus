@@ -154,7 +154,7 @@ class Handler extends ExceptionHandler
                 $return['trace'] = $exception->getTrace();
             }
 
-            return response()->json($return, $code);
+            return response()->json($return, 200);
 
         }
 
