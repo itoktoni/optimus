@@ -39,6 +39,9 @@ class ModuleServiceProvider extends ServiceProvider
         $this->app->bind('company_facades', function () {
             return new \Modules\System\Dao\Repositories\CompanyRepository();
         });
+        $this->app->bind('location_facades', function () {
+            return new \Modules\System\Dao\Repositories\LocationRepository();
+        });
         $this->app->bind('holding_facades', function () {
             return new \Modules\System\Dao\Repositories\HoldingRepository();
         });
@@ -59,6 +62,12 @@ class ModuleServiceProvider extends ServiceProvider
         });
         $this->app->bind('group_user_connection_group_module_facades', function () {
             return new \Modules\System\Dao\Models\GroupUserConnectionGroupModule();
+        });
+        $this->app->bind('company_connection_location_facades', function () {
+            return new \Modules\System\Dao\Models\CompanyConnectionLocation();
+        });
+        $this->app->bind('company_connection_item_product_facades', function () {
+            return new \Modules\System\Dao\Models\CompanyConnectionItemProduct();
         });
         $this->app->bind('filter_facades', function () {
             return new \Modules\System\Dao\Models\Filter();

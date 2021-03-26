@@ -9,7 +9,7 @@ class UpdateService
 {
     public function update(CrudInterface $repository, $data, $code)
     {
-        $check = $repository->updateRepository($data, $code);
+        $check = $repository->updateRepository($data->all(), $code);
         if ($check['status']) {
             if(request()->wantsJson()){
                 return response()->json($check)->getData();

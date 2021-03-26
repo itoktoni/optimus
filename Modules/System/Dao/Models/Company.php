@@ -3,6 +3,12 @@
 namespace Modules\System\Dao\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Modules\Item\Dao\Facades\ProductFacades;
+use Modules\Item\Dao\Models\Product;
+use Modules\System\Dao\Facades\CompanyConnectionItemProductFacades;
+use Modules\System\Dao\Facades\CompanyConnectionLocationFacades;
+use Modules\System\Dao\Facades\CompanyFacades;
+use Modules\System\Dao\Facades\LocationFacades;
 use Modules\System\Plugins\Helper;
 
 class Company extends Model
@@ -23,7 +29,7 @@ class Company extends Model
         'company_holding_id'
     ];
 
-    // public $with = ['module'];
+    public $with = ['locations', 'products'];
 
     public $timestamps = false;
     public $incrementing = false;
@@ -47,17 +53,22 @@ class Company extends Model
         '1' => ['Show', 'info'],
         '0' => ['Hide', 'warning'],
     ];
+    
+    public function locations()
+	{
+		return $this->belongsToMany(Location::class, CompanyConnectionLocationFacades::getTable(), CompanyFacades::GetKeyName(), LocationFacades::getKeyName());
+    }
+
+    public function products()
+	{
+		return $this->belongsToMany(Product::class, CompanyConnectionItemProductFacades::getTable(), CompanyFacades::GetKeyName(), ProductFacades::getKeyName());
+    }
 
     public static function boot()
     {
         parent::saving(function ($model) {
             $file_name = 'file';
             if (request()->has($file_name)) {
-                // $image = $model->company_logo;
-                // if (file_exists(public_path().'files/company/'.$image)) {
-                //     Helper::removeImage($image, Helper::getTemplate(__CLASS__));
-                // }
-                
                 $file = request()->file($file_name);
                 $name = Helper::uploadImage($file, Helper::getTemplate(__CLASS__));
                 $model->company_logo = $name;

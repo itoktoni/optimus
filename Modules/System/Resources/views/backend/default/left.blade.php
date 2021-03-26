@@ -45,7 +45,6 @@
                     @endif
                 </ul>
             </nav>
-            <hr class="separator" />
         </div>
     </div>
 </aside>

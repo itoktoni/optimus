@@ -1,19 +1,24 @@
 <?php
 
-namespace Modules\System\Dao\Repositories;
+namespace Modules\Item\Dao\Repositories;
 
-use App\Models\User;
-use Modules\System\Dao\Interfaces\CrudInterface;
 use Illuminate\Database\QueryException;
+use Modules\Item\Dao\Facades\ProductFacades;
+use Modules\Item\Dao\Models\Linen;
+use Modules\System\Dao\Facades\LocationFacades;
+use Modules\System\Dao\Interfaces\CrudInterface;
 use Modules\System\Plugins\Helper;
 use Modules\System\Plugins\Notes;
 
-class TeamRepository extends User implements CrudInterface
+class LinenRepository extends Linen implements CrudInterface
 {
     public function dataRepository()
     {
         $list = Helper::dataColumn($this->datatable);
-        return $this->select($list);
+        $query = $this->select($list)
+        ->leftJoin(ProductFacades::getTable(), ProductFacades::getKeyName(), 'item_linen_product_id')
+        ->leftJoin(LocationFacades::getTable(), LocationFacades::getKeyName(), 'item_linen_location_id');
+        return $query;
     }
 
     public function saveRepository($request)
@@ -31,7 +36,7 @@ class TeamRepository extends User implements CrudInterface
         try {
             $update = $this->findOrFail($code);
             $update->update($request);
-            return Notes::update($update);
+            return Notes::update($update->toArray());
         } catch (QueryException $ex) {
             return Notes::error($ex->getMessage());
         }

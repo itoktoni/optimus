@@ -19,6 +19,7 @@ class DataService
     protected $raw;
     protected $datatable;
     protected $status = null;
+    protected $image = null;
     protected $column = ['action', 'checkbox'];
 
     public function setModel(CrudInterface $repository)
@@ -30,6 +31,12 @@ class DataService
     public function EditStatus($data)
     {
         $this->status = $data;
+        return $this;
+    }
+
+    public function EditImage($data)
+    {
+        $this->image = $data;
         return $this;
     }
 
@@ -85,6 +92,7 @@ class DataService
     private function setStatus()
     {
         if (!empty($this->status)) {
+
             foreach ($this->status as $key => $data) {
                 $this->datatable->editColumn($key, function ($select) use ($key, $data) {
                     return Helper::createStatus($select->{$key}, $data);
@@ -92,6 +100,20 @@ class DataService
             }
 
             $this->column = array_merge($this->column, array_keys($this->status));
+        }
+    }
+
+    private function setImage()
+    {
+        if (!empty($this->image)) {
+
+            foreach ($this->image as $key => $data) {
+                $this->datatable->editColumn($key, function ($select) use ($key, $data) {
+                    return Helper::createImage($data . '/thumbnail_' . $select->{$key});
+                });
+            }
+
+            $this->column = array_merge($this->column, array_keys($this->image));
         }
     }
 
@@ -106,6 +128,7 @@ class DataService
 
         $this->setAction();
         $this->setStatus();
+        $this->setImage();
         $this->datatable->rawColumns($this->column);
         return $this->datatable->make(true);
 

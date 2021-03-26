@@ -3,14 +3,17 @@
 namespace Modules\System\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use Modules\Item\Dao\Repositories\ProductRepository;
 use Modules\System\Dao\Facades\CompanyFacades;
 use Modules\System\Dao\Repositories\CompanyRepository;
 use Modules\System\Dao\Repositories\HoldingRepository;
+use Modules\System\Dao\Repositories\LocationRepository;
 use Modules\System\Http\Requests\GeneralRequest;
 use Modules\System\Http\Services\CreateService;
 use Modules\System\Http\Services\DataService;
 use Modules\System\Http\Services\DeleteService;
 use Modules\System\Http\Services\SingleService;
+use Modules\System\Http\Services\UpdateCompanyService;
 use Modules\System\Http\Services\UpdateService;
 use Modules\System\Plugins\Helper;
 use Modules\System\Plugins\Response;
@@ -31,8 +34,13 @@ class CompanyController extends Controller
     private function share($data = [])
     {
         $holding = Views::option(new HoldingRepository());
+        $location = Views::option(new LocationRepository(), false);
+        $product = Views::option(new ProductRepository(), false);
+
         $view = [
             'holding' => $holding,
+            'product' => $product,
+            'location' => $location,
         ];
         return array_merge($view, $data);
     }
@@ -51,7 +59,7 @@ class CompanyController extends Controller
 
     public function save(GeneralRequest $request, CreateService $service)
     {
-        $data = $service->save(self::$model, $request->all());
+        $data = $service->save(self::$model, $request);
         return Response::redirectBack($data);
     }
 
@@ -62,14 +70,19 @@ class CompanyController extends Controller
 
     public function edit($code)
     {
+        $data = $this->get($code);
+        $connection_location = $data->locations ? $data->locations->pluck('location_id')->toArray() : [];
+        $connection_product = $data->products ? $data->products->pluck('system_product_id')->toArray() : [];
         return view(Views::update())->with($this->share([
             'model' => $this->get($code),
+            'connection_location' => $connection_location,
+            'connection_product' => $connection_product,
         ]));
     }
 
-    public function update($code, GeneralRequest $request, UpdateService $service)
+    public function update($code, GeneralRequest $request, UpdateCompanyService $service)
     {
-        $data = $service->update(self::$model, $request->all(), $code);
+        $data = $service->update(self::$model, $request, $code);
         return Response::redirectBack($data);
     }
 

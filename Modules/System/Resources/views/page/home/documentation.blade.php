@@ -185,10 +185,11 @@ use Illuminate\Support\Collection;
             @php
             $code = in_array($api->system_action_function, ['update', 'get']) ? '/{code}' : '';
             $data = $routes->get($api->system_action_code.'_api');
-            $model = $data->getController()::$model;
-            $json = $model->first();
-            $list = $model->limit(2);
-            $link = $api->system_action_function == 'save' ? $api->system_action_module.'/create' : $api->system_action_link; 
+            $model = $data ? $data->getController()::$model : [];
+            $json = $model ? $model->first() : [];
+            $list = $model ? $model->limit(2) : [];
+            $link = $api->system_action_function == 'save' ? $api->system_action_module.'/create' :
+            $api->system_action_link;
             @endphp
             <tr>
                 <td>
@@ -215,6 +216,7 @@ use Illuminate\Support\Collection;
                             </tr>
                         </thead>
                         <tbody>
+                            @if(!empty($model))
                             @foreach($model->rules as $key => $rules)
 
                             <tr>
@@ -227,6 +229,7 @@ use Illuminate\Support\Collection;
                             </tr>
 
                             @endforeach
+                            @endif
                         </tbody>
 
                     </table>
@@ -238,6 +241,7 @@ use Illuminate\Support\Collection;
                             </tr>
                         </thead>
                         <tbody>
+                            @if(!empty($model))
                             @foreach(collect($model->getFillable())->chunk(4) as $fields)
                             <tr>
                                 @foreach($fields as $field)
@@ -247,6 +251,7 @@ use Illuminate\Support\Collection;
                                 @endforeach
                             </tr>
                             @endforeach
+                            @endif
                         </tbody>
                     </table>
 
@@ -269,6 +274,7 @@ use Illuminate\Support\Collection;
                                     masukan parameter <code>{ code : 'example' }</code> untuk di jadikan primary key
                                 </td>
                             </tr>
+                            @if(!empty($model))
                             @foreach($model->rules as $key => $rules)
                             @if($key != $model->getKeyName())
                             <tr>
@@ -282,6 +288,7 @@ use Illuminate\Support\Collection;
                             @endif
 
                             @endforeach
+                            @endif
                         </tbody>
 
                     </table>
@@ -293,6 +300,7 @@ use Illuminate\Support\Collection;
                             </tr>
                         </thead>
                         <tbody>
+                            @if(!empty($model))
                             @foreach(collect($model->getFillable())->chunk(4) as $fields)
                             <tr>
                                 @foreach($fields as $field)
@@ -302,6 +310,7 @@ use Illuminate\Support\Collection;
                                 @endforeach
                             </tr>
                             @endforeach
+                            @endif
                         </tbody>
                     </table>
 
@@ -323,7 +332,7 @@ use Illuminate\Support\Collection;
                                 </td>
                                 <td>
                                     default akan mencari
-                                    berdasarkan field <code>{{ $model->searching }}</code> dengan operator
+                                    berdasarkan field <code>{{ $model->searching ?? '' }}</code> dengan operator
                                     <code>like</code>
                                 </td>
                             </tr>
@@ -344,7 +353,7 @@ use Illuminate\Support\Collection;
                                 <td>
                                     operator : <code> '=', '!=', 'like', 'not like', '<', '>' , </code>
                                     contoh : <br>
-                                    <code>select * from {{ $model->getTable() }} where {{ $model->searching }} [=] 'data'</code>
+                                    <code>select * from {{ $model ? $model->getTable() : '' }} where {{ $model ? $model->searching : '' }} [=] 'data'</code>
                                 </td>
                             </tr>
 
@@ -444,6 +453,70 @@ use Illuminate\Support\Collection;
                     </table>
                     @break
 
+                    @case('patch')
+                    <table class="table table-bordered mt-3">
+                        <thead>
+                            <tr>
+                                <th scope="col">Mandatory</th>
+                                <th scope="col">Validation</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if(!empty($model))
+                            @foreach($model->rules as $key => $rules)
+
+                            <tr>
+                                <td>
+                                    <code>{{ $key }}</code>
+                                </td>
+                                <td>
+                                    {{ Str::of($rules)->replace('|', ' & ')->replace(':', ' : ') }}
+                                </td>
+                            </tr>
+
+                            @endforeach
+
+                            <tr>
+                                <td colspan="2">
+                                    jika ada di database , maka api akan mengirimkan informasi data, jika tidak ada di
+                                    database maka simpan data
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                   masukan data type <code>{ "type" : "update" }</code> jika ingin automatic update ketika data dikirim 
+                                </td>
+                            </tr>
+
+                            @endif
+                        </tbody>
+
+                    </table>
+
+                    <table class="table table-bordered mt-3">
+                        <thead>
+                            <tr>
+                                <th scope="col" colspan="4">Available fields</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if(!empty($model))
+                            @foreach(collect($model->getFillable())->chunk(4) as $fields)
+                            <tr>
+                                @foreach($fields as $field)
+                                <td>
+                                    <code>{{ $field }}</code>
+                                </td>
+                                @endforeach
+                            </tr>
+                            @endforeach
+                            @endif
+                        </tbody>
+                    </table>
+
+                    @break
+
+
                     @default
                     please contact admin for documentation
                     @endswitch
@@ -461,6 +534,27 @@ use Illuminate\Support\Collection;
                 <td colspan="7">
                     <div class="collapse" id="collapse{{ $api->system_action_code }}">
                         @switch($api->system_action_function)
+
+                        @case('patch')
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h4>
+                                                Response <code>[ Berhasil ]</code>
+                                            </h4>
+                                        </div>
+                                        <div class="card-body">
+
+                                            <pre><code>{{ json_encode(Notes::create($json), JSON_PRETTY_PRINT) }}</code></pre>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        @break
 
                         @case('save')
                         <div class="container">
@@ -596,7 +690,7 @@ use Illuminate\Support\Collection;
                                         </div>
                                         <div class="card-body">
 
-                                            <pre><code>{{ json_encode(Notes::update($model->limit(2)->get()->toArray()), JSON_PRETTY_PRINT) }}</code></pre>
+                                            <pre><code>{{ $model ? json_encode(Notes::update($model->limit(2)->get()->toArray()), JSON_PRETTY_PRINT) : '' }}</code></pre>
 
                                         </div>
                                     </div>
@@ -610,7 +704,7 @@ use Illuminate\Support\Collection;
                                         </div>
                                         <div class="card-body">
 
-                                            <pre><code>{{ json_encode(Notes::update($model->paginate(2)), JSON_PRETTY_PRINT) }}</code></pre>
+                                            <pre><code>{{ $model ? json_encode(Notes::update($model->paginate(2)), JSON_PRETTY_PRINT) : '' }}</code></pre>
 
                                         </div>
                                     </div>

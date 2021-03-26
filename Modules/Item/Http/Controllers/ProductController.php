@@ -4,6 +4,8 @@ namespace Modules\Item\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Modules\Item\Dao\Repositories\CategoryRepository;
+use Modules\Item\Dao\Repositories\ProductRepository;
+use Modules\System\Dao\Repositories\LocationRepository;
 use Modules\System\Http\Requests\GeneralRequest;
 use Modules\System\Http\Services\CreateService;
 use Modules\System\Http\Services\DataService;
@@ -14,13 +16,13 @@ use Modules\System\Plugins\Helper;
 use Modules\System\Plugins\Response;
 use Modules\System\Plugins\Views;
 
-class CategoryController extends Controller
+class ProductController extends Controller
 {
     public static $template;
     public static $service;
     public static $model;
 
-    public function __construct(CategoryRepository $model, SingleService $service)
+    public function __construct(ProductRepository $model, SingleService $service)
     {
         self::$model = self::$model ?? $model;
         self::$service = self::$service ?? $service;
@@ -28,7 +30,11 @@ class CategoryController extends Controller
 
     private function share($data = [])
     {
-        $view = [];
+        $category = Views::option(new CategoryRepository());
+       
+        $view = [
+            'category' => $category,
+        ];
         return array_merge($view, $data);
     }
 
@@ -55,7 +61,9 @@ class CategoryController extends Controller
         return $service
             ->setModel(self::$model)
             ->EditStatus([
-                'item_category_status' => self::$model->status,
+                'item_product_status' => self::$model->status,
+            ]) ->EditImage([
+                'item_product_image' => 'product',
             ])->make();
     }
 

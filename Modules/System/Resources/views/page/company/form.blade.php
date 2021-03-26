@@ -56,3 +56,28 @@
         {!! $errors->first('company_description', '<p class="help-block">:message</p>') !!}
     </div>
 </div>
+@if ($action_function == 'edit')
+<div class="form-group">
+    <label class="col-md-2 control-label">Location</label>
+    <div class="col-md-10">
+        <select class="form-control input-sm mb-md" multiple name="locations[]">
+            @foreach($location as $key => $value)
+            <option {{ in_array($key, $connection_location) ? 'selected' : '' }} value="{{ $key }}">
+                {{ $value }}</option>
+            @endforeach
+        </select>
+    </div>
+</div>
+<hr>
+<div class="form-group">
+    <label class="col-md-2 control-label">Product</label>
+    <div class="col-md-10">
+        <select class="form-control input-sm mb-md" multiple name="products[]">
+            @foreach($product as $key => $value)
+            <option {{ in_array($key, $connection_product) ? 'selected' : '' }} value="{{ $key }}">
+                {{ $value }}</option>
+            @endforeach
+        </select>
+    </div>
+</div>
+@endif

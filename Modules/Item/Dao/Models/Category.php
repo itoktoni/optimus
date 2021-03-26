@@ -3,9 +3,6 @@
 namespace Modules\Item\Dao\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Modules\Item\Dao\Facades\ActionFacades;
-use Modules\Item\Dao\Facades\ModuleConnectionActionFacades;
-use Modules\Item\Dao\Facades\ModuleFacades;
 
 class Category extends Model
 {
@@ -20,7 +17,6 @@ class Category extends Model
         'item_category_created_at',
         'item_category_created_by',
         'item_category_image',
-        'item_category_homepage',
         'item_category_status',
     ];
 

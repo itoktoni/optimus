@@ -3,5 +3,5 @@
     "/backend/default/stylesheets/theme.css": "/backend/default/stylesheets/theme.css",
     "/backend/default/javascripts/main.js": "/backend/default/javascripts/main.js",
     "/backend/default/javascripts/script.js": "/backend/default/javascripts/script.js",
-    "/backend/default/assets/pjax.js": "/backend/default/assets/pjax.js"
+    "/backend/default/javascripts/pjax.js": "/backend/default/javascripts/pjax.js"
 }

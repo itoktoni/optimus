@@ -31,7 +31,7 @@ class HoldingRepository extends Holding implements CrudInterface
         try {
             $update = $this->findOrFail($code);
             $update->update($request);
-            return Notes::update($update->toArray());
+            return Notes::update($update);
         } catch (QueryException $ex) {
             return Notes::error($ex->getMessage());
         }

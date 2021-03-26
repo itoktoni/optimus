@@ -13,7 +13,6 @@ class Location extends Model
         'location_id',
         'location_name',
         'location_description',
-        'location_company_id'
     ];
 
     // public $with = ['module'];

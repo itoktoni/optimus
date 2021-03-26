@@ -56,7 +56,7 @@ class ModuleController extends Controller
 
     public function save(GeneralRequest $request, CreateService $service)
     {
-        $data = $service->save(self::$model, $request->all());
+        $data = $service->save(self::$model, $request);
         return Response::redirectBack($data);
     }
 

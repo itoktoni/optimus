@@ -3,7 +3,12 @@
 namespace Modules\Item\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use Modules\Item\Dao\Repositories\CategoryRepository;
+use Illuminate\Support\Facades\Request;
+use Modules\Item\Dao\Facades\LinenFacades;
+use Modules\Item\Dao\Repositories\LinenRepository;
+use Modules\Item\Dao\Repositories\ProductRepository;
+use Modules\Item\Http\Requests\LinenRequest;
+use Modules\System\Dao\Repositories\LocationRepository;
 use Modules\System\Http\Requests\GeneralRequest;
 use Modules\System\Http\Services\CreateService;
 use Modules\System\Http\Services\DataService;
@@ -11,16 +16,17 @@ use Modules\System\Http\Services\DeleteService;
 use Modules\System\Http\Services\SingleService;
 use Modules\System\Http\Services\UpdateService;
 use Modules\System\Plugins\Helper;
+use Modules\System\Plugins\Notes;
 use Modules\System\Plugins\Response;
 use Modules\System\Plugins\Views;
 
-class CategoryController extends Controller
+class LinenController extends Controller
 {
     public static $template;
     public static $service;
     public static $model;
 
-    public function __construct(CategoryRepository $model, SingleService $service)
+    public function __construct(LinenRepository $model, SingleService $service)
     {
         self::$model = self::$model ?? $model;
         self::$service = self::$service ?? $service;
@@ -28,7 +34,14 @@ class CategoryController extends Controller
 
     private function share($data = [])
     {
-        $view = [];
+        $product = Views::option(new ProductRepository());
+        $location = Views::option(new LocationRepository());
+
+        $view = [
+            'product' => $product,
+            'location' => $location,
+        ];
+
         return array_merge($view, $data);
     }
 
@@ -50,12 +63,34 @@ class CategoryController extends Controller
         return Response::redirectBack($data);
     }
 
+    public function patch(LinenRequest $request)
+    {
+        $check = LinenFacades::where('item_linen_rfid', $request->item_linen_rfid)->first();
+        if ($check) {
+
+            if ($request->type == 'update') {
+
+                $check->item_linen_location_id = $request->item_linen_location_id;
+                $check->item_linen_product_id = $request->item_linen_product_id;
+                $check->save();
+
+                return Notes::update($check);
+            }
+
+            return Notes::single($check);
+        }
+
+        $data = LinenFacades::saveRepository($request->all());
+        return Response::redirectBack($data);
+    }
+
     public function data(DataService $service)
     {
         return $service
             ->setModel(self::$model)
             ->EditStatus([
-                'item_category_status' => self::$model->status,
+                'item_linen_status' => self::$model->status,
+                'item_linen_rent' => self::$model->rent,
             ])->make();
     }
 

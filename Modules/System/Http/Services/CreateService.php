@@ -11,7 +11,7 @@ class CreateService
     {
         $check = false;
         try {
-            $check = $repository->saveRepository($data);
+            $check = $repository->saveRepository($data->all());
             Alert::create();
         } catch (\Throwable $th) {
             Alert::error($th->getMessage());

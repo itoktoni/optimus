@@ -69,7 +69,7 @@ class TeamController extends Controller
 
     public function save(GeneralRequest $request, CreateService $service)
     {
-        $data = $service->save(self::$model, $request->all());
+        $data = $service->save(self::$model, $request);
         return Response::redirectBack($data);
     }
 
@@ -90,7 +90,7 @@ class TeamController extends Controller
 
     public function update($code, GeneralRequest $request, UpdateService $service)
     {
-        $data = $service->update(self::$model, $request->all(), $code);
+        $data = $service->update(self::$model, $request, $code);
         return Response::redirectBack($data);
     }
 

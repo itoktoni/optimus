@@ -9,7 +9,7 @@ class Notes
     const delete = 'Delete';
     const error = 'Error';
     const data = 'List';
-    const single = 'Single';
+    const single = 'Data';
     const token = 'Token';
 
     public static function data($data = null)
@@ -59,9 +59,9 @@ class Notes
         $log['name'] = self::update;
         $log['message'] = 'Data berhasil di ubah';
         $log['data'] = $data;
-        if(request()->wantsJson()){
-            $log['data'] = is_array($data) ? $data : $data->toArray();
-        }
+        // if(request()->wantsJson()){
+        //     $log['data'] = is_array($data) ? $data : $data->toArray();
+        // }
         return $log;
     }
     

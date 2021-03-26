@@ -29,10 +29,7 @@ class LocationController extends Controller
 
     private function share($data = [])
     {
-        $company = Views::option(new CompanyRepository());
-        $view = [
-            'company' => $company,
-        ];
+        $view = [];
         return array_merge($view, $data);
     }
 
@@ -50,7 +47,7 @@ class LocationController extends Controller
 
     public function save(GeneralRequest $request, CreateService $service)
     {
-        $data = $service->save(self::$model, $request->all());
+        $data = $service->save(self::$model, $request);
         return Response::redirectBack($data);
     }
 
@@ -68,7 +65,7 @@ class LocationController extends Controller
 
     public function update($code, GeneralRequest $request, UpdateService $service)
     {
-        $data = $service->update(self::$model, $request->all(), $code);
+        $data = $service->update(self::$model, $request, $code);
         return Response::redirectBack($data);
     }
 

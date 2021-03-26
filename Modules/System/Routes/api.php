@@ -31,7 +31,10 @@ if (Cache::has('routing')) {
             else if($route->system_action_function == 'save'){
                 $code = $route->system_action_module.'/create';
             }
-            Route::{$route->system_action_method}($code, $path)->name($route->system_action_code . '_api');
+            if($route->system_action_method){
+
+                Route::{$route->system_action_method}($code, $path)->name($route->system_action_code . '_api');
+            }
         }
     });
 }
