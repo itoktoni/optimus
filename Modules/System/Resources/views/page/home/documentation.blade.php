@@ -216,7 +216,6 @@ use Illuminate\Support\Collection;
                             </tr>
                         </thead>
                         <tbody>
-                            @if(!empty($model))
                             @foreach($model->rules as $key => $rules)
 
                             <tr>
@@ -229,7 +228,6 @@ use Illuminate\Support\Collection;
                             </tr>
 
                             @endforeach
-                            @endif
                         </tbody>
 
                     </table>
@@ -241,7 +239,6 @@ use Illuminate\Support\Collection;
                             </tr>
                         </thead>
                         <tbody>
-                            @if(!empty($model))
                             @foreach(collect($model->getFillable())->chunk(4) as $fields)
                             <tr>
                                 @foreach($fields as $field)
@@ -251,7 +248,6 @@ use Illuminate\Support\Collection;
                                 @endforeach
                             </tr>
                             @endforeach
-                            @endif
                         </tbody>
                     </table>
 
@@ -274,7 +270,6 @@ use Illuminate\Support\Collection;
                                     masukan parameter <code>{ code : 'example' }</code> untuk di jadikan primary key
                                 </td>
                             </tr>
-                            @if(!empty($model))
                             @foreach($model->rules as $key => $rules)
                             @if($key != $model->getKeyName())
                             <tr>
@@ -288,7 +283,6 @@ use Illuminate\Support\Collection;
                             @endif
 
                             @endforeach
-                            @endif
                         </tbody>
 
                     </table>
@@ -300,7 +294,6 @@ use Illuminate\Support\Collection;
                             </tr>
                         </thead>
                         <tbody>
-                            @if(!empty($model))
                             @foreach(collect($model->getFillable())->chunk(4) as $fields)
                             <tr>
                                 @foreach($fields as $field)
@@ -310,7 +303,6 @@ use Illuminate\Support\Collection;
                                 @endforeach
                             </tr>
                             @endforeach
-                            @endif
                         </tbody>
                     </table>
 
@@ -462,7 +454,6 @@ use Illuminate\Support\Collection;
                             </tr>
                         </thead>
                         <tbody>
-                            @if(!empty($model))
                             @foreach($model->rules as $key => $rules)
 
                             <tr>
@@ -488,7 +479,6 @@ use Illuminate\Support\Collection;
                                 </td>
                             </tr>
 
-                            @endif
                         </tbody>
 
                     </table>
@@ -500,7 +490,6 @@ use Illuminate\Support\Collection;
                             </tr>
                         </thead>
                         <tbody>
-                            @if(!empty($model))
                             @foreach(collect($model->getFillable())->chunk(4) as $fields)
                             <tr>
                                 @foreach($fields as $field)
@@ -510,7 +499,6 @@ use Illuminate\Support\Collection;
                                 @endforeach
                             </tr>
                             @endforeach
-                            @endif
                         </tbody>
                     </table>
 
