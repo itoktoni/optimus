@@ -469,8 +469,8 @@ use Illuminate\Support\Collection;
 
                             <tr>
                                 <td colspan="2">
-                                    jika ada di database , maka api akan mengirimkan informasi data, jika tidak ada di
-                                    database maka simpan data
+                                    jika data ada di database , maka data akan dikirimkan kembali oleh api, </br>
+                                    jika tidak ada di database maka data akan otomatis di simpan di database
                                 </td>
                             </tr>
                             <tr>
