@@ -1,14 +1,14 @@
 <?php
 
-namespace Modules\System\Dao\Repositories;
+namespace Modules\Item\Dao\Repositories;
 
 use Illuminate\Database\QueryException;
+use Modules\Item\Dao\Models\Unit;
 use Modules\System\Dao\Interfaces\CrudInterface;
-use Modules\System\Dao\Models\Action;
 use Modules\System\Plugins\Helper;
 use Modules\System\Plugins\Notes;
 
-class ActionRepository extends Action implements CrudInterface
+class UnitRepository extends Unit implements CrudInterface
 {
     public function dataRepository()
     {
@@ -31,7 +31,7 @@ class ActionRepository extends Action implements CrudInterface
         try {
             $update = $this->findOrFail($code);
             $update->update($request);
-            return Notes::update($update);
+            return Notes::update($update->toArray());
         } catch (QueryException $ex) {
             return Notes::error($ex->getMessage());
         }

@@ -3,8 +3,6 @@
 namespace Modules\Item\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use Modules\Item\Dao\Repositories\CategoryRepository;
-use Modules\Item\Dao\Repositories\ProductRepository;
 use Modules\Item\Dao\Repositories\UnitRepository;
 use Modules\System\Http\Requests\GeneralRequest;
 use Modules\System\Http\Services\CreateService;
@@ -16,13 +14,13 @@ use Modules\System\Plugins\Helper;
 use Modules\System\Plugins\Response;
 use Modules\System\Plugins\Views;
 
-class ProductController extends Controller
+class UnitController extends Controller
 {
     public static $template;
     public static $service;
     public static $model;
 
-    public function __construct(ProductRepository $model, SingleService $service)
+    public function __construct(UnitRepository $model, SingleService $service)
     {
         self::$model = self::$model ?? $model;
         self::$service = self::$service ?? $service;
@@ -30,13 +28,7 @@ class ProductController extends Controller
 
     private function share($data = [])
     {
-        $category = Views::option(new CategoryRepository());
-        $unit = Views::option(new UnitRepository());
-
-        $view = [
-            'unit' => $unit,
-            'category' => $category,
-        ];
+        $view = [];
         return array_merge($view, $data);
     }
 
@@ -60,15 +52,7 @@ class ProductController extends Controller
 
     public function data(DataService $service)
     {
-        return $service
-            ->setModel(self::$model)
-            ->EditStatus([
-                'item_product_status' => self::$model->status,
-            ])
-            ->EditImage([
-                'item_product_image' => 'product',
-            ])
-            ->make();
+        return $service->setModel(self::$model)->make();
     }
 
     public function edit($code)

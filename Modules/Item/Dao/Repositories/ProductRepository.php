@@ -3,6 +3,8 @@
 namespace Modules\Item\Dao\Repositories;
 
 use Illuminate\Database\QueryException;
+use Modules\Item\Dao\Facades\CategoryFacades;
+use Modules\Item\Dao\Facades\ProductFacades;
 use Modules\Item\Dao\Models\Product;
 use Modules\System\Dao\Interfaces\CrudInterface;
 use Modules\System\Plugins\Helper;
@@ -13,7 +15,7 @@ class ProductRepository extends Product implements CrudInterface
     public function dataRepository()
     {
         $list = Helper::dataColumn($this->datatable);
-        return $this->select($list);
+        return $this->select($list)->leftJoin(CategoryFacades::getTable(),CategoryFacades::getKeyName(), ProductFacades::getForeignKeyCategory());
     }
 
     public function saveRepository($request)
@@ -40,7 +42,7 @@ class ProductRepository extends Product implements CrudInterface
     public function deleteRepository($request)
     {
         try {
-            is_array($request) ? $this->Destroy(array_values($request)) : $this->Destroy($request);
+            is_array($request) ? $this->destroy(array_values($request)) : $this->destroy($request);
             return Notes::delete($request);
         } catch (QueryException $ex) {
             return Notes::error($ex->getMessage());

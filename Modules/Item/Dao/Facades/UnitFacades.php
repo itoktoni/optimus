@@ -6,7 +6,7 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Facade;
 use Modules\System\Plugins\Helper;
 
-class CategoryFacades extends Facade
+class UnitFacades extends Facade
 {
     protected static function getFacadeAccessor()
     {

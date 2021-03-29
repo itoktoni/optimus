@@ -20,6 +20,7 @@ class DataService
     protected $datatable;
     protected $status = null;
     protected $image = null;
+    protected $transform = null;
     protected $column = ['action', 'checkbox'];
 
     public function setModel(CrudInterface $repository)
@@ -37,6 +38,12 @@ class DataService
     public function EditImage($data)
     {
         $this->image = $data;
+        return $this;
+    }
+
+    public function EditColumn($data){
+        
+        $this->transform = $data;
         return $this;
     }
 
@@ -89,6 +96,20 @@ class DataService
         });
     }
 
+    protected function setColumn()
+    {
+        if (!empty($this->transform)) {
+
+            foreach ($this->transform as $key => $data) {
+                $this->datatable->editColumn($key, function ($select) use ($key, $data) {
+                    return $select->{$data};
+                });
+            }
+
+            $this->column = array_merge($this->column, array_keys($this->transform));
+        }
+    }
+
     protected function setStatus()
     {
         if (!empty($this->status)) {
@@ -129,8 +150,9 @@ class DataService
         $this->setAction();
         $this->setStatus();
         $this->setImage();
+        $this->setColumn();
+
         $this->datatable->rawColumns($this->column);
         return $this->datatable->make(true);
-
     }
 }

@@ -40,7 +40,7 @@ class ModuleRepository extends Module implements CrudInterface
     public function deleteRepository($data)
     {
         try {
-            is_array($data) ? $this->Destroy(array_values($data)) : $this->Destroy($data);
+            is_array($data) ? $this->destroy(array_values($data)) : $this->destroy($data);
             return Notes::delete($data);
         } catch (QueryException $ex) {
             return Notes::error($ex->getMessage());

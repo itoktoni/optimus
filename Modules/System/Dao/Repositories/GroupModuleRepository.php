@@ -40,7 +40,7 @@ class GroupModuleRepository extends GroupModule implements CrudInterface
     public function deleteRepository($request)
     {
         try {
-            is_array($request) ? $this->Destroy(array_values($request)) : $this->Destroy($request);
+            is_array($request) ? $this->destroy(array_values($request)) : $this->destroy($request);
             return Notes::delete($request);
         } catch (QueryException $ex) {
             return Notes::error($ex->getMessage());
