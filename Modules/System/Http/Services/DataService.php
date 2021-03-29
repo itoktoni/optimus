@@ -40,7 +40,7 @@ class DataService
         return $this;
     }
 
-    private function setFilter()
+    protected function setFilter()
     {
         $this->filter = Helper::filter($this->model);
         $request = request();
@@ -73,13 +73,13 @@ class DataService
         return $this;
     }
 
-    private function setApi()
+    protected function setApi()
     {
         $pagination = request()->get('page') ? $this->filter->paginate(request()->get('limit') ?? config('website.pagination')) : ['total' => $this->filter->count(), 'data' => $this->filter->get()->toArray()];
         return Notes::data($pagination);
     }
 
-    private function setAction()
+    protected function setAction()
     {
         $this->datatable->addColumn('checkbox', function($model){
            return view(Views::checkbox())->with(['model' => $model]);
@@ -89,7 +89,7 @@ class DataService
         });
     }
 
-    private function setStatus()
+    protected function setStatus()
     {
         if (!empty($this->status)) {
 
@@ -103,7 +103,7 @@ class DataService
         }
     }
 
-    private function setImage()
+    protected function setImage()
     {
         if (!empty($this->image)) {
 
@@ -120,12 +120,12 @@ class DataService
     public function make()
     {
         $this->setFilter();
-        $this->datatable = Datatables::of($this->filter);
-
+        
         if (!request()->ajax()) {
             return $this->setApi();
         }
-
+        
+        $this->datatable = Datatables::of($this->filter);
         $this->setAction();
         $this->setStatus();
         $this->setImage();

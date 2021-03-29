@@ -9,6 +9,7 @@ use Modules\System\Dao\Repositories\CompanyRepository;
 use Modules\System\Dao\Repositories\HoldingRepository;
 use Modules\System\Dao\Repositories\LocationRepository;
 use Modules\System\Http\Requests\GeneralRequest;
+use Modules\System\Http\Services\CompanyDataService;
 use Modules\System\Http\Services\CreateService;
 use Modules\System\Http\Services\DataService;
 use Modules\System\Http\Services\DeleteService;
@@ -63,7 +64,7 @@ class CompanyController extends Controller
         return Response::redirectBack($data);
     }
 
-    public function data(DataService $service)
+    public function data(CompanyDataService $service)
     {
         return $service->setModel(self::$model)->make();
     }
