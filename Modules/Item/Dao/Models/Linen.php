@@ -35,7 +35,7 @@ class Linen extends Model
         'item_linen_deleted_by',
     ];
 
-    // public $with = ['location', 'product'];
+    // public $with = ['location', 'product', 'user'];
 
     public $timestamps = true;
     public $incrementing = true;
@@ -98,6 +98,6 @@ class Linen extends Model
 
 	public function user(){
 
-		return $this->hasOne(User::class, TeamFacades::getTable(), self::CREATED_BY);
+		return $this->hasOne(User::class, TeamFacades::getKeyName(), self::CREATED_BY);
     }
 }

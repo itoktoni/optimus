@@ -67,14 +67,6 @@ class User extends Authenticatable implements MustVerifyEmail
         '0' => ['Pasive', 'danger'],
     ];
 
-    public $status2 = [
-        1 => 'CREATE',
-        2 => 'APPROVE',
-        3 => 'PREPARE',
-        4 => 'DELIVER',
-        0 => 'CANCEL',
-    ];
-
     public $datatable = [
         'id'            => [false => 'ID User'],
         'username'      => [true => 'Username'],
