@@ -3,6 +3,7 @@
 namespace Modules\Item\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use Modules\Item\Dao\Facades\LinenFacades;
 
 class LinenResource extends JsonResource
 {
@@ -14,6 +15,19 @@ class LinenResource extends JsonResource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+       $rent = LinenFacades::rent(); 
+       $status = LinenFacades::status(); 
+
+       return [
+           'item_linen_id' => $this->item_linen_id,
+           'item_linen_rfid' => $this->item_linen_rfid,
+           'item_product_name' => $this->item_product_name,
+           'company_name' => $this->company_name,
+           'location_name' => $this->location_name,
+           'name' => $this->name,
+           'item_linen_rent' => $rent[$this->item_linen_rent][0] ?? '',
+           'item_linen_status' => $status[$this->item_linen_status][0] ?? '',
+           'item_linen_session' => $this->item_linen_session,
+       ];
     }
 }

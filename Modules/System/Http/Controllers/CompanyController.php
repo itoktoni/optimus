@@ -4,18 +4,15 @@ namespace Modules\System\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Modules\Item\Dao\Repositories\ProductRepository;
-use Modules\System\Dao\Facades\CompanyFacades;
 use Modules\System\Dao\Repositories\CompanyRepository;
 use Modules\System\Dao\Repositories\HoldingRepository;
 use Modules\System\Dao\Repositories\LocationRepository;
 use Modules\System\Http\Requests\GeneralRequest;
 use Modules\System\Http\Services\CompanyDataService;
 use Modules\System\Http\Services\CreateService;
-use Modules\System\Http\Services\DataService;
 use Modules\System\Http\Services\DeleteService;
 use Modules\System\Http\Services\SingleService;
 use Modules\System\Http\Services\UpdateCompanyService;
-use Modules\System\Http\Services\UpdateService;
 use Modules\System\Plugins\Helper;
 use Modules\System\Plugins\Response;
 use Modules\System\Plugins\Views;

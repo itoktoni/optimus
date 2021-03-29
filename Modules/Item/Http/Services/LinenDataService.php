@@ -1,7 +1,8 @@
 <?php
 
-namespace Modules\System\Http\Services;
+namespace Modules\Item\Http\Services;
 
+use Modules\Item\Http\Resources\LinenCollection;
 use Yajra\DataTables\Facades\DataTables;
 use Modules\System\Http\Services\DataService;
 
@@ -10,13 +11,14 @@ class LinenDataService extends DataService
     public function make()
     {
         $this->setFilter();
-        $this->datatable = Datatables::of($this->filter);
 
         if (!request()->ajax()) {
-            
-            return $this->datatable;
+
+            $pagination = request()->get('page') ? $this->filter->paginate(request()->get('limit') ?? config('website.pagination')) : $this->filter->get();
+            return new LinenCollection($pagination);
         }
 
+        $this->datatable = Datatables::of($this->filter);
         $this->setAction();
         $this->setStatus();
         $this->setImage();

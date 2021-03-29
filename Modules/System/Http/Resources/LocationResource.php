@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Resources;
+namespace Modules\System\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class ProductResource extends JsonResource
+class LocationResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -14,9 +14,9 @@ class ProductResource extends JsonResource
      */
     public function toArray($request)
     {
-       return [
-           'item_product_id' => $this->item_product_id,
-           'item_product_name' => $this->item_product_name
-       ];
+        return [
+            'location_id' => $this->location_id,
+            'location_name' => $this->location_name,
+        ];
     }
 }

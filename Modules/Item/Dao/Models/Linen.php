@@ -25,6 +25,7 @@ class Linen extends Model
         'item_linen_description',
         'item_linen_status',
         'item_linen_rent',
+        'item_linen_session',
         'item_linen_location_id',
         'item_linen_company_id',
         'item_linen_product_id',
@@ -65,6 +66,7 @@ class Linen extends Model
         'company_name' => [true => 'Company Name'],
         'location_name' => [true => 'Location Name'],
         'name' => [true => 'Register By'],
+        'item_linen_session' => [false => 'Key'],
         'item_linen_rent' => [true => 'Rental', 'width' => 100, 'class' => 'text-center'],
         'item_linen_status' => [true => 'Status', 'width' => 100, 'class' => 'text-center'],
     ];
@@ -82,9 +84,17 @@ class Linen extends Model
     ];
 
     public $rent    = [
-        '1' => ['Full', 'success'],
+        '1' => ['Sewa', 'success'],
         '0' => ['Laundry', 'primary'],
     ];
+
+    public function rent(){
+        return $this->rent;
+    }
+
+    public function status(){
+        return $this->status;
+    }
 
 	public function product(){
 

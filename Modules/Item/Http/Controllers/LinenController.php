@@ -9,6 +9,7 @@ use Modules\Item\Dao\Models\Linen;
 use Modules\Item\Dao\Repositories\LinenRepository;
 use Modules\Item\Dao\Repositories\ProductRepository;
 use Modules\Item\Http\Requests\LinenRequest;
+use Modules\Item\Http\Services\LinenDataService;
 use Modules\System\Dao\Repositories\CompanyRepository;
 use Modules\System\Dao\Repositories\LocationRepository;
 use Modules\System\Http\Requests\GeneralRequest;
@@ -65,7 +66,7 @@ class LinenController extends Controller
         return view(Views::create())->with($this->share());
     }
 
-    public function save(GeneralRequest $request, CreateService $service)
+    public function save(LinenRequest $request, CreateService $service)
     {
         $data = $service->save(self::$model, $request);
         return Response::redirectBack($data);
@@ -92,7 +93,7 @@ class LinenController extends Controller
         return Response::redirectBack($data);
     }
 
-    public function data(DataService $service)
+    public function data(LinenDataService $service)
     {
         return $service
             ->setModel(self::$model)

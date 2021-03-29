@@ -1,8 +1,13 @@
 <?php
 
-namespace App\Http\Resources;
+namespace Modules\System\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use Modules\Item\Dao\Facades\LinenFacades;
+use Modules\Item\Dao\Facades\ProductFacades;
+use Modules\Item\Http\Resources\ProductResource;
+use Modules\System\Plugins\Views;
+use ProductSeeder;
 
 class CompanyResource extends JsonResource
 {
@@ -18,7 +23,8 @@ class CompanyResource extends JsonResource
             'company_id' => $this->company_id,
             'company_name' => $this->company_name,
             'locations' => LocationResource::collection($this->locations),
-            'products' => ProductResource::collection($this->products)
+            'products' => ProductResource::collection($this->products),
+            'status' => Views::status(LinenFacades::rent()),
         ];
     }
 }

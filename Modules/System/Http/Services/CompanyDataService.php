@@ -2,8 +2,7 @@
 
 namespace Modules\System\Http\Services;
 
-use App\Http\Resources\CompanyCollection;
-use App\Http\Resources\CompanyResource;
+use Modules\System\Http\Resources\CompanyCollection;
 use Modules\System\Http\Services\DataService;
 use Yajra\DataTables\Facades\DataTables;
 

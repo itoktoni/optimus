@@ -40,7 +40,6 @@ class Product extends Model
     public $incrementing = true;
     public $rules = [
         'item_product_name' => 'required|min:3',
-        'item_product_category_id' => 'required',
         'item_product_unit_code' => 'required',
     ];
 
