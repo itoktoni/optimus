@@ -67,8 +67,8 @@ class Linen extends Model
         'location_name' => [true => 'Location Name'],
         'name' => [true => 'Register By'],
         'item_linen_session' => [false => 'Key'],
-        'item_linen_rent' => [true => 'Rental', 'width' => 100, 'class' => 'text-center'],
-        'item_linen_status' => [true => 'Status', 'width' => 100, 'class' => 'text-center'],
+        'item_linen_rent' => [true => 'Rental', 'width' => 50, 'class' => 'text-center'],
+        'item_linen_status' => [true => 'Status', 'width' => 50, 'class' => 'text-center'],
     ];
 
     protected $casts = [
