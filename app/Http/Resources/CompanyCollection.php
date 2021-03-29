@@ -15,12 +15,14 @@ class CompanyCollection extends ResourceCollection
     public function toArray($request)
     {
         return [
-            'message' => 'Data berhasil di ambil',
+            'status' => true,
             'code' => 200,
             'name' => 'list',
-            'status' => true,
-            'total' => $this->collection->count(),
-            'data' => $this->collection,
+            'message' => 'Data berhasil di ambil',
+            'data' => [
+                'total' => $this->collection->count(),
+                'data' => $this->collection,
+            ]
         ];
     }
 }
