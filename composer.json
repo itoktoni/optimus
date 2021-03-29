@@ -36,6 +36,7 @@
         "thedevsaddam/laravel-schema": "^2.0",
         "vkovic/laravel-custom-casts": "^1.1",
         "webklex/laravel-imap": "^2.2",
+        "wildside/userstamps": "^2.1",
         "yajra/laravel-datatables-oracle": "^9.0"
     },
     "require-dev": {

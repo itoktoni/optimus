@@ -5,9 +5,11 @@ namespace Modules\Item\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Request;
 use Modules\Item\Dao\Facades\LinenFacades;
+use Modules\Item\Dao\Models\Linen;
 use Modules\Item\Dao\Repositories\LinenRepository;
 use Modules\Item\Dao\Repositories\ProductRepository;
 use Modules\Item\Http\Requests\LinenRequest;
+use Modules\System\Dao\Repositories\CompanyRepository;
 use Modules\System\Dao\Repositories\LocationRepository;
 use Modules\System\Http\Requests\GeneralRequest;
 use Modules\System\Http\Services\CreateService;
@@ -36,10 +38,16 @@ class LinenController extends Controller
     {
         $product = Views::option(new ProductRepository());
         $location = Views::option(new LocationRepository());
+        $company = Views::option(new CompanyRepository());
+        $status = Views::status(self::$model->status);
+        $rent = Views::status(self::$model->rent);
 
         $view = [
             'product' => $product,
             'location' => $location,
+            'company' => $company,
+            'status' => $status,
+            'rent' => $rent,
         ];
 
         return array_merge($view, $data);

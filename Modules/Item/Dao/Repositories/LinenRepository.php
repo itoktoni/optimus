@@ -5,6 +5,7 @@ namespace Modules\Item\Dao\Repositories;
 use Illuminate\Database\QueryException;
 use Modules\Item\Dao\Facades\ProductFacades;
 use Modules\Item\Dao\Models\Linen;
+use Modules\System\Dao\Facades\CompanyFacades;
 use Modules\System\Dao\Facades\LocationFacades;
 use Modules\System\Dao\Interfaces\CrudInterface;
 use Modules\System\Plugins\Helper;
@@ -17,7 +18,8 @@ class LinenRepository extends Linen implements CrudInterface
         $list = Helper::dataColumn($this->datatable);
         $query = $this->select($list)
         ->leftJoin(ProductFacades::getTable(), ProductFacades::getKeyName(), 'item_linen_product_id')
-        ->leftJoin(LocationFacades::getTable(), LocationFacades::getKeyName(), 'item_linen_location_id');
+        ->leftJoin(LocationFacades::getTable(), LocationFacades::getKeyName(), 'item_linen_location_id')
+        ->leftJoin(CompanyFacades::getTable(), CompanyFacades::getKeyName(), 'item_linen_company_id');
         return $query;
     }
 

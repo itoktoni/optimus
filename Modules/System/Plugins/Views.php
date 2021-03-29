@@ -68,4 +68,15 @@ class Views
 
         return $data;
     }
+
+    public static function status($data)
+    {
+        $status = collect($data)->map(function ($item) {
+            if (is_array($item)) {
+                return $item[0];
+            }
+            return $item;
+        });
+        return $status;
+    }
 }

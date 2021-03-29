@@ -16,7 +16,7 @@ class Response
         if(request()->wantsJson()){
             return self::sentJson($data);
         }
-        if($data['name'] == 'Update'){
+        if(isset($data['name']) && $data['name'] == 'Update'){
             return redirect()->route(config('module').'_index');
         }
         
