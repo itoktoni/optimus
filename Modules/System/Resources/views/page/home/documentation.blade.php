@@ -667,6 +667,10 @@ use Illuminate\Support\Collection;
                         @break
 
                         @case('data')
+                        @php
+                        $list = Helper::dataColumn($model->datatable);
+                        $datatable = $model->dataRepository()->select($list);
+                        @endphp
                         <div class="container">
                             <div class="row">
                                 <div class="col-md-6">
@@ -678,7 +682,7 @@ use Illuminate\Support\Collection;
                                         </div>
                                         <div class="card-body">
 
-                                            <pre><code>{{ $model ? json_encode(Notes::update($model->limit(2)->get()->toArray()), JSON_PRETTY_PRINT) : '' }}</code></pre>
+                                            <pre><code>{{ $model ? json_encode(Notes::update($datatable->limit(2)->get()->toArray()), JSON_PRETTY_PRINT) : '' }}</code></pre>
 
                                         </div>
                                     </div>
@@ -692,7 +696,7 @@ use Illuminate\Support\Collection;
                                         </div>
                                         <div class="card-body">
 
-                                            <pre><code>{{ $model ? json_encode(Notes::update($model->paginate(2)), JSON_PRETTY_PRINT) : '' }}</code></pre>
+                                            <pre><code>{{ $model ? json_encode(Notes::update($datatable->paginate(2)), JSON_PRETTY_PRINT) : '' }}</code></pre>
 
                                         </div>
                                     </div>
