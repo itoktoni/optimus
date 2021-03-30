@@ -56,7 +56,7 @@
       width:100%!important
   }
   #datatable_paginate{
-      width:100%;
+      width:110%;
       text-align:center
   }
   .header-right{
@@ -70,15 +70,16 @@
   #datatable td{
       display:block;
       text-align:left;
-      padding:10px 20px 10px 160px;
+      padding:3% 10px 3%;
       position:relative
   }
   #datatable td:before{
       margin-top:16px;
       font-weight:10;
+      text-align: left;
       position:absolute;
       top:30%;
-      left:20px;
+      left:10px;
       transform:translateY(-50%)!important;
       max-width:30%
   }
@@ -183,10 +184,10 @@
       width:100%!important
   }
   #datatable_paginate{
-      width:100%;
+      width:110%;
       text-align:center;
       padding:5px;
-      border:.5px solid grey!important
+      margin-left: -20px;
   }
   .header-right{
       position:fixed;
@@ -195,7 +196,7 @@
   }
   #datatable td{
       text-align:right!important;
-      padding:5% 20px 2% 260px!important;
+      padding:3% 10px 3%;
       position:relative!important;
       vertical-align:middle
   }
@@ -203,10 +204,11 @@
       display:none!important
   }
   #datatable td:before{
+      text-align: left;
       font-weight:10!important;
       position:absolute!important;
       top:30%!important;
-      left:20px!important;
+      left:10px!important;
       transform:translateY(-50%)!important;
       max-width:40%!important
   }
@@ -223,13 +225,20 @@
       display:inline
   }
   #datatable_info{
-      margin-left:50%!important
+      width: 110%;
+      margin-left:40%!important
   }
   #action-master .chosen-container-single{
       margin-bottom:10px
   }
   #action-master .row{
       margin-right:-7px
+  }
+
+  .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+    color: unset;
+    border: 1px solid unset;
+    background-color: unset;
   }
 }
 @media(min-width:320px) and (max-width:480px){
@@ -265,10 +274,10 @@
       width:100%!important
   }
   #datatable_paginate{
-      width:100%;
+      width:110%;
       text-align:center;
       padding:5px;
-      border:.8px solid #ddd!important
+      margin-left: -20px;
   }
   .header-right{
       position:fixed;
@@ -277,7 +286,7 @@
   }
   #datatable td{
       text-align:right!important;
-      padding:5% 20px 5% 160px!important;
+      padding:3% 10px 3%;
       position:relative!important;
       vertical-align:middle
   }
@@ -288,7 +297,8 @@
       font-weight:10;
       position:absolute;
       top:20%;
-      left:20px;
+      left:10px;
+      text-align: left;
       transform:translateY(-50%);
       max-width:30%
   }
@@ -305,7 +315,8 @@
       display:inline
   }
   #datatable_info{
-      margin-left:50%!important
+      width: 110%;
+      margin-left:40%!important
   }
   #action-master .chosen-container-single{
       margin-bottom:10px;

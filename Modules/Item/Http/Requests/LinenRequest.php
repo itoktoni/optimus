@@ -3,8 +3,9 @@
 namespace Modules\Item\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Modules\System\Http\Requests\GeneralRequest;
 
-class LinenRequest extends FormRequest
+class LinenRequest extends GeneralRequest
 {
     /**
      * Get the validation rules that apply to the request.

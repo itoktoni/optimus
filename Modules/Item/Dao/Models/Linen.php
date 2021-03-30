@@ -12,6 +12,7 @@ use Modules\System\Dao\Facades\LocationFacades;
 use Modules\System\Dao\Facades\TeamFacades;
 use Modules\System\Dao\Models\Location;
 use Wildside\Userstamps\Userstamps;
+use Illuminate\Validation\Rule;
 
 class Linen extends Model
 {
@@ -45,6 +46,7 @@ class Linen extends Model
         'item_linen_location_id' => 'required|exists:system_location,location_id',
         'item_linen_company_id' => 'required|exists:system_company,company_id',
         'item_linen_product_id' => 'required|exists:item_product,item_product_id',
+        'item_linen_rent' => 'required|in:1,2',
         'item_linen_rfid' => 'required|unique:item_linen',
     ];
 
@@ -85,7 +87,7 @@ class Linen extends Model
 
     public $rent    = [
         '1' => ['Sewa', 'success'],
-        '0' => ['Laundry', 'primary'],
+        '2' => ['Laundry', 'primary'],
     ];
 
     public function rent(){

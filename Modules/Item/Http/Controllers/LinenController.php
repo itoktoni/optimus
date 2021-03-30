@@ -66,7 +66,7 @@ class LinenController extends Controller
         return view(Views::create())->with($this->share());
     }
 
-    public function save(LinenRequest $request, CreateService $service)
+    public function save(GeneralRequest $request, CreateService $service)
     {
         $data = $service->save(self::$model, $request);
         return Response::redirectBack($data);
