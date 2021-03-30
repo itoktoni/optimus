@@ -60,11 +60,20 @@
     {!! Form::label('system_action_api', ' Activate Api', ['class' => 'col-md-2 control-label']) !!}
     <div class="col-md-4 {{ $errors->has('system_action_api') ? 'has-error' : ''}}">
         {{ Form::select('system_action_api', ['1' => 'Yes', '0' => 'No'], null, ['class'=> 'form-control']) }}
-        {!! $errors->first('system_action_vapi', '<p class="help-block">:message</p>') !!}
+        {!! $errors->first('system_action_api', '<p class="help-block">:message</p>') !!}
     </div>
 
+    {!! Form::label('system_action_method', ' Activate Api', ['class' => 'col-md-2 control-label']) !!}
+    <div class="col-md-4 {{ $errors->has('system_action_method') ? 'has-error' : ''}}">
+        {{ Form::select('system_action_method', ['POST', 'GET', 'PUT', 'PATCH', 'DELETE'], null, ['class'=> 'form-control']) }}
+        {!! $errors->first('system_action_method', '<p class="help-block">:message</p>') !!}
+    </div>
+
+</div>
+
+<div class="form-group">
     {!! Form::label('name', 'Description', ['class' => 'col-md-2 control-label']) !!}
-    <div class="col-md-4">
+    <div class="col-md-10">
         {!! Form::textarea('system_action_description', null, ['class' => 'form-control', 'rows' => '3']) !!}
     </div>
 </div>
