@@ -17,4 +17,6 @@ return [
     'pjax' => env('ENABLE_PJAX', true),
     'loading' => env('ENABLE_LOADING', true),
     'application' => env('ENABLE_FRONTEND', true),
+    'notification' => env('ENABLE_NOTIFICATION', false),
+    'information' => env('ENABLE_INFORMATION', false),
 ];

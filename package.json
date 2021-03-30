@@ -1,5 +1,5 @@
 {
-  "name": "compile-jenius",
+  "name": "laravel-mix",
   "version": "1.0.0",
   "description": "",
   "main": "webpack.mix.js",

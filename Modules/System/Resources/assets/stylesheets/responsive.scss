@@ -13,6 +13,12 @@
 @media(min-width:768px) and (max-width:1024px) and (orientation:landscape){
 }
 @media only screen and (max-width:767px){
+
+  .filter-data{
+      width: 110%;
+      margin-left: -5%;
+  }  
+
   #datatable td{
       vertical-align:middle;
       min-height:20px;
@@ -25,7 +31,7 @@
       border:0
   }
   .screen{
-      margin-top:100px
+      margin-top:unset;
   }
   #selection{
       position:absolute;
@@ -84,7 +90,8 @@
   }
   .form-horizontal .control-label{
       background-color:unset;
-      margin-left:10px
+      margin-left:10px;
+      margin-bottom: 0px;
   }
   #add{
       position:fixed;
@@ -130,9 +137,7 @@
       margin-left:-15px!important;
       margin-right:-15px!important
   }
-  .form-horizontal .control-label{
-      background-color:unset!important
-  }
+
   .trumbowyg-button-pane{
       min-height:25px;
       text-align:left
@@ -235,7 +240,7 @@
       border:0
   }
   .screen{
-      margin-top:70px
+      margin-top:unset
   }
   #selection{
       position:absolute;

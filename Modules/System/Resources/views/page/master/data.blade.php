@@ -15,9 +15,9 @@
                 </h2>
             </header>
 
-            <div class="panel-body line">
+            <div class="panel-body line wrap">
 
-                <div class="form-group">
+                <div class="filter-data form-group">
                     {!! Form::open(['route' => $route_data, 'id' => 'search-form', 'files' => true]) !!}
                     <div class="form-horizontal">
                         {!! Form::label($search_code, __('Criteria'), ['class' => 'col-md-1 control-label']) !!}

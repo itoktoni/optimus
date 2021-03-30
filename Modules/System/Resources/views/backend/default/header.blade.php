@@ -9,6 +9,7 @@
             <i class="fa fa-bars" aria-label="Toggle sidebar"></i>
         </div>
     </div>
+    @if(config('website.notification'))
     <div class="header-right">
         <ul class="notifications">
             <li class="mail">
@@ -136,4 +137,5 @@
             </div>
         </div>
     </div>
+    @endif
 </header>

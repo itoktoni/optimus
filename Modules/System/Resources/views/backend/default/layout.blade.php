@@ -50,9 +50,11 @@
                 <header class="page-header">
                     <span class="col-lg-11 col-sm-6 col-xl-11 pull-left"
                         style="color:#A6A3A3;margin-top:15px;z-index: 1;">
+                        @if(config('website.information'))
                         <marquee>
                             <span>test</span>
                         </marquee>
+                        @endif
                     </span>
                     <div class="right-wrapper pull-right">
                         <a id="link_menu" class="sidebar-right-toggle" data-open="sidebar-right">
