@@ -63,7 +63,7 @@
         {!! $errors->first('system_action_api', '<p class="help-block">:message</p>') !!}
     </div>
 
-    {!! Form::label('system_action_method', ' Activate Api', ['class' => 'col-md-2 control-label']) !!}
+    {!! Form::label('system_action_method', 'Method', ['class' => 'col-md-2 control-label']) !!}
     <div class="col-md-4 {{ $errors->has('system_action_method') ? 'has-error' : ''}}">
         {{ Form::select('system_action_method', ['POST', 'GET', 'PUT', 'PATCH', 'DELETE'], null, ['class'=> 'form-control']) }}
         {!! $errors->first('system_action_method', '<p class="help-block">:message</p>') !!}
