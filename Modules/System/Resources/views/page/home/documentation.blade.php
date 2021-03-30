@@ -478,6 +478,10 @@ use Illuminate\Support\Collection;
                                     masukan data type <code>{ "type" : "update" }</code> jika ingin automatic update
                                     ketika data dikirim
                                 </td>
+
+                            </tr>
+
+                            <tr>
                                 <td colspan="2">
                                     masukan data session <code>{ "item_linen_session" : "xxxx" }</code> jika ingin
                                     membuat sesi 1x scan
