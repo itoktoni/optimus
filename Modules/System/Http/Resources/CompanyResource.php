@@ -24,7 +24,6 @@ class CompanyResource extends JsonResource
             'company_name' => $this->company_name,
             'locations' => LocationResource::collection($this->locations),
             'products' => ProductResource::collection($this->products),
-            'rental' => Views::status(LinenFacades::rent()),
         ];
     }
 }

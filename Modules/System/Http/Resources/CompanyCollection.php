@@ -3,6 +3,7 @@
 namespace Modules\System\Http\Resources;
 
 use Illuminate\Http\Resources\Json\ResourceCollection;
+use Modules\Item\Dao\Facades\LinenFacades;
 
 class CompanyCollection extends ResourceCollection
 {
@@ -21,6 +22,9 @@ class CompanyCollection extends ResourceCollection
             'message' => 'Data berhasil di ambil',
             'data' => [
                 'total' => $this->collection->count(),
+                'rental' => collect(LinenFacades::rent())->map(function($item, $key){
+                    return ['id' => $key, 'name' => $item[0]];
+                })->toArray(),
                 'data' => $this->collection,
             ]
         ];
