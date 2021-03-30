@@ -471,15 +471,16 @@ use Illuminate\Support\Collection;
                                 <td colspan="2">
                                     jika data ada di database , maka data akan dikirimkan kembali oleh api, </br>
                                     jika tidak ada di database maka data akan otomatis di simpan di database
-
-                                    <br>
-
-                                    * jika ingin menggunakan session, bisa menambahkan field yang dikirim dengan { 'item_linen_session' : 'xxxxx' }
                                 </td>
                             </tr>
                             <tr>
                                 <td colspan="2">
-                                   masukan data type <code>{ "type" : "update" }</code> jika ingin automatic update ketika data dikirim 
+                                    masukan data type <code>{ "type" : "update" }</code> jika ingin automatic update
+                                    ketika data dikirim
+                                </td>
+                                <td colspan="2">
+                                    masukan data session <code>{ "item_linen_session" : "xxxx" }</code> jika ingin
+                                    membuat sesi 1x scan
                                 </td>
                             </tr>
 
