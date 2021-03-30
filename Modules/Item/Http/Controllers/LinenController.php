@@ -72,7 +72,7 @@ class LinenController extends Controller
         return Response::redirectBack($data);
     }
 
-    public function patch(LinenRequest $request)
+    public function patch(GeneralRequest $request)
     {
         $check = LinenFacades::where('item_linen_rfid', $request->item_linen_rfid)->first();
         if ($check) {

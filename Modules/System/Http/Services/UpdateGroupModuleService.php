@@ -69,7 +69,7 @@ class UpdateGroupModuleService extends UpdateService
 
                     foreach ($func['real'] as $function) {
                         $visible = '0';
-                        if (in_array($function, $this->visible) || strpos($module, 'Report') !== false) {
+                        if (in_array($function, $this->visible)) {
                             $visible = '1';
                         }
 

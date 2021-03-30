@@ -408,6 +408,10 @@ select[name=datatable_length] {
   border-top: 1px solid lightgray;
   padding-right: 5px;
   z-index: 5;
+
+  .action-wrapper{
+    padding: 5px;
+  }
 }
 
 #menu_action .btn {

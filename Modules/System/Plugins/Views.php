@@ -46,6 +46,11 @@ class Views
         return ucfirst($folder) . '::page.' . $page . '.checkbox';
     }
 
+    public static function pdf($page = 'master', $folder = 'system')
+    {
+        return ucfirst($folder) . '::page.' . $page . '.pdf';
+    }
+
     public static function form($form, $page = 'master', $folder = 'system')
     {
         return ucfirst($folder) . '::page.' . $page . '.' . $form;

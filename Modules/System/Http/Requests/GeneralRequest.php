@@ -18,23 +18,25 @@ class GeneralRequest extends FormRequest
     {
         $this->model = request()->route()->getController()::$model ?? false;
         $this->rules = request()->route()->getController()::$model->rules ?? [];
-        $collection = collect($this->rules)->map(function ($item, $key) {
-            if (strpos($item, 'unique') !== false) {
-                $string = explode('|', $item);
-                $builder = '';
-                foreach ($string as $value) {
-                    if (strpos($value, 'unique') === false) {
-                        $builder = $builder . $value . '|';
-                    }
-                }
-                $key = rtrim($builder, "|");
-            } else {
-                $key = $item;
-            }
-            return $key;
-        });
 
-        if (request()->segment(3) == 'update') {
+        if (request()->segment(3) == 'update' || request()->segment(3) == 'patch') {
+            
+            $collection = collect($this->rules)->map(function ($item, $key) {
+                if (strpos($item, 'unique') !== false) {
+                    $string = explode('|', $item);
+                    $builder = '';
+                    foreach ($string as $value) {
+                        if (strpos($value, 'unique') === false) {
+                            $builder = $builder . $value . '|';
+                        }
+                    }
+                    $key = rtrim($builder, "|");
+                } else {
+                    $key = $item;
+                }
+                return $key;
+            });
+
             $this->rules = $collection->toArray();
         }
     }

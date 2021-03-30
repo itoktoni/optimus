@@ -9,8 +9,9 @@
             <i class="fa fa-bars" aria-label="Toggle sidebar"></i>
         </div>
     </div>
-    @if(config('website.notification'))
+    
     <div class="header-right">
+        @if(config('website.notification'))
         <ul class="notifications">
             <li class="mail">
                 <a onclick="showEmail();" class="dropdown-toggle notification-icon">
@@ -72,6 +73,7 @@
                 </a>
             </li>
         </ul>
+        @endif
         <span class="separator"></span>
         <div id="userbox" onclick="showProfile();" class="userbox">
             <div class="drop">
@@ -137,5 +139,5 @@
             </div>
         </div>
     </div>
-    @endif
+    
 </header>

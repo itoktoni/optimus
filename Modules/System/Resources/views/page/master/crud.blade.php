@@ -1,5 +1,5 @@
 <div class="navbar-fixed-bottom" id="menu_action">
-    <div class="text-right" style="padding:5px">
+    <div class="text-right action-wrapper">
         @switch($action_function)
 
         @case('index')
