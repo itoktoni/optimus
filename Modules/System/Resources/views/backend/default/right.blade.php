@@ -32,13 +32,13 @@
                         onclick="location.href = '{{ route('access_group',[$group->system_group_module_code]) }}';"
                         href="{{ route('access_group',[$group->system_group_module_code]) }}"
                         class="pointer linkRight list-group-item {{ (Session(Auth::User()->username.'_group_access') == $group->system_group_module_code ? 'active' : '') }}">
-                        <span>{{ $group->system_group_module_code }}</span>
+                        <span>{{ __($group->system_group_module_code) }}</span>
                     </div>
                     @endforeach
                     @endisset
                     @if(isset(Auth::user()->group_user) && Auth::user()->group_user == 'developer')
                     <div id="reboot" onclick="location.href ='{{ route('reboot') }}';" class="list-group-item">
-                        <span>reboot</span>
+                        <span>{{ __('reboot') }}</span>
                     </div>
                     @endif
                 </div>

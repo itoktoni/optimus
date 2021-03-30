@@ -138,7 +138,7 @@ class AccessMiddleware
             'form' => !empty($folder) ? Str::snake($folder) . '_' . $template . '_' : '',
             'template' => $template,
             'search_code' => $template . '_code',
-            'form_name' => ucwords(str_replace('_', ' ', $template)),
+            'form_name' => ucwords(str_replace('_', ' ', $template == 'module' ? 'modules' : $template)),
             'template_action' => 'System::page.master.crud',
             'route_data' => $module . '_data',
             'route_index' => $module . '_index',

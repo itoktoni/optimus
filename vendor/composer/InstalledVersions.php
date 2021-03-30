@@ -30,7 +30,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => '804123b2d7c8ca65ba603fc375e31a180e5da64e',
+    'reference' => '26d390ebc9d24761b901924f75708e9f1d712967',
     'name' => 'laravel/laravel',
   ),
   'versions' => 
@@ -246,6 +246,15 @@ private static $installed = array (
       array (
       ),
       'reference' => '848d8125239d7dbf8ab25cb7f054f1a630e68c2e',
+    ),
+    'geo-sot/laravel-env-editor' => 
+    array (
+      'pretty_version' => 'v0.9.11',
+      'version' => '0.9.11.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '178f4ae3bd528f202f3354b4026d0d32ca5e7937',
     ),
     'graham-campbell/result-type' => 
     array (
@@ -545,6 +554,15 @@ private static $installed = array (
       ),
       'reference' => 'daa11c43729510b3700bc34d414664966b03bffe',
     ),
+    'joedixon/laravel-translation' => 
+    array (
+      'pretty_version' => 'v1.1.2',
+      'version' => '1.1.2.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '4a467398bae73cd16522d523b557e96f3455b9d2',
+    ),
     'kodova/hamcrest-php' => 
     array (
       'replaced' => 
@@ -586,7 +604,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => '804123b2d7c8ca65ba603fc375e31a180e5da64e',
+      'reference' => '26d390ebc9d24761b901924f75708e9f1d712967',
     ),
     'laravel/sanctum' => 
     array (

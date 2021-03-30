@@ -16,7 +16,7 @@ class Views
 
     public static function index($page = 'master', $folder = 'system')
     {
-        return ucfirst($folder) . '::page.' . $page . '.index';
+        return ucfirst($folder) . '::page.' . $page . '.data';
     }
 
     public static function show($page = 'master', $folder = 'system')

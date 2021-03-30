@@ -105,7 +105,7 @@ return [
     |
      */
 
-    'locale' => 'en',
+    'locale' => env('APP_LOCAL', 'en'),
     'faker_locale' => 'id_ID',
 
     /*
@@ -214,6 +214,7 @@ return [
         Laravolt\Avatar\ServiceProvider::class,
         Webklex\IMAP\Providers\LaravelServiceProvider::class,
         Ixudra\Curl\CurlServiceProvider::class,
+        GeoSot\EnvEditor\ServiceProvider::class,
     ],
 
     /*
@@ -280,6 +281,7 @@ return [
         'Avatar' => Laravolt\Avatar\Facade::class,
         'Client' => Webklex\IMAP\Facades\Client::class,
         'PDF' => Barryvdh\DomPDF\Facade::class,
+        'EnvEditor' => GeoSot\EnvEditor\Facades\EnvEditor::class,
     ],
 
 ];

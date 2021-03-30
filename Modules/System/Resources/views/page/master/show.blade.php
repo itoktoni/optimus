@@ -6,7 +6,7 @@
      <div class="panel-body">
          <div class="panel panel-default">
             <header class="panel-heading">
-                <h2 class="panel-title">@lang('pages.show') {{ $form_name }} : {{ $model->{$model->getKeyName()} }}</h2>
+                <h2 class="panel-title">{{ __('Show') }} {{  __($form_name) }} : {{ $model->{$model->getKeyName()} }}</h2>
             </header>
             <div class="panel-body line">
                 <div class="show">

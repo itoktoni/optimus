@@ -1,5 +1,5 @@
 <div class="form-group">
-    {!! Form::label('company_name', 'Name', ['class' => 'col-md-2 control-label']) !!}
+    {!! Form::label('company_name', __('Name'), ['class' => 'col-md-2 control-label']) !!}
     <div class="col-md-4 {{ $errors->has('company_name') ? 'has-error' : ''}}">
         {!! Form::text('company_name', null, ['class' => 'form-control']) !!}
         {!! $errors->first('company_name', '<p class="help-block">:message</p>') !!}

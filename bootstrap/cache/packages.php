@@ -46,6 +46,17 @@
       0 => 'Fideloper\\Proxy\\TrustedProxyServiceProvider',
     ),
   ),
+  'geo-sot/laravel-env-editor' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'GeoSot\\EnvEditor\\ServiceProvider',
+    ),
+    'aliases' => 
+    array (
+      'EnvEditor' => 'GeoSot\\EnvEditor\\Facades\\EnvEditor',
+    ),
+  ),
   'imliam/laravel-env-set-command' => 
   array (
     'providers' => 
@@ -95,6 +106,14 @@
     'aliases' => 
     array (
       'Agent' => 'Jenssegers\\Agent\\Facades\\Agent',
+    ),
+  ),
+  'joedixon/laravel-translation' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'JoeDixon\\Translation\\TranslationServiceProvider',
+      1 => 'JoeDixon\\Translation\\TranslationBindingsServiceProvider',
     ),
   ),
   'laravel/sanctum' => 

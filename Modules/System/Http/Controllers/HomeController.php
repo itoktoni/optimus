@@ -79,6 +79,8 @@ class HomeController extends Controller
 
     public function configuration()
     {
+
+        return redirect('/setting');
         $frontend = array_map('basename', File::directories(resource_path('views/frontend/')));
         $backend  = array_map('basename', File::directories(resource_path('views/backend/')));
         if (!Cache::has('group')) {

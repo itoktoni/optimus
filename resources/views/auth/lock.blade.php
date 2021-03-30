@@ -143,7 +143,7 @@
         <input id="submit" type="submit" value="Reset">
     </div>
     <a style="position: absolute;z-index: 99999999 !important;color:#FFFFFF" href="{{ route('home') }}">
-        Back to Dashboard ?</a>
+        {{ __('Back to Dashboard') }} ?</a>
 
     {!! Form::close() !!}
 

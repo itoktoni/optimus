@@ -91,43 +91,46 @@
                     @auth
                     @if( config('website.developer_setting') == Auth::user()->group_user)
                     <li class="divider"></li>
+
                     <li>
-                        <div role="menuitem" tabindex="-1" class="header-menu"
-                            onclick="window.open('{{ route('route') }}');">
+                        <a data-turbolinks="false" role="menuitem" tabindex="-1" class="header-menu" href="{{ route('route') }}">
                             <i class="fa fa-globe"></i> &nbsp;
-                            List Routes
-                        </div>
-                    </li>
-                    
-                    <li>
-                        <a role="menuitem" tabindex="-1" href="{{ route('configuration') }}"><i
-                                class="fa fa-wrench"></i> &nbsp; System Setting</a>
+                            {{ __('List Routes') }}
+                        </a>
                     </li>
 
                     <li>
-                        <a role="menuitem" tabindex="-1" href="{{ route('console') }}"><i class="fa fa-terminal"></i>
-                            &nbsp;System Console</a>
+                        <a data-turbolinks="false" role="menuitem" tabindex="-1" href="{{ route('configuration') }}">
+                            <i class="fa fa-wrench"></i> &nbsp; {{ __('System Setting') }}
+                        </a>
+                    </li>
+
+                    <li>
+                        <a data-turbolinks="false" role="menuitem" tabindex="-1" href="{{ route('console') }}">
+                            <i class="fa fa-terminal"></i> &nbsp;{{ __('System Console') }}
+                        </a>
                     </li>
 
                     @endif
 
                     <li class="divider"></li>
+
                     <li>
-                        <a role="menuitem" tabindex="-1" href="{{ route('user_profile') }}">&nbsp;<i class="fa fa-user"></i>
-                            &nbsp;&nbsp;My Profile</a>
+                        <a data-turbolinks="false" role="menuitem" tabindex="-1" href="{{ route('reset_password') }}">&nbsp;
+                            <i class="fa fa-lock"></i>
+                            &nbsp;{{ __('Change Password') }}
+                        </a>
                     </li>
-                    <li>
-                        <a role="menuitem" tabindex="-1" href="{{ route('reset_password') }}">&nbsp;<i
-                                class="fa fa-lock"></i>
-                            &nbsp;&nbsp;Reset Password</a>
-                    </li>
+
                     <li class="divider"></li>
 
                     <li>
-                        <div id="logout" class="header-menu" role="menuitem" tabindex="-1"
-                            onclick="location.href ='{{ route('logout') }}';">&nbsp;<i class="fa fa-power-off"></i>
-                            &nbsp;Logout</div>
+                        <a data-turbolinks="false" id="logout" class="header-menu" role="menuitem" tabindex="-1" href="{{ route('logout') }}">
+                            &nbsp;<i class="fa fa-power-off"></i>
+                            &nbsp;{{ __('Logout') }}
+                        </a>
                     </li>
+                    
                     @endauth
                 </ul>
             </div>

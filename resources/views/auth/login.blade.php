@@ -132,22 +132,22 @@
 
 <div class="form__field form__field--email">
     <div class="form__input-wrapper">
-        {!! Form::text('login', null, ['autofocus', 'class' => 'form__input','id' => 'login__email','placeholder' =>
-        'Username or Email']) !!}
+        {!! Form::text('login', null, ['autofocus', 'class' => 'form__input','id' => 'login__email', 'placeholder' =>
+        __('Username or Email')]) !!}
     </div>
 </div>
 
 <div class="form__field form__field--password">
     <div class="form__input-wrapper">
         {!! Form::password('password', ['class' => 'form__input', 'id' => 'login__password','placeholder' =>
-        'Secure Password']) !!}
+        __('Secure Password')]) !!}
     </div>
 </div>
 
 <div id="container_submit" class="form__field form__field--submit">
-    <input id="submit" type="submit" value="log in">
+    <input id="submit" type="submit" value="{{ __('log in') }}">
 </div>
-<a style="position: absolute;z-index: 99999999 !important;color:#FFFFFF;margin-bottom:20px" href="{{ route('password.request') }}">Forgot Password</a>
+<a style="position: absolute;z-index: 99999999 !important;color:#FFFFFF;margin-bottom:20px" href="{{ route('password.request') }}">{{ __('Forgot Password') }}</a>
 
 {!! Form::close() !!}
 
@@ -168,7 +168,5 @@
         </div>
     </div>
 </div>
-
-
 
 @endsection

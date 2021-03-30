@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "67dcae2646ceb43c7de9f86d267b1b2a",
+    "content-hash": "4e3c993d8e2f3038ad49a06ba8280d0b",
     "packages": [
         {
             "name": "appstract/laravel-options",
@@ -1220,6 +1220,66 @@
             "time": "2020-12-11T09:56:16+00:00"
         },
         {
+            "name": "geo-sot/laravel-env-editor",
+            "version": "v0.9.11",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/GeoSot/Laravel-EnvEditor.git",
+                "reference": "178f4ae3bd528f202f3354b4026d0d32ca5e7937"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/GeoSot/Laravel-EnvEditor/zipball/178f4ae3bd528f202f3354b4026d0d32ca5e7937",
+                "reference": "178f4ae3bd528f202f3354b4026d0d32ca5e7937",
+                "shasum": ""
+            },
+            "require": {
+                "laravel/framework": ">=5.5",
+                "php": "^7.1"
+            },
+            "require-dev": {
+                "orchestra/testbench": "^3"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "GeoSot\\EnvEditor\\ServiceProvider"
+                    ],
+                    "aliases": {
+                        "EnvEditor": "GeoSot\\EnvEditor\\Facades\\EnvEditor"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "GeoSot\\EnvEditor\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Geo Sot",
+                    "email": "geo.sotis@gmail.com"
+                }
+            ],
+            "description": "A laravel Package that supports .Env File, editing and backup ",
+            "keywords": [
+                "EnvEditor",
+                "geo-sot",
+                "laravel",
+                "laravel-env-editor"
+            ],
+            "support": {
+                "issues": "https://github.com/GeoSot/Laravel-EnvEditor/issues",
+                "source": "https://github.com/GeoSot/Laravel-EnvEditor/tree/v0.9.11"
+            },
+            "time": "2021-01-09T17:00:00+00:00"
+        },
+        {
             "name": "graham-campbell/result-type",
             "version": "v1.0.1",
             "source": {
@@ -1741,6 +1801,56 @@
                 }
             ],
             "time": "2020-06-13T08:05:20+00:00"
+        },
+        {
+            "name": "joedixon/laravel-translation",
+            "version": "v1.1.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/joedixon/laravel-translation.git",
+                "reference": "4a467398bae73cd16522d523b557e96f3455b9d2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/joedixon/laravel-translation/zipball/4a467398bae73cd16522d523b557e96f3455b9d2",
+                "reference": "4a467398bae73cd16522d523b557e96f3455b9d2",
+                "shasum": ""
+            },
+            "require-dev": {
+                "mockery/mockery": "^1.0.0",
+                "orchestra/testbench": "^4.0",
+                "phpunit/phpunit": "^8.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "JoeDixon\\Translation\\TranslationServiceProvider",
+                        "JoeDixon\\Translation\\TranslationBindingsServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "JoeDixon\\Translation\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Joe Dixon",
+                    "email": "hello@joedixon.co.uk"
+                }
+            ],
+            "description": "A tool for managing all of your Laravel translations",
+            "support": {
+                "issues": "https://github.com/joedixon/laravel-translation/issues",
+                "source": "https://github.com/joedixon/laravel-translation/tree/master"
+            },
+            "time": "2020-04-13T20:06:24+00:00"
         },
         {
             "name": "larapack/config-writer",
