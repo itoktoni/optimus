@@ -116,6 +116,13 @@
       1 => 'JoeDixon\\Translation\\TranslationBindingsServiceProvider',
     ),
   ),
+  'kirschbaum-development/eloquent-power-joins' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'Kirschbaum\\PowerJoins\\PowerJoinsServiceProvider',
+    ),
+  ),
   'laravel/sanctum' => 
   array (
     'providers' => 

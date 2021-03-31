@@ -98,11 +98,6 @@ class Product extends Model
         return 'item_product_unit_id';
     }
 
-    // public function getItemCategoryNameAttribute()
-    // {
-    //     return $this->category->item_category_name ?? '';
-    // }
-
     public function category()
     {
         return $this->hasOne(Category::class, CategoryFacades::getKeyName(), $this->getForeignKeyCategory());

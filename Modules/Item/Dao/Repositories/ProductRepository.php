@@ -3,6 +3,7 @@
 namespace Modules\Item\Dao\Repositories;
 
 use Illuminate\Database\QueryException;
+use Kirschbaum\PowerJoins\PowerJoins;
 use Modules\Item\Dao\Facades\CategoryFacades;
 use Modules\Item\Dao\Facades\ProductFacades;
 use Modules\Item\Dao\Models\Product;
@@ -12,10 +13,11 @@ use Modules\System\Plugins\Notes;
 
 class ProductRepository extends Product implements CrudInterface
 {
+    use PowerJoins;
     public function dataRepository()
     {
         $list = Helper::dataColumn($this->datatable);
-        return $this->select($list)->leftJoin(CategoryFacades::getTable(),CategoryFacades::getKeyName(), ProductFacades::getForeignKeyCategory());
+        return $this->select($list)->leftJoinRelationship('category');
     }
 
     public function saveRepository($request)

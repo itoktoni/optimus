@@ -11,18 +11,20 @@ use Modules\System\Dao\Facades\TeamFacades;
 use Modules\System\Dao\Interfaces\CrudInterface;
 use Modules\System\Plugins\Helper;
 use Modules\System\Plugins\Notes;
+use Kirschbaum\PowerJoins\PowerJoins;
 
 class LinenRepository extends Linen implements CrudInterface
 {
+    use PowerJoins;
+
     public function dataRepository()
     {
         $list = Helper::dataColumn($this->datatable);
-        $query = $this->select($list)
-        ->leftJoin(TeamFacades::getTable(), TeamFacades::getKeyName(), self::CREATED_BY)
-        ->leftJoin(ProductFacades::getTable(), ProductFacades::getKeyName(), 'item_linen_product_id')
-        ->leftJoin(LocationFacades::getTable(), LocationFacades::getKeyName(), 'item_linen_location_id')
-        ->leftJoin(CompanyFacades::getTable(), CompanyFacades::getKeyName(), 'item_linen_company_id');
-        return $query;
+        return $this->select($list)
+        ->leftJoinRelationship('product')
+        ->leftJoinRelationship('location')
+        ->leftJoinRelationship('company')
+        ->leftJoinRelationship('user');
     }
 
     public function saveRepository($request)

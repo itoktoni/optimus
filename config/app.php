@@ -1,5 +1,6 @@
 <?php
 
+use Kirschbaum\PowerJoins\PowerJoinsServiceProvider;
 use Modules\System\Plugins\Views;
 use Modules\System\Plugins\Notes;
 use Modules\System\Plugins\Response;
@@ -215,6 +216,7 @@ return [
         Webklex\IMAP\Providers\LaravelServiceProvider::class,
         Ixudra\Curl\CurlServiceProvider::class,
         GeoSot\EnvEditor\ServiceProvider::class,
+        PowerJoinsServiceProvider::class,
     ],
 
     /*

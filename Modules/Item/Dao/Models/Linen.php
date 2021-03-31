@@ -13,6 +13,8 @@ use Modules\System\Dao\Facades\TeamFacades;
 use Modules\System\Dao\Models\Location;
 use Wildside\Userstamps\Userstamps;
 use Illuminate\Validation\Rule;
+use Modules\System\Dao\Facades\CompanyFacades;
+use Modules\System\Dao\Models\Company;
 
 class Linen extends Model
 {
@@ -96,6 +98,21 @@ class Linen extends Model
         '2' => ['Laundry', 'primary'],
     ];
 
+    public function getPrimaryKeyCompanyAttribute(){
+
+        return 'item_linen_company_id';
+    }
+
+    public function getPrimaryKeyLocationAttribute(){
+
+        return 'item_linen_location_id';
+    }
+
+    public function getPrimaryKeyProductAttribute(){
+
+        return 'item_linen_product_id';
+    }
+
     public function rent(){
         return $this->rent;
     }
@@ -106,12 +123,17 @@ class Linen extends Model
 
 	public function product(){
 
-		return $this->hasOne(Product::class, ProductFacades::getKeyName(), 'item_linen_product_id');
+		return $this->hasOne(Product::class, ProductFacades::getKeyName(), $this->getPrimaryKeyProductAttribute());
     }
     
 	public function location(){
 
-		return $this->hasOne(Location::class, LocationFacades::getKeyName(), 'item_linen_location_id');
+		return $this->hasOne(Location::class, LocationFacades::getKeyName(), $this->getPrimaryKeyLocationAttribute());
+    }
+    
+	public function company(){
+
+		return $this->hasOne(Company::class, CompanyFacades::getKeyName(), $this->getPrimaryKeyCompanyAttribute());
     }
 
 	public function user(){

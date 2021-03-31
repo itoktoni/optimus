@@ -6,7 +6,7 @@
     'aliases' => 
     array (
     ),
-    'reference' => '26d390ebc9d24761b901924f75708e9f1d712967',
+    'reference' => 'bcbf6281fd05931be94391b00d8aae0efa159c13',
     'name' => 'laravel/laravel',
   ),
   'versions' => 
@@ -539,6 +539,15 @@
       ),
       'reference' => '4a467398bae73cd16522d523b557e96f3455b9d2',
     ),
+    'kirschbaum-development/eloquent-power-joins' => 
+    array (
+      'pretty_version' => '2.3.2',
+      'version' => '2.3.2.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'd98172319faf0a4cb672c205d277d0a4c4c37333',
+    ),
     'kodova/hamcrest-php' => 
     array (
       'replaced' => 
@@ -580,7 +589,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => '26d390ebc9d24761b901924f75708e9f1d712967',
+      'reference' => 'bcbf6281fd05931be94391b00d8aae0efa159c13',
     ),
     'laravel/sanctum' => 
     array (

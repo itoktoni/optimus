@@ -228,6 +228,10 @@ class ComposerStaticInitec153ae97542422ebd7f95238a1bc36e
             'Laravel\\Telescope\\' => 18,
             'Laravel\\Sanctum\\' => 16,
         ),
+        'K' => 
+        array (
+            'Kirschbaum\\PowerJoins\\' => 22,
+        ),
         'J' => 
         array (
             'JoeDixon\\Translation\\' => 21,
@@ -606,6 +610,10 @@ class ComposerStaticInitec153ae97542422ebd7f95238a1bc36e
         'Laravel\\Sanctum\\' => 
         array (
             0 => __DIR__ . '/..' . '/laravel/sanctum/src',
+        ),
+        'Kirschbaum\\PowerJoins\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/kirschbaum-development/eloquent-power-joins/src',
         ),
         'JoeDixon\\Translation\\' => 
         array (
@@ -3578,6 +3586,14 @@ class ComposerStaticInitec153ae97542422ebd7f95238a1bc36e
         'JoeDixon\\Translation\\TranslationManager' => __DIR__ . '/..' . '/joedixon/laravel-translation/src/TranslationManager.php',
         'JoeDixon\\Translation\\TranslationServiceProvider' => __DIR__ . '/..' . '/joedixon/laravel-translation/src/TranslationServiceProvider.php',
         'JsonException' => __DIR__ . '/..' . '/symfony/polyfill-php73/Resources/stubs/JsonException.php',
+        'Kirschbaum\\PowerJoins\\EloquentJoins' => __DIR__ . '/..' . '/kirschbaum-development/eloquent-power-joins/src/EloquentJoins.php',
+        'Kirschbaum\\PowerJoins\\Mixins\\JoinRelationship' => __DIR__ . '/..' . '/kirschbaum-development/eloquent-power-joins/src/Mixins/JoinRelationship.php',
+        'Kirschbaum\\PowerJoins\\Mixins\\QueryBuilderExtraMethods' => __DIR__ . '/..' . '/kirschbaum-development/eloquent-power-joins/src/Mixins/QueryBuilderExtraMethods.php',
+        'Kirschbaum\\PowerJoins\\Mixins\\QueryRelationshipExistence' => __DIR__ . '/..' . '/kirschbaum-development/eloquent-power-joins/src/Mixins/QueryRelationshipExistence.php',
+        'Kirschbaum\\PowerJoins\\Mixins\\RelationshipsExtraMethods' => __DIR__ . '/..' . '/kirschbaum-development/eloquent-power-joins/src/Mixins/RelationshipsExtraMethods.php',
+        'Kirschbaum\\PowerJoins\\PowerJoinClause' => __DIR__ . '/..' . '/kirschbaum-development/eloquent-power-joins/src/PowerJoinClause.php',
+        'Kirschbaum\\PowerJoins\\PowerJoins' => __DIR__ . '/..' . '/kirschbaum-development/eloquent-power-joins/src/PowerJoins.php',
+        'Kirschbaum\\PowerJoins\\PowerJoinsServiceProvider' => __DIR__ . '/..' . '/kirschbaum-development/eloquent-power-joins/src/PowerJoinsServiceProvider.php',
         'Larapack\\ConfigWriter\\Facade' => __DIR__ . '/..' . '/larapack/config-writer/src/Larapack/ConfigWriter/Facade.php',
         'Larapack\\ConfigWriter\\Repository' => __DIR__ . '/..' . '/larapack/config-writer/src/Larapack/ConfigWriter/Repository.php',
         'Laravel\\Sanctum\\Contracts\\HasAbilities' => __DIR__ . '/..' . '/laravel/sanctum/src/Contracts/HasAbilities.php',
@@ -4309,10 +4325,12 @@ class ComposerStaticInitec153ae97542422ebd7f95238a1bc36e
         'Modules\\Item\\Dao\\Repositories\\CategoryRepository' => __DIR__ . '/../..' . '/Modules/Item/Dao/Repositories/CategoryRepository.php',
         'Modules\\Item\\Dao\\Repositories\\LinenRepository' => __DIR__ . '/../..' . '/Modules/Item/Dao/Repositories/LinenRepository.php',
         'Modules\\Item\\Dao\\Repositories\\ProductRepository' => __DIR__ . '/../..' . '/Modules/Item/Dao/Repositories/ProductRepository.php',
+        'Modules\\Item\\Dao\\Repositories\\ReportLinenRegisterRepository' => __DIR__ . '/../..' . '/Modules/Item/Dao/Repositories/ReportLinenRegisterRepository.php',
         'Modules\\Item\\Dao\\Repositories\\UnitRepository' => __DIR__ . '/../..' . '/Modules/Item/Dao/Repositories/UnitRepository.php',
         'Modules\\Item\\Http\\Controllers\\CategoryController' => __DIR__ . '/../..' . '/Modules/Item/Http/Controllers/CategoryController.php',
         'Modules\\Item\\Http\\Controllers\\LinenController' => __DIR__ . '/../..' . '/Modules/Item/Http/Controllers/LinenController.php',
         'Modules\\Item\\Http\\Controllers\\ProductController' => __DIR__ . '/../..' . '/Modules/Item/Http/Controllers/ProductController.php',
+        'Modules\\Item\\Http\\Controllers\\ReportController' => __DIR__ . '/../..' . '/Modules/Item/Http/Controllers/ReportController.php',
         'Modules\\Item\\Http\\Controllers\\UnitController' => __DIR__ . '/../..' . '/Modules/Item/Http/Controllers/UnitController.php',
         'Modules\\Item\\Http\\Requests\\LinenRequest' => __DIR__ . '/../..' . '/Modules/Item/Http/Requests/LinenRequest.php',
         'Modules\\Item\\Http\\Resources\\LinenCollection' => __DIR__ . '/../..' . '/Modules/Item/Http/Resources/LinenCollection.php',
@@ -4380,6 +4398,7 @@ class ComposerStaticInitec153ae97542422ebd7f95238a1bc36e
         'Modules\\System\\Http\\Services\\CreateService' => __DIR__ . '/../..' . '/Modules/System/Http/Services/CreateService.php',
         'Modules\\System\\Http\\Services\\DataService' => __DIR__ . '/../..' . '/Modules/System/Http/Services/DataService.php',
         'Modules\\System\\Http\\Services\\DeleteService' => __DIR__ . '/../..' . '/Modules/System/Http/Services/DeleteService.php',
+        'Modules\\System\\Http\\Services\\ReportService' => __DIR__ . '/../..' . '/Modules/System/Http/Services/ReportService.php',
         'Modules\\System\\Http\\Services\\ShowService' => __DIR__ . '/../..' . '/Modules/System/Http/Services/ShowService.php',
         'Modules\\System\\Http\\Services\\SingleService' => __DIR__ . '/../..' . '/Modules/System/Http/Services/SingleService.php',
         'Modules\\System\\Http\\Services\\UpdateCompanyService' => __DIR__ . '/../..' . '/Modules/System/Http/Services/UpdateCompanyService.php',
