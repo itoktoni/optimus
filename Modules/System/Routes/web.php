@@ -73,6 +73,7 @@ developer
 Route::get('dashboard', [HomeController::class, 'dashboard'])->name('home');
 Route::get('route', [HomeController::class, 'route'])->name('route');
 Route::get('console', [HomeController::class, 'console'])->name('console');
+Route::get('language', [HomeController::class, 'language'])->name('language');
 Route::get('home', [HomeController::class, 'dashboard']);
 Route::match(['get', 'post'], 'configuration', [HomeController::class, 'configuration'])->name('configuration');
 route::post('upload', function () {

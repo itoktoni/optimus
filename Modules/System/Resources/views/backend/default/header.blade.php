@@ -114,6 +114,13 @@
                         </a>
                     </li>
 
+                    <li>
+                        <a data-turbolinks="false" role="menuitem" tabindex="-1" class="header-menu" href="{{ route('language') }}">
+                            <i class="fa fa-toggle-on"></i> &nbsp;
+                            {{ __('Language') }}
+                        </a>
+                    </li>
+
                     @endif
 
                     <li class="divider"></li>

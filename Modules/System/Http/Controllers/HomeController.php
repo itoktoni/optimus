@@ -82,4 +82,9 @@ class HomeController extends Controller
         return redirect('/setting');
     }
 
+    public function language()
+    {
+        return redirect('/languages');
+    }
+
 }

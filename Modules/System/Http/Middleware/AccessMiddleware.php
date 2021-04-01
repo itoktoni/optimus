@@ -37,7 +37,7 @@ class AccessMiddleware
     public static $list_group_module;
 
     public $white_list = [
-        'home','beranda', 'dashboard', 'console', 'configuration', 'route', 'file', 'livewire', 'user', 'profile',
+        'home','beranda', 'dashboard', 'console', 'configuration', 'route', 'file', 'livewire', 'user', 'profile', 'language',
     ];
 
     public function __construct(Action $action, Module $module, ModuleConnectionAction $module_connection_action, GroupModuleConnectionModule $group_module_connection_module, GroupModuleRepository $group_module)
