@@ -23,7 +23,7 @@ class CompanyCollection extends ResourceCollection
             'data' => [
                 'total' => $this->collection->count(),
                 'rental' => collect(LinenFacades::rent())->map(function($item, $key){
-                    return ['id' => $key, 'name' => $item[0]];
+                    return ['id' => strval($key), 'name' => $item[0]];
                 })->toArray(),
                 'data' => $this->collection,
             ]
