@@ -24,8 +24,8 @@ class ReportService
         }
         else if($data->action == 'pdf'){
             $pdf = PDF::loadView(Views::pdf(config('page'), config('folder')), $repository)->setPaper('A4', 'potrait');
-            // return $pdf->download();
-            return $pdf->stream();
+            return $pdf->download();
+            // return $pdf->stream();
         }
     } 
 }
