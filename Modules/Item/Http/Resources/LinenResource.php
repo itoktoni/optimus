@@ -28,6 +28,7 @@ class LinenResource extends JsonResource
            'item_linen_rent' => $rent[$this->item_linen_rent][0] ?? '',
            'item_linen_status' => $status[$this->item_linen_status][0] ?? '',
            'item_linen_session' => $this->item_linen_session,
+           'item_linen_created_at' => $this->item_linen_created_at,
        ];
     }
 }
