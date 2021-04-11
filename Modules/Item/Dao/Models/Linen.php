@@ -63,7 +63,7 @@ class Linen extends Model
     public $searching = 'item_linen_rfid';
     public $datatable = [
         'item_linen_id' => [true => 'Code', 'width' => 50],
-        'item_linen_rfid' => [true => 'RFID', 'width' => 150],
+        'item_linen_rfid' => [true => 'RFID', 'width' => 200],
         'item_linen_product_id' => [false => 'Product Id'],
         'item_product_name' => [true => 'Product Name'],
         'item_linen_location_id' => [false => 'Location Id'],
