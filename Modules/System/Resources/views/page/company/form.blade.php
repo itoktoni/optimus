@@ -4,19 +4,19 @@
         {!! Form::text('company_name', null, ['class' => 'form-control']) !!}
         {!! $errors->first('company_name', '<p class="help-block">:message</p>') !!}
     </div>
-    {!! Form::label('company_person', 'Contact Person', ['class' => 'col-md-2 control-label']) !!}
+    {!! Form::label('company_person', __('Contact Person'), ['class' => 'col-md-2 control-label']) !!}
     <div class="col-md-4 {{ $errors->has('company_person') ? 'has-error' : ''}}">
         {!! Form::text('company_person', null, ['class' => 'form-control']) !!}
         {!! $errors->first('company_person', '<p class="help-block">:message</p>') !!}
     </div>
 </div>
 <div class="form-group">
-    {!! Form::label('company_email', 'Email', ['class' => 'col-md-2 control-label']) !!}
+    {!! Form::label('company_email', __('Email'), ['class' => 'col-md-2 control-label']) !!}
     <div class="col-md-4 {{ $errors->has('company_email') ? 'has-error' : ''}}">
         {!! Form::text('company_email', null, ['class' => 'form-control']) !!}
         {!! $errors->first('company_email', '<p class="help-block">:message</p>') !!}
     </div>
-    {!! Form::label('company_phone', 'Phone', ['class' => 'col-md-2 control-label']) !!}
+    {!! Form::label('company_phone', __('Phone'), ['class' => 'col-md-2 control-label']) !!}
     <div class="col-md-4 {{ $errors->has('company_phone') ? 'has-error' : ''}}">
         {!! Form::text('company_phone', null, ['class' => 'form-control']) !!}
         {!! $errors->first('company_phone', '<p class="help-block">:message</p>') !!}
@@ -24,13 +24,13 @@
 </div>
 
 <div class="form-group">
-    {!! Form::label('company_holding_id', 'Holding', ['class' => 'col-md-2 control-label']) !!}
+    {!! Form::label('company_holding_id', __('Holding'), ['class' => 'col-md-2 control-label']) !!}
     <div class="col-md-4 {{ $errors->has('company_holding_id') ? 'has-error' : ''}}">
         {{ Form::select('company_holding_id', $holding, null, ['class'=> 'form-control']) }}
         {!! $errors->first('company_holding_id', '<p class="help-block">:message</p>') !!}
     </div>
 
-    {!! Form::label('name', 'Logo', ['class' => 'col-md-2 control-label']) !!}
+    {!! Form::label('name', __('Logo'), ['class' => 'col-md-2 control-label']) !!}
     <div class="col-md-3" {{ $errors->has('company_logo') ? 'has-error' : ''}}">
         <input type="hidden" value="{{ $model->company_logo ?? null }}" name="company_logo">
         <input type="file" name="file"
@@ -44,13 +44,13 @@
 </div>
 
 <div class="form-group">
-    {!! Form::label('name', 'Address', ['class' => 'col-md-2 control-label']) !!}
+    {!! Form::label('name', __('Address'), ['class' => 'col-md-2 control-label']) !!}
     <div class="col-md-4">
         {!! Form::textarea('company_address', null, ['class' => 'form-control', 'rows' => '3']) !!}
         {!! $errors->first('company_address', '<p class="help-block">:message</p>') !!}
     </div>
 
-    {!! Form::label('name', 'Description', ['class' => 'col-md-2 control-label']) !!}
+    {!! Form::label('name', __('Description'), ['class' => 'col-md-2 control-label']) !!}
     <div class="col-md-4">
         {!! Form::textarea('company_description', null, ['class' => 'form-control', 'rows' => '3']) !!}
         {!! $errors->first('company_description', '<p class="help-block">:message</p>') !!}
@@ -58,7 +58,7 @@
 </div>
 @if ($action_function == 'edit')
 <div class="form-group">
-    <label class="col-md-2 control-label">Location</label>
+    <label class="col-md-2 control-label">{{ __('Location') }}</label>
     <div class="col-md-10">
         <select class="form-control input-sm mb-md" multiple name="locations[]">
             @foreach($location as $key => $value)
@@ -70,7 +70,7 @@
 </div>
 <hr>
 <div class="form-group">
-    <label class="col-md-2 control-label">Product</label>
+    <label class="col-md-2 control-label">{{ __('Product') }}</label>
     <div class="col-md-10">
         <select class="form-control input-sm mb-md" multiple name="products[]">
             @foreach($product as $key => $value)
