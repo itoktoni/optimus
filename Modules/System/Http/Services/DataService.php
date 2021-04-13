@@ -54,6 +54,17 @@ class DataService
         if ($request->has('search')) {
             $code = $request->get('code') ?? null;
             $search = $request->get('search') ?? null;
+            $check_model = $this->model->getModel();
+            $check_transform = $check_model->datatable;
+            if(isset($check_transform[$code]['status'])){
+                $status_transform = $check_transform[$code]['status'];
+                $get_transform = $check_model->{$status_transform};
+                foreach($get_transform as $key_transform => $value_transform){
+                    if(!strcasecmp($value_transform[0],$search)){
+                        $search = $key_transform;
+                    }
+                }
+            }
             $aggregate = $request->get('aggregate') ?? null;
             $search_field = empty($code) ? $this->model->getModel()->searching : $code;
             $aggregation = empty($aggregate) ? 'like' : $aggregate;
