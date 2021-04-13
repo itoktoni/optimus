@@ -115,11 +115,6 @@ class Linen extends Model
         return 'item_linen_product_id';
     }
 
-    public function setItemLinenRentAttribute($value)
-    {
-        $this->attributes['item_linen_rent'] = $value == 'Sewa' ? 1 : 2 ;
-    }
-
     public function rent(){
         return $this->rent;
     }
