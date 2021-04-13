@@ -18,7 +18,7 @@ class UpdateModuleService extends UpdateService
         'list' => 'GET', 
         'data' => 'POST', 
         'edit' => 'GET', 
-        'update' => 'GET', 
+        'update' => 'POST', 
         'delete' => 'POST', 
         'index' => 'GET', 
         'report' => 'GET',
