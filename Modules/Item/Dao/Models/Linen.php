@@ -73,7 +73,7 @@ class Linen extends Model
         'item_linen_session' => [false => 'Key'],
         'item_linen_created_at' => [true => 'Created At'],
         'item_linen_rent' => [true => 'Rental', 'width' => 50, 'class' => 'text-center', 'status' => 'rent'],
-        'item_linen_status' => [true => 'Status', 'width' => 50, 'class' => 'text-center'],
+        'item_linen_status' => [true => 'Status', 'width' => 50, 'class' => 'text-center', 'status' => 'status'],
     ];
 
     protected $casts = [
