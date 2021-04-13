@@ -71,13 +71,13 @@ class Linen extends Model
         'location_name' => [true => 'Location Name'],
         'name' => [true => 'Register By'],
         'item_linen_session' => [false => 'Key'],
-        'item_linen_created_at' => [false => 'Created'],
+        'item_linen_created_at' => [true => 'Created At'],
         'item_linen_rent' => [true => 'Rental', 'width' => 50, 'class' => 'text-center'],
         'item_linen_status' => [true => 'Status', 'width' => 50, 'class' => 'text-center'],
     ];
 
     protected $casts = [
-        'item_linen_created_at' => 'datetime:Y-m-d',
+        'item_linen_created_at' => 'datetime:Y-m-d H:i:s',
         'item_linen_updated_at' => 'datetime:Y-m-d',
         'item_linen_deleted_at' => 'datetime:Y-m-d',
         'item_linen_rent' => 'string',
