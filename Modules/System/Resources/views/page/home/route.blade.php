@@ -56,15 +56,13 @@ use Illuminate\Support\Arr;
                 <th>Name</th>
                 <th>Action</th>
                 <th>Middleware</th>
-                <th class="text-center">Readme</th>
+                <!-- <th class="text-center">Readme</th> -->
             </tr>
         </thead>
         <tbody>
 
             <?php $methodColours = ['GET' => 'success', 'HEAD' => 'default', 'POST' => 'primary', 'PUT' => 'warning', 'PATCH' => 'info', 'DELETE' => 'danger']; ?>
             @foreach ($routes as $route)
-            @php $api = isset($route->middleware()[0]) ? $route->middleware()[0] : false; @endphp
-            @if($api == 'api' && $route->getActionName() != 'Closure')
             <tr>
                 <td>
                     @foreach (array_diff($route->methods(), config('pretty-routes.hide_methods')) as $method)
@@ -80,10 +78,10 @@ use Illuminate\Support\Arr;
                 <td>
                     {{ implode(', ', $route->middleware()) }}
                 </td>
-                <td>
+                <!-- <td>
                     <button data-toggle="collapse" data-target="#collapse{{ $loop->index }}"
                         class="btn btn-secondary btn-block btn-sm">SHOW</button>
-                </td>
+                </td> -->
             </tr>
             <tr>
                 <td colspan="7">
@@ -99,7 +97,6 @@ use Illuminate\Support\Arr;
                     </div>
                 </td>
             </tr>
-            @endif
             @endforeach
         </tbody>
     </table>
