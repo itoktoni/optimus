@@ -68,13 +68,13 @@ class Views
             $data = $data->pluck($option->searching, $option->getKeyName());
         }
         if ($placeholder) {
-            $data = $data->prepend('- Select ' . Helper::getNameTable($option->getTable()) . ' -', '');
+            $data = $data->prepend(__('- Select ' . Helper::getNameTable($option->getTable()) . ' -'), '');
         }
 
         return $data;
     }
 
-    public static function status($data)
+    public static function status($data, $placeholder = false)
     {
         $status = collect($data)->map(function ($item) {
             if (is_array($item)) {
@@ -82,6 +82,9 @@ class Views
             }
             return $item;
         });
+        if ($placeholder) {
+            $status = $status->prepend(__('- Select Option -'),'');
+        }
         return $status;
     }
 }

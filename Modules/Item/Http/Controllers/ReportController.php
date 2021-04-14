@@ -37,7 +37,7 @@ class ReportController extends Controller
         $company = Views::option(new CompanyRepository());
         $user = Views::option(new TeamRepository());
         $status = Views::status(self::$model->status);
-        $rent = Views::status(self::$model->rent);
+        $rent = Views::status(self::$model->rent, true);
 
         $view = [
             'product' => $product,
