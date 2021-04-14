@@ -55,7 +55,7 @@ class ReportLinenRegisterRepository extends LinenRepository implements FromColle
         if ($to = request()->get('to')) {
             $query->whereDate('item_linen_created_at','<=', $to);
         }
-        return $query->get();
+        return $query->whereNull('item_linen_deleted_at')->get();
     }
 
     public function map($data): array
