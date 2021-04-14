@@ -43,7 +43,7 @@ class UpdateModuleService extends UpdateService
 
             foreach ($data->get('list_action') as $function) {
                 $visible = '0';
-                if (in_array($function, $this->visible) || strpos($getData->system_module_controller, 'Report') !== false) {
+                if (in_array($function, $this->visible)) {
                     $visible = '1';
                 }
 
