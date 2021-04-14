@@ -60,7 +60,7 @@ class Product extends Model
         'item_product_name' => [true => 'Name'],
         'item_product_weight' => [true => 'Weight', 'width' => 70],
         'item_product_unit_code' => [true => 'Unit', 'width' => 50],
-        'item_product_status' => [true => 'Status', 'width' => 100, 'class' => 'text-center'],
+        'item_product_status' => [true => 'Status', 'width' => 100, 'class' => 'text-center', 'status' => 'status'],
     ];
 
     protected $casts = [
