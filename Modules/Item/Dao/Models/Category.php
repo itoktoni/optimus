@@ -33,9 +33,9 @@ class Category extends Model
 
     public $searching = 'item_category_name';
     public $datatable = [
-        'item_category_id' => [true => 'Code', 'width' => 50],
+        'item_category_id' => [false => 'Code', 'width' => 50],
         'item_category_name' => [true => 'Name'],
-        'item_category_status' => [true => 'Status', 'width' => 100,'class' => 'text-center'],
+        'item_category_status' => [true => 'Status', 'width' => 100,'class' => 'text-center', 'status' => 'status'],
     ];
     
     public $status    = [

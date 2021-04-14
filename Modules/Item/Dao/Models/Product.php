@@ -53,7 +53,7 @@ class Product extends Model
 
     public $searching = 'item_product_name';
     public $datatable = [
-        'item_product_image' => [true => 'Image', 'width' => 100, 'class' => 'text-center'],
+        'item_product_image' => [false => 'Image', 'width' => 100, 'class' => 'text-center'],
         'item_product_id' => [false => 'Code', 'width' => 50],
         'item_product_sku' => [false => 'SKU', 'width' => 100],
         'item_category_name' => [true => 'Category'],
