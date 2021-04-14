@@ -24,7 +24,7 @@ class ReportLinenRegisterRepository extends LinenRepository implements FromColle
             'Register Oleh',
             'Tanggal Register',
             'Tanggal Update',
-            'Status',
+            'Rental',
         ];
     }
 
