@@ -35,7 +35,7 @@ class Holding extends Model
     public $searching = 'holding_name';
     public $datatable = [
         'holding_id' => [false => 'Code'],
-        'holding_name' => [true => 'Company Name'],
+        'holding_name' => [true => 'Holding Name'],
         'holding_person' => [true => 'Contact Person'],
         'holding_email' => [true => 'Email'],
         'holding_phone' => [true => 'Phone'],
