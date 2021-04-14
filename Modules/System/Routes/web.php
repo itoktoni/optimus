@@ -51,12 +51,13 @@ Route::group(
                     }
                 } else {
                     $cache_query = Cache::rememberForever('routing', function () {
-                        return DB::table(ActionFacades::getTable())
-                            ->where('system_action_enable', 1)
-                            ->orderBy('system_action_path')
-                            ->orderBy('system_action_function')
-                            ->orderByDesc('system_action_sort')
-                            ->get();
+                        $get_query = DB::table(ActionFacades::getTable())
+                        ->where('system_action_enable', 1)
+                        ->orderByDesc('system_action_sort')
+                        ->orderBy('system_action_path')
+                        ->orderBy('system_action_function')
+                        ->get();
+                        return $get_query;
                     });
                 }
             });

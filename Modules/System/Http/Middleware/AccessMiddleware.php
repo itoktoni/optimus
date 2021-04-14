@@ -118,7 +118,7 @@ class AccessMiddleware
         }
         session()->put(self::$username . '_group_access', $group);
         $action_list = $access->where('system_group_module_code', $group)->unique('system_action_code');
-        $menu_list = $action_list->unique('system_module_code');
+        $menu_list = $action_list->unique('system_module_code')->SortByDesc('system_module_sort');
         $action = $action_list->where('system_module_code', $module)->pluck('system_module_folder', 'system_action_function');
         // $model = $route->getController()::$model ?? false;
         // $datatable = Helper::listData($model->datatable);
