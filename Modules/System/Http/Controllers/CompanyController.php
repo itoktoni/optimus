@@ -70,7 +70,7 @@ class CompanyController extends Controller
     {
         $data = $this->get($code);
         $connection_location = $data->locations ? $data->locations->pluck('location_id')->toArray() : [];
-        $connection_product = $data->products ? $data->products->pluck('system_product_id')->toArray() : [];
+        $connection_product = $data->products ? $data->products->pluck('item_product_id')->toArray() : [];
         return view(Views::update())->with($this->share([
             'model' => $this->get($code),
             'connection_location' => $connection_location,
