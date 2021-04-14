@@ -46,6 +46,12 @@ class ReportLinenRegisterRepository extends LinenRepository implements FromColle
         if ($item_linen_product_id = request()->get('item_linen_product_id')) {
             $query->where('item_linen_product_id', $item_linen_product_id);
         }
+        if ($item_linen_created_by = request()->get('item_linen_created_by')) {
+            $query->where('item_linen_created_by', $item_linen_created_by);
+        }
+        if ($item_linen_updated_by = request()->get('item_linen_updated_by')) {
+            $query->where('item_linen_updated_by', $item_linen_updated_by);
+        }
         if ($item_linen_rent = request()->get('item_linen_rent')) {
             $query->where('item_linen_rent', $item_linen_rent);
         }
