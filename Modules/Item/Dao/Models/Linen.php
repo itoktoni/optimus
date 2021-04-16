@@ -49,6 +49,7 @@ class Linen extends Model
         'item_linen_company_id' => 'required|exists:system_company,company_id',
         'item_linen_product_id' => 'required|exists:item_product,item_product_id',
         'item_linen_rent' => 'required|in:1,2',
+        'item_linen_status' => 'required|in:1,2',
         'item_linen_rfid' => 'required|unique:item_linen',
     ];
 
@@ -78,8 +79,8 @@ class Linen extends Model
 
     protected $casts = [
         'item_linen_created_at' => 'datetime:Y-m-d H:i:s',
-        'item_linen_updated_at' => 'datetime:Y-m-d',
-        'item_linen_deleted_at' => 'datetime:Y-m-d',
+        'item_linen_updated_at' => 'datetime:Y-m-d H:i:s',
+        'item_linen_deleted_at' => 'datetime:Y-m-d H:i:s',
         'item_linen_rent' => 'string',
     ];
 
@@ -91,8 +92,7 @@ class Linen extends Model
     
     public $status    = [
         '1' => ['Baik', 'info'],
-        '0' => ['Rusak', 'danger'],
-        '' => ['Unset', 'default'],
+        '2' => ['Rusak', 'danger'],
     ];
 
     public $rent    = [

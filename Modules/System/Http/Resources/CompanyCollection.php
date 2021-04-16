@@ -25,6 +25,9 @@ class CompanyCollection extends ResourceCollection
                 'rental' => collect(LinenFacades::rent())->map(function($item, $key){
                     return ['id' => strval($key), 'name' => $item[0]];
                 })->toArray(),
+                'status' => collect(LinenFacades::status())->map(function($item, $key){
+                    return ['id' => strval($key), 'name' => $item[0]];
+                })->toArray(),
                 'data' => $this->collection,
             ]
         ];

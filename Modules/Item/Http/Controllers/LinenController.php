@@ -82,6 +82,7 @@ class LinenController extends Controller
                 $check->item_linen_location_id = $request->item_linen_location_id;
                 $check->item_linen_location_id = $request->item_linen_location_id;
                 $check->item_linen_rent = $request->item_linen_rent;
+                $check->item_linen_status = $request->item_linen_status;
                 $check->item_linen_company_id = $request->item_linen_company_id;
                 $check->item_linen_product_id = $request->item_linen_product_id;
                 $check->save();
