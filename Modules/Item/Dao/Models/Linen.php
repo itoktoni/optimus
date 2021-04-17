@@ -74,7 +74,7 @@ class Linen extends Model
         'item_linen_session' => [false => 'Key'],
         'item_linen_created_at' => [true => 'Created At'],
         'item_linen_rent' => [true => 'Rental', 'width' => 50, 'class' => 'text-center', 'status' => 'rent'],
-        'item_linen_status' => [true => 'Status', 'width' => 100, 'class' => 'text-center', 'status' => 'status'],
+        'item_linen_status' => [true => 'Status', 'width' => 150, 'class' => 'text-center', 'status' => 'status'],
     ];
 
     protected $casts = [
@@ -92,7 +92,7 @@ class Linen extends Model
     
     public $status    = [
         '1' => ['Register Baru', 'info'],
-        '2' => ['Ganti Chip (Rusak)', 'danger'],
+        '2' => ['Ganti chip rusak atau hilang', 'danger'],
     ];
 
     public $rent    = [
