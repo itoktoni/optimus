@@ -64,7 +64,7 @@ class Linen extends Model
     public $searching = 'item_linen_rfid';
     public $datatable = [
         'item_linen_id' => [false => 'Code', 'width' => 50],
-        'item_linen_rfid' => [true => 'RFID', 'width' => 200],
+        'item_linen_rfid' => [true => 'No. Seri RFID', 'width' => 200],
         'item_linen_product_id' => [false => 'Product Id'],
         'item_product_name' => [true => 'Product Name'],
         'item_linen_location_id' => [false => 'Location Id'],
@@ -74,7 +74,7 @@ class Linen extends Model
         'item_linen_session' => [false => 'Key'],
         'item_linen_created_at' => [true => 'Created At'],
         'item_linen_rent' => [true => 'Rental', 'width' => 50, 'class' => 'text-center', 'status' => 'rent'],
-        'item_linen_status' => [true => 'Status', 'width' => 50, 'class' => 'text-center', 'status' => 'status'],
+        'item_linen_status' => [true => 'Status', 'width' => 100, 'class' => 'text-center', 'status' => 'status'],
     ];
 
     protected $casts = [
@@ -91,13 +91,13 @@ class Linen extends Model
     ];
     
     public $status    = [
-        '1' => ['Baik', 'info'],
-        '2' => ['Rusak', 'danger'],
+        '1' => ['Register Baru', 'info'],
+        '2' => ['Ganti Chip (Rusak)', 'danger'],
     ];
 
     public $rent    = [
-        '1' => ['Sewa', 'success'],
-        '2' => ['Laundry', 'primary'],
+        '1' => ['Rental', 'success'],
+        '2' => ['Cuci', 'primary'],
     ];
 
     public function getPrimaryKeyCompanyAttribute(){
@@ -141,5 +141,16 @@ class Linen extends Model
 	public function user(){
 
 		return $this->hasOne(User::class, TeamFacades::getKeyName(), self::CREATED_BY);
+    }
+
+    public static function boot()
+    {
+        parent::boot();
+        parent::saving(function ($model) {
+
+            if(empty($model->item_linen_status)){
+                $model->item_linen_status = 1;
+            }
+        });
     }
 }

@@ -150,7 +150,7 @@ class AccessMiddleware
             'route_delete' => $module . '_delete',
             'route_source' => $module . '_source',
         ]);
-        config()->set('page', $template);
+        config()->set('page', strtolower($template));
         config()->set('module', $module);
         config()->set('folder', !empty($folder) ? ucfirst($folder) : null);
         config()->set('action', $action->toArray());

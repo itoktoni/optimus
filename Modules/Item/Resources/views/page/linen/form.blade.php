@@ -24,7 +24,7 @@
         {!! $errors->first('item_linen_product_id', '<p class="help-block">:message</p>') !!}
     </div>
 
-    {!! Form::label('name', __('RFID'), ['class' => 'col-md-2 control-label']) !!}
+    {!! Form::label('name', __('No. Seri RFID'), ['class' => 'col-md-2 control-label']) !!}
     <div class="col-md-4 {{ $errors->has('item_linen_rfid') ? 'has-error' : ''}}">
         {!! Form::text('item_linen_rfid', null, ['class' => 'form-control']) !!}
         {!! $errors->first('item_linen_rfid', '<p class="help-block">:message</p>') !!}
