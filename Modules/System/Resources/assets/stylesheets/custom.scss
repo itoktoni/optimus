@@ -1,5 +1,16 @@
 
 
+.has-error{
+
+  .chosen-single {
+    border: 1px solid #a94442 !important;
+  }
+  
+  .chosen-choices{
+    border: 1px solid #a94442 !important;
+  }
+} 
+
 .form-horizontal .control-label {
   background-color: #E1E1E1;
   padding: 6px 10px 6px 5px;

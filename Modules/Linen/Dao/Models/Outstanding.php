@@ -1,0 +1,163 @@
+<?php
+
+namespace Modules\Linen\Dao\Models;
+
+use Illuminate\Database\Eloquent\Model;
+use Modules\Item\Dao\Facades\LinenFacades;
+use Modules\System\Dao\Facades\CompanyFacades;
+use Modules\System\Dao\Facades\LocationFacades;
+use Wildside\Userstamps\Userstamps;
+
+class Outstanding extends Model
+{
+    use Userstamps;
+
+    protected $table = 'linen_outstanding';
+    protected $primaryKey = 'linen_outstanding_id';
+
+    protected $fillable = [
+        'linen_outstanding_id',
+        'linen_outstanding_rfid',
+        'linen_outstanding_status',
+        'linen_outstanding_created_at',
+        'linen_outstanding_updated_at',
+        'linen_outstanding_deleted_at',
+        'linen_outstanding_updated_by',
+        'linen_outstanding_created_by',
+        'linen_outstanding_deleted_by',
+        'linen_outstanding_session',
+        'linen_outstanding_scan_location_id',
+        'linen_outstanding_scan_location_name',
+        'linen_outstanding_scan_company_id',
+        'linen_outstanding_scan_company_name',
+        'linen_outstanding_product_id',
+        'linen_outstanding_product_name',
+        'linen_outstanding_ori_location_id',
+        'linen_outstanding_ori_location_name',
+        'linen_outstanding_ori_company_id',
+        'linen_outstanding_ori_company_name',
+        'linen_outstanding_description',
+    ];
+
+    // public $with = ['module'];
+
+    public $timestamps = true;
+    public $incrementing = true;
+    public $rules = [
+        'linen_outstanding_rfid' => 'required|exists:item_linen,item_linen_rfid|unique:linen_outstanding',
+        'linen_outstanding_scan_location_id' => 'required',
+        'linen_outstanding_scan_company_id' => 'required',
+    ];
+
+    const CREATED_AT = 'linen_outstanding_created_at';
+    const UPDATED_AT = 'linen_outstanding_updated_at';
+    const DELETED_AT = 'linen_outstanding_deleted_at';
+
+    const CREATED_BY = 'linen_outstanding_created_by';
+    const UPDATED_BY = 'linen_outstanding_updated_by';
+    const DELETED_BY = 'linen_outstanding_deleted_by';
+
+    protected $casts = [
+        'linen_outstanding_created_at' => 'datetime:Y-m-d H:i:s',
+        'linen_outstanding_updated_at' => 'datetime:Y-m-d H:i:s',
+        'linen_outstanding_deleted_at' => 'datetime:Y-m-d H:i:s',
+        'linen_outstanding_status' => 'string',
+        'linen_outstanding_description' => 'string',
+    ];
+
+    protected $dates = [
+        'linen_outstanding_created_at',
+        'linen_outstanding_updated_at',
+        'linen_outstanding_deleted_at',
+    ];
+
+    public $searching = 'linen_outstanding_rfid';
+    public $datatable = [
+        'linen_outstanding_id' => [false => 'Code', 'width' => 50],
+        'linen_outstanding_rfid' => [true => 'No. Seri RFID', 'width' => 180],
+        'linen_outstanding_product_name' => [true => 'Product'],
+        'linen_outstanding_scan_company_name' => [true => 'Scan Rumah sakit'],
+        'linen_outstanding_scan_location_name' => [true => 'Scan Location'],
+        'linen_outstanding_ori_company_name' => [true => 'Original Company'],
+        'linen_outstanding_ori_location_name' => [true => 'Original Location'],
+        'linen_outstanding_session' => [false => 'Session'],
+        'linen_outstanding_created_at' => [false => 'Created At'],
+        'linen_outstanding_created_by' => [false => 'Created By'],
+        'linen_outstanding_created_name' => [false => 'Created Name'],
+        'linen_outstanding_status' => [true => 'Status', 'width' => 50, 'class' => 'text-center', 'status' => 'status'],
+        'linen_outstanding_description' => [true => 'Description', 'width' => 100, 'class' => 'text-center', 'status' => 'status'],
+    ];
+
+    public $status = [
+        '1' => ['Sync', 'success'],
+        '2' => ['Gate', 'info'],
+        '3' => ['Done', 'primary'],
+        '4' => ['Pending', 'warning'],
+        '5' => ['Hilang', 'danger'],
+    ];
+
+    public $description = [
+        '1' => ['OK', 'success'],
+        '2' => ['Beda Rumah Sakit', 'info'],
+        '3' => ['Beda Lokasi', 'info'],
+    ];
+
+    public function description(){
+        return $this->description;
+    }
+
+    public function status(){
+        return $this->status;
+    }
+
+    public static function boot()
+    {
+        parent::boot();
+        parent::saving(function ($model) {
+            $linen = LinenFacades::where('item_linen_rfid', $model->linen_outstanding_rfid)->first();
+
+            $model->linen_outstanding_created_name = auth()->user()->name ?? '';
+
+            $model->linen_outstanding_product_id = $linen->item_linen_product_id;
+            $model->linen_outstanding_product_name = $linen->product->item_product_name ?? '';
+
+            $model->linen_outstanding_ori_company_id = $linen->item_linen_company_id;
+            $model->linen_outstanding_ori_company_name = $linen->company->company_name ?? '';
+
+            $model->linen_outstanding_ori_location_id = $linen->item_linen_location_id;
+            $model->linen_outstanding_ori_location_name = $linen->location->location_name ?? '';
+
+            $company = CompanyFacades::find($model->linen_outstanding_scan_company_id);
+            $model->linen_outstanding_scan_company_name = $company->company_name ?? '';
+
+            $location = LocationFacades::find($model->linen_outstanding_scan_location_id);
+            $model->linen_outstanding_scan_location_name = $location->location_name ?? '';
+
+            if ($model->linen_outstanding_scan_company_id == $linen->item_linen_company_id && $linen->item_linen_location_id == $model->linen_outstanding_scan_location_id) {
+
+                $model->linen_outstanding_description = 1;
+            } else if ($model->linen_outstanding_scan_company_id != $linen->item_linen_company_id) {
+
+                $model->linen_outstanding_description = 2;
+            } else {
+
+                $model->linen_outstanding_description = 3;
+            }
+
+        });
+        parent::creating(function ($model) {
+
+            $model->linen_outstanding_status = 1;
+        });
+    }
+
+    public function getStatusAttribute($value)
+    {
+        return $this->status[$value][0];
+    }
+
+    public function getDescriptionAttribute($value)
+    {
+        return $this->description()[$value][0];
+    }
+}

@@ -59,25 +59,27 @@
 @if ($action_function == 'edit')
 <div class="form-group">
     <label class="col-md-2 control-label">{{ __('Location') }}</label>
-    <div class="col-md-10">
+    <div class="col-md-10 {{ $errors->has('locations') ? 'has-error' : ''}}">
         <select class="form-control input-sm mb-md" multiple name="locations[]">
             @foreach($location as $key => $value)
             <option {{ in_array($key, $connection_location) ? 'selected' : '' }} value="{{ $key }}">
                 {{ $value }}</option>
             @endforeach
         </select>
+        {!! $errors->first('locations', '<p class="help-block">:message</p>') !!}
     </div>
 </div>
 <hr>
 <div class="form-group">
     <label class="col-md-2 control-label">{{ __('Product') }}</label>
-    <div class="col-md-10">
+    <div class="col-md-10 {{ $errors->has('products') ? 'has-error' : ''}}">
         <select class="form-control input-sm mb-md" multiple name="products[]">
             @foreach($product as $key => $value)
             <option {{ in_array($key, $connection_product) ? 'selected' : '' }} value="{{ $key }}">
                 {{ $value }}</option>
             @endforeach
         </select>
+        {!! $errors->first('products', '<p class="help-block">:message</p>') !!}
     </div>
 </div>
 @endif

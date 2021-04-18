@@ -82,6 +82,7 @@ class Linen extends Model
         'item_linen_updated_at' => 'datetime:Y-m-d H:i:s',
         'item_linen_deleted_at' => 'datetime:Y-m-d H:i:s',
         'item_linen_rent' => 'string',
+        'item_linen_status' => 'string',
     ];
 
     protected $dates = [

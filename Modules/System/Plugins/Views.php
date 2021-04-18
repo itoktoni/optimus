@@ -87,4 +87,14 @@ class Views
         }
         return $status;
     }
+
+    public static function createStatus($value, $option = false)
+    {
+        $color = 'default';
+        $label = 'Unknows';
+
+        $label = $option[$value][0] ?? $label;
+        $color = $option[$value][1] ?? $color;
+        return '<span class="btn btn-xs btn-block btn-' . $color . '">' . $label . '</span>';
+    }
 }
