@@ -235,11 +235,11 @@ use Illuminate\Support\Collection;
                     <table class="table table-bordered mt-3">
                         <thead>
                             <tr>
-                                <th scope="col" colspan="4">Available fields</th>
+                                <th scope="col" colspan="3">Available fields</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach(collect($model->getFillable())->chunk(4) as $fields)
+                            @foreach(collect($model->getFillable())->chunk(3) as $fields)
                             <tr>
                                 @foreach($fields as $field)
                                 <td>
@@ -290,11 +290,11 @@ use Illuminate\Support\Collection;
                     <table class="table table-bordered mt-3">
                         <thead>
                             <tr>
-                                <th scope="col" colspan="4">Available fields</th>
+                                <th scope="col" colspan="3">Available fields</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach(collect($model->getFillable())->chunk(4) as $fields)
+                            @foreach(collect($model->getFillable())->chunk(3) as $fields)
                             <tr>
                                 @foreach($fields as $field)
                                 <td>
@@ -495,11 +495,11 @@ use Illuminate\Support\Collection;
                     <table class="table table-bordered mt-3">
                         <thead>
                             <tr>
-                                <th scope="col" colspan="4">Available fields</th>
+                                <th scope="col" colspan="3">Available fields</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach(collect($model->getFillable())->chunk(4) as $fields)
+                            @foreach(collect($model->getFillable())->chunk(3) as $fields)
                             <tr>
                                 @foreach($fields as $field)
                                 <td>
