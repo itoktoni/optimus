@@ -18,7 +18,7 @@ use Modules\System\Dao\Models\Company;
 
 class Linen extends Model
 {
-    use SoftDeletes, Userstamps;
+    use Userstamps;
     protected $table = 'item_linen';
     protected $primaryKey = 'item_linen_id';
 
