@@ -513,6 +513,126 @@ use Illuminate\Support\Collection;
 
                     @break
 
+                    
+                    @case('batch')
+
+
+                    <table class="table table-bordered mt-3">
+                        <thead>
+                            <tr>
+                               <th colspan="2">
+                                    <h4>Create Data</h4>
+                               </th> 
+                            </tr>
+                            <tr>
+                                <th scope="col">Mandatory</th>
+                                <th scope="col">Validation</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($model->rules as $key => $rules)
+
+                            <tr>
+                                <td>
+                                    <code>{{ $key }}</code>
+                                </td>
+                                <td>
+                                    {{ Str::of($rules)->replace('|', ' & ')->replace(':', ' : ') }}
+                                </td>
+                            </tr>
+
+                            @endforeach
+
+                            <tr>
+                                <td>
+                                    <code>data</code>
+                                </td>
+                                <td>
+                                    required, example : <code>{ "FRID-XXX-000-1" , "FRID-XXX-000-2", "FRID-XXX-000-3" }</code>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td colspan="2">
+                                    masukan data session <code>{ "linen_outstanding_session" : "xxxx" }</code> jika ingin
+                                    membuat sesi 1x scan
+                                </td>
+                            </tr>
+
+                        </tbody>
+
+                        <thead>
+                            <tr>
+                               <th colspan="2">
+                                    <h4>Update Data</h4>
+                               </th> 
+                            </tr>
+                            <tr>
+                                <th scope="col">Mandatory</th>
+                                <th scope="col">Validation</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            
+                            <tr>
+                                <td>
+                                    <code>linen_outstanding_status</code>
+                                </td>
+                                <td>
+                                    required & in : 1,2,3
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    <code>data</code>
+                                </td>
+                                <td>
+                                    required, example : <code>{ "FRID-XXX-000-1" , "FRID-XXX-000-2", "FRID-XXX-000-3" }</code>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td colspan="2">
+                                    masukan data type <code>{ "type" : "update" }</code> jika data ingin di update
+                                    ketika data dikirim
+                                </td>
+
+                            </tr>
+
+                            <tr>
+                                <td colspan="2">
+                                    masukan data session <code>{ "linen_outstanding_session" : "xxxx" }</code> jika ingin
+                                    membuat sesi 1x scan
+                                </td>
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                    <table class="table table-bordered mt-3">
+                        <thead>
+                            <tr>
+                                <th scope="col" colspan="3">Available fields</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach(collect($model->getFillable())->chunk(3) as $fields)
+                            <tr>
+                                @foreach($fields as $field)
+                                <td>
+                                    <code>{{ $field }}</code>
+                                </td>
+                                @endforeach
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+
+                    @break
+
 
                     @default
                     please contact admin for documentation

@@ -19,7 +19,7 @@ class OutstandingBatchRequest extends GeneralRequest
 
     public function prepareForValidation()
     {
-        if (!request()->has('update')) {
+        if (request()->get('type') != 'update') {
 
             $company = CompanyFacades::find($this->linen_outstanding_scan_company_id);
             $location = LocationFacades::find($this->linen_outstanding_scan_location_id);
@@ -27,6 +27,7 @@ class OutstandingBatchRequest extends GeneralRequest
             $status = $this->linen_outstanding_status;
 
             $linen = LinenFacades::dataRepository()->whereIn('item_linen_rfid', $this->data)->get();
+            
             if ($linen) {
                 $linen = $linen->mapWithKeys(function ($data_linen) {
                     return [$data_linen['item_linen_rfid'] => $data_linen];
@@ -67,6 +68,7 @@ class OutstandingBatchRequest extends GeneralRequest
                             'linen_outstanding_description' => 1,
                         ]);
                     }
+
                     $data = array_merge($data, [
                         'linen_outstanding_product_id' => $slinen->item_linen_product_id ?? '',
                         'linen_outstanding_product_name' => $slinen->product->item_product_name ?? '',
@@ -83,6 +85,7 @@ class OutstandingBatchRequest extends GeneralRequest
                 }
 
                 return [$item => $data];
+
             })->toArray();
 
             $this->merge([
@@ -102,12 +105,13 @@ class OutstandingBatchRequest extends GeneralRequest
 
     public function rules()
     {
-        if (request()->has('update')) {
+        if (request()->get('type') == 'update') {
 
             return [
                 'linen_outstanding_status' => 'required|in:1,2,3',
                 'data.*' => 'required|exists:item_linen,item_linen_rfid',
             ];
+
         } else {
 
             return [

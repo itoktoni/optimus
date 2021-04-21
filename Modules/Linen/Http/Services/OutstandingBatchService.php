@@ -33,7 +33,7 @@ class OutstandingBatchService
         $where = $data->data;
         $update = $data->all();
         unset($update['data']);
-        unset($update['update']);
+        unset($update['type']);
         $pull = $repository->WhereIn('linen_outstanding_rfid', $where);
         $check = $pull->update($update);
         if ($check) {
@@ -41,9 +41,13 @@ class OutstandingBatchService
                 $notes = Notes::update($data->all());
                 return response()->json($notes)->getData();
             }
+            
             Alert::update();
+
         } else {
-            Alert::error($check['data']);
+
+            return Notes::error($data);
+            Alert::error($data);
         }
         return $check;
     }

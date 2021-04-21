@@ -44,9 +44,9 @@ class Outstanding extends Model
     public $timestamps = true;
     public $incrementing = true;
     public $rules = [
-        'linen_outstanding_rfid' => 'required|exists:item_linen,item_linen_rfid|unique:linen_outstanding',
-        'linen_outstanding_scan_location_id' => 'required',
-        'linen_outstanding_scan_company_id' => 'required',
+        'linen_outstanding_scan_company_id' => 'required|exists:system_company,company_id',
+        'linen_outstanding_scan_location_id' => 'required|exists:system_location,location_id',
+        'linen_outstanding_session' => 'required',
     ];
 
     const CREATED_AT = 'linen_outstanding_created_at';

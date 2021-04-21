@@ -50,6 +50,7 @@ class OutstandingController extends Controller
             'location' => $location,
             'company' => $company,
         ];
+        
         return array_merge($view, $data);
     }
 
@@ -79,7 +80,7 @@ class OutstandingController extends Controller
 
     public function batch(OutstandingBatchRequest $request, OutstandingBatchService $service)
     {
-        if(request()->has('update')){
+        if(request()->get('type') == 'update'){
 
             $data = $service->update(self::$model, $request);
 
