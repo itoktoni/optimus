@@ -5,12 +5,17 @@ namespace Modules\Linen\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Modules\Item\Dao\Repositories\ProductRepository;
 use Modules\Linen\Dao\Repositories\OutstandingRepository;
+use Modules\Linen\Http\Requests\OutstandingBatchRequest;
+use Modules\Linen\Http\Requests\OutstandingMasterRequest;
+use Modules\Linen\Http\Requests\OutstandingPatchRequest;
+use Modules\Linen\Http\Services\OutstandingBatchService;
 use Modules\Linen\Http\Services\OutstandingDataService;
+use Modules\Linen\Http\Services\OutstandingMasterService;
+use Modules\Linen\Http\Services\OutstandingPatchService;
 use Modules\System\Dao\Repositories\CompanyRepository;
 use Modules\System\Dao\Repositories\LocationRepository;
 use Modules\System\Http\Requests\GeneralRequest;
 use Modules\System\Http\Services\CreateService;
-use Modules\System\Http\Services\DataService;
 use Modules\System\Http\Services\DeleteService;
 use Modules\System\Http\Services\SingleService;
 use Modules\System\Http\Services\UpdateService;
@@ -63,6 +68,27 @@ class OutstandingController extends Controller
     public function save(GeneralRequest $request, CreateService $service)
     {
         $data = $service->save(self::$model, $request);
+        return Response::redirectBack($data);
+    }
+
+    public function master(OutstandingMasterRequest $request, OutstandingMasterService $service)
+    {
+        $data = $service->save(self::$model, $request);
+        return Response::redirectBack($data);
+    }
+
+    public function batch(OutstandingBatchRequest $request, OutstandingBatchService $service)
+    {
+        if(request()->has('update')){
+
+            $data = $service->update(self::$model, $request);
+
+        }
+        else{
+
+            $data = $service->save(self::$model, $request);
+        }
+
         return Response::redirectBack($data);
     }
 

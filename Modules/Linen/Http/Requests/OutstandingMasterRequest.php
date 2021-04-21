@@ -1,11 +1,11 @@
 <?php
 
-namespace Modules\Outstanding\Http\Requests;
+namespace Modules\Linen\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Modules\System\Http\Requests\GeneralRequest;
 
-class OutstandingRequest extends GeneralRequest
+class OutstandingMasterRequest extends GeneralRequest
 {
     /**
      * Get the validation rules that apply to the request.
@@ -31,11 +31,19 @@ class OutstandingRequest extends GeneralRequest
 
     public function rules()
     {
-        return [
-            'linen_linen_rfid' => 'required',
-            'linen_linen_location_id' => 'required|exists:system_location,location_id',
-            'linen_linen_product_id' => 'required|exists:linen_product,linen_product_id',
-            'linen_linen_rent' => 'required',
-        ];
+        if (request()->has('create')) {
+
+            return [
+                'linen_master_outstanding_total' => 'required',
+                'linen_master_outstanding_session' => 'required|unique:linen_master_outstanding',
+            ];
+        }
+        else{
+
+            return [
+                'linen_master_outstanding_total' => 'required',
+                'linen_master_outstanding_session' => 'required',
+            ];
+        }
     }
 }

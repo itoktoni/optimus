@@ -22,7 +22,10 @@ class UpdateModuleService extends UpdateService
         'delete' => 'POST', 
         'index' => 'GET', 
         'report' => 'GET',
-        'show' => 'GET'
+        'show' => 'GET',
+        'patch' => 'POST',
+        'master' => 'POST',
+        'batch' => 'POST',
     ];
 
     public $api = [
@@ -31,6 +34,9 @@ class UpdateModuleService extends UpdateService
         'update' => 1,
         'delete' => 1,
         'get' => 1,
+        'patch' => 1,
+        'master' => 1,
+        'batch' => 1,
     ];
 
     public function update(CrudInterface $repository, $data, $code)

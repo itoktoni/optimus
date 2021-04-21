@@ -3,6 +3,7 @@
 namespace Modules\Linen\Dao\Repositories;
 
 use Illuminate\Database\QueryException;
+use Modules\Linen\Dao\Models\MasterOutstanding;
 use Modules\Linen\Dao\Models\Outstanding;
 use Modules\System\Dao\Interfaces\CrudInterface;
 use Modules\System\Plugins\Helper;
@@ -20,6 +21,26 @@ class OutstandingRepository extends Outstanding implements CrudInterface
     {
         try {
             $activity = $this->create($request);
+            return Notes::create($activity);
+        } catch (QueryException $ex) {
+            return Notes::error($ex->getMessage());
+        }
+    }
+
+    public function BatchRepository($request)
+    {
+        try {
+            $activity = $this->insert($request);
+            return Notes::create($activity);
+        } catch (QueryException $ex) {
+            return Notes::error($ex->getMessage());
+        }
+    }
+
+    public function masterRepository($request)
+    {
+        try {
+            $activity = MasterOutstanding::create($request);
             return Notes::create($activity);
         } catch (QueryException $ex) {
             return Notes::error($ex->getMessage());

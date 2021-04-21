@@ -85,7 +85,7 @@ class Outstanding extends Model
         'linen_outstanding_created_by' => [false => 'Created By'],
         'linen_outstanding_created_name' => [false => 'Created Name'],
         'linen_outstanding_status' => [true => 'Status', 'width' => 50, 'class' => 'text-center', 'status' => 'status'],
-        'linen_outstanding_description' => [true => 'Description', 'width' => 100, 'class' => 'text-center', 'status' => 'status'],
+        'linen_outstanding_description' => [true => 'Description', 'width' => 100, 'class' => 'text-center', 'status' => 'description'],
     ];
 
     public $status = [
@@ -102,11 +102,13 @@ class Outstanding extends Model
         '3' => ['Beda Lokasi', 'info'],
     ];
 
-    public function description(){
+    public function description()
+    {
         return $this->description;
     }
 
-    public function status(){
+    public function status()
+    {
         return $this->status;
     }
 
@@ -115,17 +117,19 @@ class Outstanding extends Model
         parent::boot();
         parent::saving(function ($model) {
             $linen = LinenFacades::where('item_linen_rfid', $model->linen_outstanding_rfid)->first();
+            if ($linen) {
+
+                $model->linen_outstanding_product_id = $linen->item_linen_product_id;
+                $model->linen_outstanding_product_name = $linen->product->item_product_name ?? '';
+
+                $model->linen_outstanding_ori_company_id = $linen->item_linen_company_id;
+                $model->linen_outstanding_ori_company_name = $linen->company->company_name ?? '';
+
+                $model->linen_outstanding_ori_location_id = $linen->item_linen_location_id;
+                $model->linen_outstanding_ori_location_name = $linen->location->location_name ?? '';
+            }
 
             $model->linen_outstanding_created_name = auth()->user()->name ?? '';
-
-            $model->linen_outstanding_product_id = $linen->item_linen_product_id;
-            $model->linen_outstanding_product_name = $linen->product->item_product_name ?? '';
-
-            $model->linen_outstanding_ori_company_id = $linen->item_linen_company_id;
-            $model->linen_outstanding_ori_company_name = $linen->company->company_name ?? '';
-
-            $model->linen_outstanding_ori_location_id = $linen->item_linen_location_id;
-            $model->linen_outstanding_ori_location_name = $linen->location->location_name ?? '';
 
             $company = CompanyFacades::find($model->linen_outstanding_scan_company_id);
             $model->linen_outstanding_scan_company_name = $company->company_name ?? '';
@@ -136,9 +140,11 @@ class Outstanding extends Model
             if ($model->linen_outstanding_scan_company_id == $linen->item_linen_company_id && $linen->item_linen_location_id == $model->linen_outstanding_scan_location_id) {
 
                 $model->linen_outstanding_description = 1;
+
             } else if ($model->linen_outstanding_scan_company_id != $linen->item_linen_company_id) {
 
                 $model->linen_outstanding_description = 2;
+
             } else {
 
                 $model->linen_outstanding_description = 3;
