@@ -632,6 +632,62 @@ use Illuminate\Support\Collection;
 
                     @break
 
+                    @case('master')
+
+
+                    <table class="table table-bordered mt-3">
+                        <thead>
+                            <tr>
+                                <th scope="col">Mandatory</th>
+                                <th scope="col">Validation</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($model->rules as $key => $rules)
+
+                            <tr>
+                                <td>
+                                    <code>{{ $key }}</code>
+                                </td>
+                                <td>
+                                    {{ Str::of($rules)->replace('|', ' & ')->replace(':', ' : ') }}
+                                </td>
+                            </tr>
+
+                            @endforeach
+
+                            <tr>
+                                <td colspan="2">
+                                    masukan data session <code>{ "linen_outstanding_session" : "xxxx" }</code> jika ingin
+                                    membuat sesi 1x scan
+                                </td>
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                    <table class="table table-bordered mt-3">
+                        <thead>
+                            <tr>
+                                <th scope="col" colspan="3">Available fields</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach(collect($model->getFillable())->chunk(3) as $fields)
+                            <tr>
+                                @foreach($fields as $field)
+                                <td>
+                                    <code>{{ $field }}</code>
+                                </td>
+                                @endforeach
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+
+                    @break
+
 
                     @default
                     please contact admin for documentation
@@ -673,6 +729,27 @@ use Illuminate\Support\Collection;
                         @break
 
                         @case('save')
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h4>
+                                                Response <code>[ Berhasil ]</code>
+                                            </h4>
+                                        </div>
+                                        <div class="card-body">
+
+                                            <pre><code>{{ json_encode(Notes::create($json), JSON_PRETTY_PRINT) }}</code></pre>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        @break
+
+                        @case('master')
                         <div class="container">
                             <div class="row">
                                 <div class="col-md-12">
