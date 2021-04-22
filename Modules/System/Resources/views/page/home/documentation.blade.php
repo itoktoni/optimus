@@ -402,7 +402,7 @@ use Illuminate\Support\Collection;
                                     untuk multiple delete kita bisa memasukan array code
                                     <code>
                                     {
-                                        "code" : "1", "2", "3"
+                                        "code" : ["1", "2", "3"]
                                     }
                                     </code>
                                 </td>
@@ -547,7 +547,7 @@ use Illuminate\Support\Collection;
                                     <code>data</code>
                                 </td>
                                 <td>
-                                    required, example : <code>{ "FRID-XXX-000-1" , "FRID-XXX-000-2", "FRID-XXX-000-3" }</code>
+                                    required, example : <code>{ "data" : ["FRID-000-1" , "FRID-000-2", "FRID-000-3"] }</code>
                                 </td>
                             </tr>
 
@@ -588,7 +588,7 @@ use Illuminate\Support\Collection;
                                     <code>data</code>
                                 </td>
                                 <td>
-                                    required, example : <code>{ "FRID-XXX-000-1" , "FRID-XXX-000-2", "FRID-XXX-000-3" }</code>
+                                    required, example : <code>{ "data" : ["FRID-000-1" , "FRID-000-2", "FRID-000-3"] }</code>
                                 </td>
                             </tr>
 
