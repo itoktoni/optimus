@@ -267,7 +267,7 @@ use Illuminate\Support\Collection;
                                     <code>code</code>
                                 </td>
                                 <td>
-                                    masukan parameter <code>{ code : 'example' }</code> untuk di jadikan primary key
+                                    masukan parameter <code>{ "code" : "example" }</code> untuk di jadikan primary key
                                 </td>
                             </tr>
                             @foreach($model->rules as $key => $rules)
@@ -391,7 +391,7 @@ use Illuminate\Support\Collection;
                                     <code>code (int or string)</code>
                                 </td>
                                 <td>
-                                    untuk delete data kita bisa mengirim parameter <code>{  code : 'example'  }</code>
+                                    untuk delete data kita bisa mengirim parameter <code>{ "code" : "example"  }</code>
                                 </td>
                             </tr>
                             <tr>
@@ -401,10 +401,9 @@ use Illuminate\Support\Collection;
                                 <td>
                                     untuk multiple delete kita bisa memasukan array code
                                     <code>
-                                    [
-                                        code : 1,
-                                        code : 2
-                                    ]
+                                    {
+                                        "code" : "1", "2", "3"
+                                    }
                                     </code>
                                 </td>
                             </tr>
