@@ -2,6 +2,7 @@
 
 namespace Modules\Linen\Http\Services;
 
+use Modules\Linen\Dao\Facades\MasterOutstandingFacades;
 use Modules\System\Plugins\Alert;
 use Modules\System\Plugins\Notes;
 
@@ -12,6 +13,21 @@ class OutstandingBatchService
         $check = false;
         try {
             $check = $repository->batchRepository($data->detail);
+
+            $session = $data->linen_outstanding_session;
+            if($session)
+            {
+                $master = MasterOutstandingFacades::where('linen_master_outstanding_session', $session)->first();
+                if($master){
+                    $initial = $master->linen_master_outstanding_total ?? 0;
+                    $total = $master->outstanding->count() ?? 0;
+                    if($total >= $initial){
+                        $master->linen_master_outstanding_status = 2;
+                        $master->save();
+                    }
+                }
+            }
+
             if(isset($check['status']) && $check['status']){
 
                 Alert::create();

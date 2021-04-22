@@ -14,6 +14,7 @@ use Modules\Linen\Http\Services\OutstandingMasterService;
 use Modules\Linen\Http\Services\OutstandingPatchService;
 use Modules\System\Dao\Repositories\CompanyRepository;
 use Modules\System\Dao\Repositories\LocationRepository;
+use Modules\System\Http\Requests\DeleteRequest;
 use Modules\System\Http\Requests\GeneralRequest;
 use Modules\System\Http\Services\CreateService;
 use Modules\System\Http\Services\DeleteService;
@@ -133,9 +134,9 @@ class OutstandingController extends Controller
         return self::$service->get(self::$model, $code);
     }
 
-    public function delete(DeleteService $service)
+    public function delete(DeleteRequest $request, DeleteService $service)
     {
-        $code = request()->get('code');
+        $code = $request->get('code');
         $data = $service->delete(self::$model, $code);
         return Response::redirectBack($data);
     }

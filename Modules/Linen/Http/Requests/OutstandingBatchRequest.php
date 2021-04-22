@@ -40,14 +40,14 @@ class OutstandingBatchRequest extends GeneralRequest
                 $data = [
                     'linen_outstanding_rfid' => $item,
                     'linen_outstanding_status' => $status,
-                    'linen_outstanding_created_at' => now(),
-                    'linen_outstanding_updated_at' => now(),
+                    'linen_outstanding_created_at' => date('Y-m-d H:i:s'),
+                    'linen_outstanding_updated_at' => date('Y-m-d H:i:s'),
                     'linen_outstanding_updated_by' => $user_id,
                     'linen_outstanding_created_by' => $user_id,
                     'linen_outstanding_session' => $session,
-                    'linen_outstanding_scan_location_id' => $location->location_id ?? '',
+                    'linen_outstanding_scan_location_id' => $location->location_id ?? null,
                     'linen_outstanding_scan_location_name' => $location->location_name ?? 'Beda Location',
-                    'linen_outstanding_scan_company_id' => $company->company_id ?? '',
+                    'linen_outstanding_scan_company_id' => $company->company_id ?? null,
                     'linen_outstanding_scan_company_name' => $company->company_name ?? 'Beda Rumah Sakit',
                 ];
 
@@ -59,27 +59,36 @@ class OutstandingBatchRequest extends GeneralRequest
                         $data = array_merge($data, [
                             'linen_outstanding_description' => 2,
                         ]);
-                    } else if ($slinen->location_id != $location->location_id) {
-                        $data = array_merge($data, [
-                            'linen_outstanding_description' => 3,
-                        ]);
-                    } else {
-                        $data = array_merge($data, [
-                            'linen_outstanding_description' => 1,
-                        ]);
-                    }
+                    }else{
+                        if ($slinen->location_id != $location->location_id) {
+                            $data = array_merge($data, [
+                                'linen_outstanding_description' => 3,
+                            ]);
+                        } else {
+                            $data = array_merge($data, [
+                                'linen_outstanding_description' => 1,
+                            ]);
+                        }
+                    }  
 
                     $data = array_merge($data, [
-                        'linen_outstanding_product_id' => $slinen->item_linen_product_id ?? '',
-                        'linen_outstanding_product_name' => $slinen->product->item_product_name ?? '',
+                        'linen_outstanding_product_id' => $slinen->item_linen_product_id ?? null,
+                        'linen_outstanding_product_name' => $slinen->product->item_product_name ?? null,
                         'linen_outstanding_ori_location_id' => $slinen->location_id,
-                        'linen_outstanding_ori_location_name' => $slinen->location_name ?? '',
-                        'linen_outstanding_ori_company_id' => $slinen->company_id ?? '',
-                        'linen_outstanding_ori_company_name' => $slinen->company_name ?? '',
+                        'linen_outstanding_ori_location_name' => $slinen->location_name ?? null,
+                        'linen_outstanding_ori_company_id' => $slinen->company_id ?? null,
+                        'linen_outstanding_ori_company_name' => $slinen->company_name ?? null,
                     ]);
 
                 } else {
+
                     $data = array_merge($data, [
+                        'linen_outstanding_product_id' => null,
+                        'linen_outstanding_product_name' => null,
+                        'linen_outstanding_ori_location_id' => null,
+                        'linen_outstanding_ori_location_name' => null,
+                        'linen_outstanding_ori_company_id' => null,
+                        'linen_outstanding_ori_company_name' => null,
                         'linen_outstanding_description' => 2,
                     ]);
                 }
@@ -113,11 +122,10 @@ class OutstandingBatchRequest extends GeneralRequest
             ];
 
         } else {
-
             return [
+                'data.*' => 'required|unique:linen_outstanding,linen_outstanding_rfid|exists:item_linen,item_linen_rfid',
                 'linen_outstanding_scan_company_id' => 'required|exists:system_company,company_id',
                 'linen_outstanding_scan_location_id' => 'required|exists:system_location,location_id',
-                'detail.*.linen_outstanding_rfid' => 'required|unique:linen_outstanding,linen_outstanding_rfid',
                 'linen_outstanding_session' => 'required',
             ];
         }

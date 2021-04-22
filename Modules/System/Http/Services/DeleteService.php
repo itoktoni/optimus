@@ -2,6 +2,7 @@
 
 namespace Modules\System\Http\Services;
 
+use Illuminate\Validation\Rule;
 use Modules\System\Dao\Interfaces\CrudInterface;
 use Modules\System\Plugins\Alert;
 
@@ -15,10 +16,10 @@ class DeleteService
 
         if ($check['status']) {
 
-            if(request()->wantsJson()){
+            if (request()->wantsJson()) {
                 return response()->json($check)->getData();
             }
-            
+
             Alert::delete();
         } else {
             Alert::error($check['data']);

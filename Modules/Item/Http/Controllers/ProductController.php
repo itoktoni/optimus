@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Modules\Item\Dao\Repositories\CategoryRepository;
 use Modules\Item\Dao\Repositories\ProductRepository;
 use Modules\Item\Dao\Repositories\UnitRepository;
+use Modules\System\Http\Requests\DeleteRequest;
 use Modules\System\Http\Requests\GeneralRequest;
 use Modules\System\Http\Services\CreateService;
 use Modules\System\Http\Services\DataService;
@@ -101,9 +102,9 @@ class ProductController extends Controller
         return self::$service->get(self::$model, $code);
     }
 
-    public function delete(DeleteService $service)
+    public function delete(DeleteRequest $request, DeleteService $service)
     {
-        $code = request()->get('code');
+        $code = $request->get('code');
         $data = $service->delete(self::$model, $code);
         return Response::redirectBack($data);
     }

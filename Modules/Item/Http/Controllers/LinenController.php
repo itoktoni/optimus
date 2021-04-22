@@ -5,16 +5,14 @@ namespace Modules\Item\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Request;
 use Modules\Item\Dao\Facades\LinenFacades;
-use Modules\Item\Dao\Models\Linen;
 use Modules\Item\Dao\Repositories\LinenRepository;
 use Modules\Item\Dao\Repositories\ProductRepository;
-use Modules\Item\Http\Requests\LinenRequest;
 use Modules\Item\Http\Services\LinenDataService;
 use Modules\System\Dao\Repositories\CompanyRepository;
 use Modules\System\Dao\Repositories\LocationRepository;
+use Modules\System\Http\Requests\DeleteRequest;
 use Modules\System\Http\Requests\GeneralRequest;
 use Modules\System\Http\Services\CreateService;
-use Modules\System\Http\Services\DataService;
 use Modules\System\Http\Services\DeleteService;
 use Modules\System\Http\Services\SingleService;
 use Modules\System\Http\Services\UpdateService;
@@ -138,9 +136,9 @@ class LinenController extends Controller
         return self::$service->get(self::$model, $code);
     }
 
-    public function delete(DeleteService $service)
+    public function delete(DeleteRequest $request, DeleteService $service)
     {
-        $code = request()->get('code');
+        $code = $request->get('code');
         $data = $service->delete(self::$model, $code);
         return Response::redirectBack($data);
     }

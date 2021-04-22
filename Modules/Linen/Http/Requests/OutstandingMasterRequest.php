@@ -31,19 +31,9 @@ class OutstandingMasterRequest extends GeneralRequest
 
     public function rules()
     {
-        if (request()->has('create')) {
-
-            return [
-                'linen_master_outstanding_total' => 'required',
-                'linen_master_outstanding_session' => 'required|unique:linen_master_outstanding',
-            ];
-        }
-        else{
-
-            return [
-                'linen_master_outstanding_total' => 'required',
-                'linen_master_outstanding_session' => 'required',
-            ];
-        }
+        return [
+            'linen_master_outstanding_total' => 'required',
+            'linen_master_outstanding_session' => 'required|unique:linen_master_outstanding',
+        ];
     }
 }

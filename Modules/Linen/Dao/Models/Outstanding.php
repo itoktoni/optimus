@@ -4,6 +4,7 @@ namespace Modules\Linen\Dao\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Modules\Item\Dao\Facades\LinenFacades;
+use Modules\Linen\Dao\Facades\MasterOutstandingFacades;
 use Modules\System\Dao\Facades\CompanyFacades;
 use Modules\System\Dao\Facades\LocationFacades;
 use Wildside\Userstamps\Userstamps;
@@ -46,7 +47,7 @@ class Outstanding extends Model
     public $rules = [
         'linen_outstanding_scan_company_id' => 'required|exists:system_company,company_id',
         'linen_outstanding_scan_location_id' => 'required|exists:system_location,location_id',
-        'linen_outstanding_session' => 'required',
+        'linen_outstanding_rfid' => 'required|unique:linen_outstanding|exists:item_linen,item_linen_rfid'
     ];
 
     const CREATED_AT = 'linen_outstanding_created_at';
@@ -112,9 +113,45 @@ class Outstanding extends Model
         return $this->status;
     }
 
+    public function getStatusAttribute($value)
+    {
+        return $this->status[$value][0];
+    }
+
+    public function getDescriptionAttribute($value)
+    {
+        return $this->description()[$value][0];
+    }
+
+    public function getSessionKeyName(){
+        return 'linen_outstanding_session';
+    }
+
+    public function master()
+	{
+		return $this->hasOne(MasterOutstanding::class, MasterOutstandingFacades::getSessionKeyName(), $this->getSessionKeyName());
+    }
+    
     public static function boot()
     {
         parent::boot();
+        parent::saved(function($model){
+            
+            $session = $model->{$model->getSessionKeyName()};
+            if($session)
+            {
+                $master = MasterOutstandingFacades::where('linen_master_outstanding_session', $session)->first();
+                if($master){
+                    $initial = $master->linen_master_outstanding_total ?? 0;
+                    $total = $master->outstanding->count() ?? 0;
+                    if($total >= $initial){
+                        $master->linen_master_outstanding_status = 2;
+                        $master->save();
+                    }
+                }
+            }
+        });
+        
         parent::saving(function ($model) {
             $linen = LinenFacades::where('item_linen_rfid', $model->linen_outstanding_rfid)->first();
             if ($linen) {
@@ -157,13 +194,4 @@ class Outstanding extends Model
         });
     }
 
-    public function getStatusAttribute($value)
-    {
-        return $this->status[$value][0];
-    }
-
-    public function getDescriptionAttribute($value)
-    {
-        return $this->description()[$value][0];
-    }
 }

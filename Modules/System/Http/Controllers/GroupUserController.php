@@ -14,6 +14,7 @@ use Modules\System\Http\Services\UpdateGroupUserService;
 use Modules\System\Plugins\Views;
 use Modules\System\Plugins\Helper;
 use Modules\System\Plugins\Response;
+use Modules\System\Http\Requests\DeleteRequest;
 
 class GroupUserController extends Controller
 {
@@ -102,9 +103,9 @@ class GroupUserController extends Controller
         return self::$service->get(self::$model, $code);
     }
 
-    public function delete(DeleteService $service)
+    public function delete(DeleteRequest $request, DeleteService $service)
     {
-        $code = request()->get('code');
+         $code = $request->get('code');
         $data = $service->delete(self::$model, $code);
         return Response::redirectBack($data);
     }

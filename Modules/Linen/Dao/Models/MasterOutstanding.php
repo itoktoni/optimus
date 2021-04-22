@@ -5,6 +5,7 @@ namespace Modules\Linen\Dao\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Modules\Item\Dao\Facades\LinenFacades;
+use Modules\Linen\Dao\Facades\OutstandingFacades;
 use Modules\System\Dao\Facades\CompanyFacades;
 use Modules\System\Dao\Facades\LocationFacades;
 use Wildside\Userstamps\Userstamps;
@@ -78,4 +79,13 @@ class MasterOutstanding extends Model
     public function status(){
         return $this->status;
     }
+
+    public function getSessionKeyName(){
+        return 'linen_master_outstanding_session';
+    }
+
+    public function outstanding()
+	{
+		return $this->hasMany(Outstanding::class, OutstandingFacades::getSessionKeyName(), $this->getSessionKeyName());
+	}
 }
