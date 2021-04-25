@@ -4,6 +4,7 @@ namespace Modules\Item\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Request;
+use Kirschbaum\PowerJoins\PowerJoins;
 use Modules\Item\Dao\Facades\LinenFacades;
 use Modules\Item\Dao\Repositories\LinenRepository;
 use Modules\Item\Dao\Repositories\ProductRepository;
@@ -23,6 +24,7 @@ use Modules\System\Plugins\Views;
 
 class LinenController extends Controller
 {
+    use PowerJoins;
     public static $template;
     public static $service;
     public static $model;
@@ -38,8 +40,8 @@ class LinenController extends Controller
         $product = Views::option(new ProductRepository());
         $location = Views::option(new LocationRepository());
         $company = Views::option(new CompanyRepository());
-        $status = Views::status(self::$model->status);
-        $rent = Views::status(self::$model->rent);
+        $status = Views::status(self::$model->status, true);
+        $rent = Views::status(self::$model->rent, true);
 
         $view = [
             'product' => $product,
@@ -54,9 +56,15 @@ class LinenController extends Controller
 
     public function index()
     {
-        return view(Views::index())->with([
+        $data_user = LinenFacades::joinRelationship('user')->select('name','id')->distinct()->get();
+        $user = [];
+        if($data_user){
+            $user = $data_user->pluck('name', 'id')->prepend(__('- Select Option -'),'');
+        }
+        return view(Views::index(config('page'), config('folder')))->with($this->share([
             'fields' => Helper::listData(self::$model->datatable),
-        ]);
+            'user' => $user
+        ]));
     }
 
     public function create()

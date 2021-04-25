@@ -79,12 +79,12 @@
 <table id="transaction" class="table table-responsive table-no-more table-bordered table-striped">
     <thead>
         <tr>
-            <th class="text-left col-md-2">No. Seri RFID</th>
-            <th class="text-left col-md-3">Product Name</th>
-            <th class="text-left col-md-2">Company</th>
-            <th class="text-left col-md-1">Location</th>
-            <th class="text-left col-md-2">Register BY</th>
-            <th class="text-left col-md-2">Register Date</th>
+            <th class="text-left col-md-2">__('No. Seri RFID')</th>
+            <th class="text-left col-md-3">__('Product Name')</th>
+            <th class="text-left col-md-2">__('Company')</th>
+            <th class="text-left col-md-1">__('Location')</th>
+            <th class="text-left col-md-2">__('Register') BY</th>
+            <th class="text-left col-md-2">__('Register') Date</th>
         </tr>
     </thead>
     <tbody>
