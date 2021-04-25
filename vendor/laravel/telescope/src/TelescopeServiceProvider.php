@@ -18,6 +18,8 @@ class TelescopeServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        $this->registerCommands();
+
         if (! config('telescope.enabled')) {
             return;
         }
@@ -102,6 +104,23 @@ class TelescopeServiceProvider extends ServiceProvider
     }
 
     /**
+     * Register the package's commands.
+     *
+     * @return void
+     */
+    protected function registerCommands()
+    {
+        if ($this->app->runningInConsole()) {
+            $this->commands([
+                Console\ClearCommand::class,
+                Console\InstallCommand::class,
+                Console\PruneCommand::class,
+                Console\PublishCommand::class,
+            ]);
+        }
+    }
+
+    /**
      * Register any package services.
      *
      * @return void
@@ -113,13 +132,6 @@ class TelescopeServiceProvider extends ServiceProvider
         );
 
         $this->registerStorageDriver();
-
-        $this->commands([
-            Console\ClearCommand::class,
-            Console\InstallCommand::class,
-            Console\PruneCommand::class,
-            Console\PublishCommand::class,
-        ]);
     }
 
     /**

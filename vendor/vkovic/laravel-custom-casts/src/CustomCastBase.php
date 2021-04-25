@@ -2,14 +2,10 @@
 
 namespace Vkovic\LaravelCustomCasts;
 
-use Illuminate\Database\Eloquent\Model;
-
 abstract class CustomCastBase
 {
     /**
      * Model
-     *
-     * @var Model
      */
     protected $model;
 
@@ -20,7 +16,7 @@ abstract class CustomCastBase
      */
     protected $attribute;
 
-    public function __construct(Model $model, $attribute)
+    public function __construct($model, $attribute)
     {
         $this->model = $model;
         $this->attribute = $attribute;

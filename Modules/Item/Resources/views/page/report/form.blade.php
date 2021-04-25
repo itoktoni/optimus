@@ -1,4 +1,5 @@
-<x-date :array="['date']"/>
+<x-date :array="['date']" />
+
 <div class="form-group">
 
     <label class="col-md-2 control-label">Dari Tanggal</label>
@@ -57,7 +58,7 @@
 
 <div class="form-group">
 
-    {!! Form::label('name', __('Created By'), ['class' => 'col-md-2 control-label']) !!}
+    {!! Form::label('name', __('Register By'), ['class' => 'col-md-2 control-label']) !!}
     <div class="col-md-4 {{ $errors->has('item_linen_created_by') ? 'has-error' : ''}}">
         {{ Form::select('item_linen_created_by', $user, null, ['class'=> 'form-control ']) }}
         {!! $errors->first('item_linen_created_by', '<p class="help-block">:message</p>') !!}
@@ -70,3 +71,37 @@
     </div>
 
 </div>
+
+@isset($preview)
+
+<hr>
+
+<table id="transaction" class="table table-responsive table-no-more table-bordered table-striped">
+    <thead>
+        <tr>
+            <th class="text-left col-md-2">No. Seri RFID</th>
+            <th class="text-left col-md-3">Product Name</th>
+            <th class="text-left col-md-2">Company</th>
+            <th class="text-left col-md-1">Location</th>
+            <th class="text-left col-md-2">Register BY</th>
+            <th class="text-left col-md-2">Register Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach($preview as $linen)
+        <tr>
+            <td>{{ $linen->item_linen_rfid }}</td>
+            <td>{{ $linen->item_product_name }}</td>
+            <td>{{ $linen->company_name }}</td>
+            <td>{{ $linen->location_name }}</td>
+            <td>{{ $linen->name }}</td>
+            <td>{{ $linen->item_linen_created_at }}</td>
+        </tr>
+        @endforeach
+    </tbody>
+    <tbody class="markup">
+        
+    </tbody>
+</table>
+
+@endif

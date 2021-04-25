@@ -217,6 +217,11 @@ php artisan vendor:publish --provider="Vkovic\LaravelCustomCasts\CustomCastsServ
 
 This command should create a config file located at `config/custom_casts.php`. Open it up and check out the comments for examples of config options.
 
+### Use it without Laravel
+
+This package can also be used without full Laravel installation, with something like `jenssegers/model` or if your project 
+is using `illuminate/database` library.
+
 > #### More examples
 > You can find more examples in the [old documentation](https://github.com/vkovic/laravel-custom-casts/tree/v1.0.2#example-casting-user-image).
 
@@ -225,14 +230,14 @@ This command should create a config file located at `config/custom_casts.php`. O
 If you plan to modify this Laravel package you should run the tests that come with it.
 The easiest way to accomplish this is with `Docker`, `docker-compose`, and `phpunit`.
 
-First, initialize the Docker containers:
+First, we need to initialize Docker container (see `docker-composer.yaml` for details).
 
 ```bash
-docker-compose up -d
+docker-compose up --exit-code-from app
 ```
 
-Then you can run the tests and watch the output:
+After that, we can run tests and watch the output:
 
 ```bash
-docker-compose exec app vendor/bin/phpunit
+docker-compose run --rm app phpunit
 ```

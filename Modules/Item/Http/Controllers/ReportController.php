@@ -4,18 +4,15 @@ namespace Modules\Item\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Modules\Item\Dao\Repositories\LinenRepository;
+use Modules\Item\Dao\Facades\LinenFacades;
 use Modules\Item\Dao\Repositories\ProductRepository;
 use Modules\Item\Dao\Repositories\ReportLinenRegisterRepository;
 use Modules\System\Dao\Repositories\CompanyRepository;
 use Modules\System\Dao\Repositories\LocationRepository;
 use Modules\System\Dao\Repositories\TeamRepository;
-use Modules\System\Http\Requests\GeneralRequest;
-use Modules\System\Http\Services\CreateService;
-use Modules\System\Http\Services\ExcelService;
+use Modules\System\Http\Services\PreviewService;
 use Modules\System\Http\Services\ReportService;
 use Modules\System\Http\Services\SingleService;
-use Modules\System\Plugins\Response;
 use Modules\System\Plugins\Views;
 
 class ReportController extends Controller
@@ -51,13 +48,23 @@ class ReportController extends Controller
         return array_merge($view, $data);
     }
 
-    public function create()
+    public function create(Request $request, PreviewService $service)
     {
-        return view(Views::create(config('page'), config('folder')))->with($this->share());
+        $linen = LinenFacades::dataRepository();
+        $preview = $service->data($linen, $request);
+        
+        return view(Views::create(config('page'), config('folder')))->with($this->share([
+            'preview' => $preview,
+            'model' => $linen->getModel(),
+        ]));
     }
 
     public function save(Request $request, ReportService $service)
     {
+        if ($request->get('action') == 'report') {
+            $data = $request->except('_token');
+            return redirect()->route('item_report_create', $data)->withInput();
+        }
         return $service->generate(self::$model, $request);
     }
 }

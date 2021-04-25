@@ -15,13 +15,24 @@ use Wildside\Userstamps\Userstamps;
 use Illuminate\Validation\Rule;
 use Modules\System\Dao\Facades\CompanyFacades;
 use Modules\System\Dao\Models\Company;
+use Mehradsadeghi\FilterQueryString\FilterQueryString;
 
 class Linen extends Model
 {
-    use Userstamps;
+    use Userstamps, FilterQueryString;
     protected $table = 'item_linen';
     protected $primaryKey = 'item_linen_id';
 
+    protected $filters = [
+        'item_linen_company_id',
+        'item_linen_location_id',
+        'item_linen_company_id',
+        'item_linen_product_id',
+        'item_linen_status',
+        'item_linen_created_by',
+        'item_linen_updated_at',
+    ];
+    
     protected $fillable = [
         'item_linen_id',
         'item_linen_rfid',
