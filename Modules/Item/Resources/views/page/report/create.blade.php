@@ -11,8 +11,8 @@
 @push('javascript')
 <script>
 $(document).ready( function () {
-    $('#transaction').DataTable({
-        "paging": false,
+    $('#datatable').DataTable({
+        "paging": true,
     });
 } );
 </script>

@@ -76,7 +76,7 @@
 
 <hr>
 
-<table id="transaction" class="table table-responsive table-no-more table-bordered table-striped">
+<table id="datatable" class="responsive table-striped table-condensed table-bordered table-hover">
     <thead>
         <tr>
             <th class="text-left col-md-2">{{ __('No. Seri RFID') }}</th>
