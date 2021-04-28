@@ -509,8 +509,14 @@ class Helper
         $reflector = new \ReflectionClass($className);
         $methodNames = array();
         foreach ($reflector->getMethods(\ReflectionMethod::IS_PUBLIC) as $method) {
-            if ($method->class == $reflector->getName() && $method->name != '__construct') {
-                $methodNames[] = $method->name;
+            if(strpos($method->name, 'scope') !== false || strpos($method->name, 'Join') !== false || strpos($method->name, 'Relationship')){
+
+            }
+            else{
+
+                if (($method->class == $reflector->getName() && $method->name != '__construct')) {
+                    $methodNames[] = $method->name;
+                }
             }
         }
 

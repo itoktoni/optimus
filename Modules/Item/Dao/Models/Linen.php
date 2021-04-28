@@ -45,6 +45,7 @@ class Linen extends Model
         'item_linen_product_id',
         'item_linen_created_at',
         'item_linen_updated_at',
+        'item_linen_sync_at',
         'item_linen_update_by',
         'item_linen_created_by',
         'item_linen_deleted_by',

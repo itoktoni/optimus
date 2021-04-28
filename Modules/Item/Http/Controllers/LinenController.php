@@ -3,7 +3,9 @@
 namespace Modules\Item\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Request;
+use Illuminate\Support\Facades\Response as FacadesResponse;
 use Kirschbaum\PowerJoins\PowerJoins;
 use Modules\Item\Dao\Facades\LinenFacades;
 use Modules\Item\Dao\Repositories\LinenRepository;
@@ -149,5 +151,19 @@ class LinenController extends Controller
         $code = $request->get('code');
         $data = $service->delete(self::$model, $code);
         return Response::redirectBack($data);
+    }
+
+    public function download()
+    {
+        $data = LinenFacades::dataRepository()->whereNull('item_linen_sync_at')->limit(10)->get();
+        $json = json_encode($data);
+        // $jsongFile = 'data_file.json';
+        // File::put(public_path('/files/linen/'.$jsongFile), $json);
+
+        // LinenFacades::whereIn('item_linen_id', $data->pluck('item_linen_id'))->update([
+        //     'item_linen_sync_at' => date('Y-m-d')
+        // ]);
+
+        // return FacadesResponse::download(public_path('/files/linen/'.$jsongFile));
     }
 }

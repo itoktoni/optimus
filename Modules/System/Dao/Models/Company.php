@@ -35,8 +35,6 @@ class Company extends Model
     public $incrementing = false;
     public $rules = [
         'company_name' => 'required|min:3|unique:system_company',
-        'products' => 'required',
-        'locations' => 'required',
     ];
 
     const CREATED_AT = 'company_created_at';
