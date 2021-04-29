@@ -45,7 +45,7 @@ class Company extends Model
         'company_id' => [false => 'Code'],
         'company_name' => [true => 'Company Name'],
         'company_person' => [true => 'Contact Person'],
-        'company_email' => [true => 'Email'],
+        'company_email' => [true => 'Email', 'width' => 350],
         'company_phone' => [true => 'Phone'],
     ];
     
