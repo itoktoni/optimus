@@ -166,7 +166,14 @@ class LinenController extends Controller
         $company = request()->get('item_linen_company_id');
         return response()->streamDownload(function(){
             $sql = LinenFacades::dataRepository();
-            $data = $sql->filter()->get();
+            $data = $sql->select([
+                'item_linen_rfid',
+                'item_product_name',
+                'company_id',
+                'company_name',
+                'location_id',
+                'location_name',
+            ])->filter()->get();
             echo json_encode($data);
             
         },$company.'_item_linen.json');
