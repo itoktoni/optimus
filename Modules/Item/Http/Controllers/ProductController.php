@@ -32,10 +32,8 @@ class ProductController extends Controller
     private function share($data = [])
     {
         $category = Views::option(new CategoryRepository());
-        $unit = Views::option(new UnitRepository());
 
         $view = [
-            'unit' => $unit,
             'category' => $category,
         ];
         return array_merge($view, $data);

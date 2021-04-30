@@ -1,32 +1,31 @@
 <?php
 
-namespace Modules\System\Http\Controllers;
+namespace Modules\Item\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use Modules\Item\Dao\Repositories\CompanyProductRepository;
 use Modules\Item\Dao\Repositories\ProductRepository;
 use Modules\Item\Dao\Repositories\SizeRepository;
 use Modules\Item\Dao\Repositories\UnitRepository;
 use Modules\System\Dao\Repositories\CompanyRepository;
-use Modules\System\Dao\Repositories\HoldingRepository;
-use Modules\System\Dao\Repositories\LocationRepository;
+use Modules\System\Http\Requests\DeleteRequest;
 use Modules\System\Http\Requests\GeneralRequest;
-use Modules\System\Http\Services\CompanyDataService;
 use Modules\System\Http\Services\CreateService;
+use Modules\System\Http\Services\DataService;
 use Modules\System\Http\Services\DeleteService;
 use Modules\System\Http\Services\SingleService;
-use Modules\System\Http\Services\UpdateCompanyService;
+use Modules\System\Http\Services\UpdateService;
 use Modules\System\Plugins\Helper;
 use Modules\System\Plugins\Response;
 use Modules\System\Plugins\Views;
-use Modules\System\Http\Requests\DeleteRequest;
 
-class CompanyController extends Controller
+class CompanyProductController extends Controller
 {
     public static $template;
     public static $service;
     public static $model;
 
-    public function __construct(CompanyRepository $model, SingleService $service)
+    public function __construct(CompanyProductRepository $model, SingleService $service)
     {
         self::$model = self::$model ?? $model;
         self::$service = self::$service ?? $service;
@@ -34,18 +33,18 @@ class CompanyController extends Controller
 
     private function share($data = [])
     {
-        $holding = Views::option(new HoldingRepository());
-        $location = Views::option(new LocationRepository(), false);
-        // $product = Views::option(new ProductRepository());
+        $company = Views::option(new CompanyRepository());
+        $product = Views::option(new ProductRepository());
         $unit = Views::option(new UnitRepository());
         $size = Views::option(new SizeRepository());
+        $master = request()->all();
 
         $view = [
-            'holding' => $holding,
-            // 'product' => $product,
-            'location' => $location,
-            // 'size' => $size,
-            // 'unit' => $unit,
+            'company' => $company,
+            'product' => $product,
+            'size' => $size,
+            'unit' => $unit,
+            'master' => $master,
         ];
         return array_merge($view, $data);
     }
@@ -68,24 +67,19 @@ class CompanyController extends Controller
         return Response::redirectBack($data);
     }
 
-    public function data(CompanyDataService $service)
+    public function data(DataService $service)
     {
         return $service->setModel(self::$model)->make();
     }
 
     public function edit($code)
     {
-        $data = $this->get($code);
-        $connection_location = $data->locations ? $data->locations->pluck('location_id')->toArray() : [];
-        $connection_product = $data->products ? $data->products->pluck('item_product_id')->toArray() : [];
-        return view(Views::update(config('page'),config('folder')))->with($this->share([
+        return view(Views::update())->with($this->share([
             'model' => $this->get($code),
-            'connection_location' => $connection_location,
-            'connection_product' => $connection_product,
         ]));
     }
 
-    public function update($code, GeneralRequest $request, UpdateCompanyService $service)
+    public function update($code, GeneralRequest $request, UpdateService $service)
     {
         $data = $service->update(self::$model, $request, $code);
         return Response::redirectBack($data);
@@ -110,7 +104,7 @@ class CompanyController extends Controller
 
     public function delete(DeleteRequest $request, DeleteService $service)
     {
-         $code = $request->get('code');
+        $code = $request->get('code');
         $data = $service->delete(self::$model, $code);
         return Response::redirectBack($data);
     }

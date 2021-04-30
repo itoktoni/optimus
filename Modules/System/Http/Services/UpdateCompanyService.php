@@ -20,11 +20,11 @@ class UpdateCompanyService extends UpdateService
 
             $getData->locations()->sync($location);
             
-            if(isset($data->products)){
-                $product = $data->products;
-            }
+            // if(isset($data->products)){
+            //     $product = $data->products;
+            // }
             
-            $getData->products()->sync($product);
+            // $getData->products()->sync($product);
         }
 
         if ($check['status']) {

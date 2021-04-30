@@ -39,6 +39,12 @@ class ModuleServiceProvider extends ServiceProvider
         $this->app->bind('linen_facades', function () {
             return new \Modules\Item\Dao\Repositories\LinenRepository();
         });
+        $this->app->bind('unit_facades', function () {
+            return new \Modules\Item\Dao\Repositories\UnitRepository();
+        });
+        $this->app->bind('size_facades', function () {
+            return new \Modules\Item\Dao\Repositories\SizeRepository();
+        });
     }
 
     /**

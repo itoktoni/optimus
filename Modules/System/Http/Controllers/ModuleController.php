@@ -3,19 +3,19 @@
 namespace Modules\System\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use Modules\System\Http\Requests\GeneralRequest;
-use Modules\System\Http\Services\CreateService;
-use Modules\System\Http\Services\DataService;
-use Modules\System\Http\Services\DeleteService;
-use Modules\System\Http\Services\SingleService;
 use Modules\System\Dao\Facades\ActionFacades;
 use Modules\System\Dao\Facades\GroupModuleFacades;
 use Modules\System\Dao\Repositories\ModuleRepository;
+use Modules\System\Http\Requests\DeleteRequest;
+use Modules\System\Http\Requests\GeneralRequest;
+use Modules\System\Http\Services\CreateModuleService;
+use Modules\System\Http\Services\DataService;
+use Modules\System\Http\Services\DeleteService;
+use Modules\System\Http\Services\SingleService;
 use Modules\System\Http\Services\UpdateModuleService;
-use Modules\System\Plugins\Views;
 use Modules\System\Plugins\Helper;
 use Modules\System\Plugins\Response;
-use Modules\System\Http\Requests\DeleteRequest;
+use Modules\System\Plugins\Views;
 
 class ModuleController extends Controller
 {
@@ -55,7 +55,7 @@ class ModuleController extends Controller
         return view(Views::create())->with($this->share());
     }
 
-    public function save(GeneralRequest $request, CreateService $service)
+    public function save(GeneralRequest $request, CreateModuleService $service)
     {
         $data = $service->save(self::$model, $request);
         return Response::redirectBack($data);
@@ -64,9 +64,12 @@ class ModuleController extends Controller
     public function data(DataService $service)
     {
         return $service
-        ->setModel(self::$model)
-        ->EditStatus(['system_module_show' => self::$model->status])
-        ->make();
+            ->setModel(self::$model)
+            ->EditStatus([
+                'system_module_enable' => self::$model->status,
+                'system_module_show' => self::$model->status,
+            ])
+            ->make();
     }
 
     public function edit($code)
@@ -74,13 +77,13 @@ class ModuleController extends Controller
         $data = $this->get($code);
         $list_action = Helper::getMethod($data->system_module_controller, $data->system_module_folder);
         $data_action = $data->connection_action->pluck(ActionFacades::getFunctionName());
-        
+
         return view(Views::update(self::$page, self::$module))->with($this->share([
             'model' => $data,
             'data_group' => $data->connection_group_module->pluck('system_group_module_code')->toArray() ?? [],
             'list_group' => GroupModuleFacades::all()->pluck('system_group_module_name', 'system_group_module_code'),
             'list_action' => $list_action,
-            'data_action'  => $data_action->toArray(),
+            'data_action' => $data_action->toArray(),
         ]));
     }
 
@@ -110,7 +113,7 @@ class ModuleController extends Controller
 
     public function delete(DeleteRequest $request, DeleteService $service)
     {
-         $code = $request->get('code');
+        $code = $request->get('code');
         $data = $service->delete(self::$model, $code);
         return Response::redirectBack($data);
     }

@@ -10,6 +10,7 @@
         {!! $errors->first('company_person', '<p class="help-block">:message</p>') !!}
     </div>
 </div>
+
 <div class="form-group">
     {!! Form::label('company_email', __('Email'), ['class' => 'col-md-2 control-label']) !!}
     <div class="col-md-4 {{ $errors->has('company_email') ? 'has-error' : ''}}">
@@ -57,6 +58,7 @@
     </div>
 </div>
 @if ($action_function == 'edit')
+<hr>
 <div class="form-group">
     <label class="col-md-2 control-label">{{ __('Location') }}</label>
     <div class="col-md-10 {{ $errors->has('locations') ? 'has-error' : ''}}">
@@ -68,18 +70,6 @@
         </select>
         {!! $errors->first('locations', '<p class="help-block">:message</p>') !!}
     </div>
-</div>
-<hr>
-<div class="form-group">
-    <label class="col-md-2 control-label">{{ __('Product') }}</label>
-    <div class="col-md-10 {{ $errors->has('products') ? 'has-error' : ''}}">
-        <select class="form-control input-sm mb-md" multiple name="products[]">
-            @foreach($product as $key => $value)
-            <option {{ in_array($key, $connection_product) ? 'selected' : '' }} value="{{ $key }}">
-                {{ $value }}</option>
-            @endforeach
-        </select>
-        {!! $errors->first('products', '<p class="help-block">:message</p>') !!}
-    </div>
+
 </div>
 @endif

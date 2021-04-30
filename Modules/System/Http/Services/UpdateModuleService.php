@@ -27,6 +27,7 @@ class UpdateModuleService extends UpdateService
         'master' => 'POST',
         'batch' => 'POST',
         'download' => 'GET',
+        'get' => 'GET',
     ];
 
     public $api = [

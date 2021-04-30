@@ -46,11 +46,10 @@
         {!! Form::text('system_module_folder', null, ['class' => 'form-control']) !!}
         {!! $errors->first('system_module_folder', '<p class="help-block">:message</p>') !!}
     </div>
-
-    {!! Form::label('system_module_module', ' Module', ['class' => 'col-md-2 control-label']) !!}
-    <div class="col-md-4 {{ $errors->has('system_module_module') ? 'has-error' : ''}}">
-        {{ Form::select('system_module_module', ['0' => 'No', '1' => 'Yes'], $model->module_module ?? 0, ['class'=> 'form-control']) }}
-        {!! $errors->first('system_module_module', '<p class="help-block">:message</p>') !!}
+    {!! Form::label('system_module_show', ' Show', ['class' => 'col-md-2 control-label']) !!}
+    <div class="col-md-4 {{ $errors->has('system_module_show') ? 'has-error' : ''}}">
+        {{ Form::select('system_module_show', ['0' => 'No', '1' => 'Yes'], null, ['class'=> 'form-control']) }}
+        {!! $errors->first('system_module_show', '<p class="help-block">:message</p>') !!}
     </div>
 </div>
 

@@ -48,7 +48,8 @@ class Module extends Model
 		'system_module_link'           => [false => 'Link'],
 		'system_module_controller'     => [true => 'Controller'],
 		'system_module_folder'       => [true => 'Folder'],
-		'system_module_show'       => [true => 'Active', 'width' => 100, 'class' => 'text-center'],
+		'system_module_show'       => [true => 'Show', 'width' => 100, 'class' => 'text-center'],
+		'system_module_enable'       => [true => 'Active', 'width' => 100, 'class' => 'text-center'],
 	];
 
 	public $status = [

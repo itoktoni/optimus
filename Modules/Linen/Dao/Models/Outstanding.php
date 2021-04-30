@@ -4,6 +4,7 @@ namespace Modules\Linen\Dao\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Modules\Item\Dao\Facades\LinenFacades;
+use Modules\Item\Dao\Models\Linen;
 use Modules\Linen\Dao\Facades\MasterOutstandingFacades;
 use Modules\System\Dao\Facades\CompanyFacades;
 use Modules\System\Dao\Facades\LocationFacades;
@@ -131,6 +132,11 @@ class Outstanding extends Model
 	{
 		return $this->hasOne(MasterOutstanding::class, MasterOutstandingFacades::getSessionKeyName(), $this->getSessionKeyName());
     }
+
+    public function rfid()
+    {
+        return $this->hasOne(Linen::class, 'item_linen_rfid', 'linen_outstanding_rfid');
+    }
     
     public static function boot()
     {
@@ -188,9 +194,14 @@ class Outstanding extends Model
             }
 
         });
+
         parent::creating(function ($model) {
 
             $model->linen_outstanding_status = 1;
+            $rfid = $model->rfid;
+            $counter = $rfid->item_linen_counter ?? 0;
+            $rfid->item_linen_counter = $counter + 1;
+            $rfid->save();
         });
     }
 
