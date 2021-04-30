@@ -1,28 +1,15 @@
 <?php
 
-namespace Database\Factories\Item\Dao\Models;
+/** @var \Illuminate\Database\Eloquent\Factory $factory */
 
-use Illuminate\Database\Eloquent\Factories\Factory;
-use Modules\Item\Dao\Models\Linen;
+use Faker\Generator as Faker;
+use Modules\Item\Dao\Facades\LinenFacades;
 
-class LinenFactory extends Factory
-{
-    /**
-     * The name of the factory's corresponding model.
-     *
-     * @var string
-     */
-    protected $model = Linen::class;
-
-    /**
-     * Define the model's default state.
-     *
-     * @return array
-     */
-    public function definition()
-    {
-        return [
-            //
-        ];
-    }
-}
+$factory->define(Linen::class, function (Faker $faker) {
+    return [
+        'item_linen_rfid' => $faker->company,
+        'item_linen_rent' => $faker->randomElement(array_keys(LinenFacades::rent())),
+        'item_linen_status' => $faker->randomElement(array_keys(LinenFacades::status())),
+        'item_linen_created_at' => $faker->date('Y-m-d H:i:s'),
+    ];
+});

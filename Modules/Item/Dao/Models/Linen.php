@@ -14,12 +14,13 @@ use Modules\System\Dao\Models\Location;
 use Wildside\Userstamps\Userstamps;
 use Illuminate\Validation\Rule;
 use Modules\System\Dao\Facades\CompanyFacades;
-use Modules\System\Dao\Models\Company;
 use Mehradsadeghi\FilterQueryString\FilterQueryString;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Modules\System\Dao\Models\Company;
 
 class Linen extends Model
 {
-    use Userstamps, FilterQueryString;
+    use Userstamps, FilterQueryString, HasFactory;
     protected $table = 'item_linen';
     protected $primaryKey = 'item_linen_id';
 

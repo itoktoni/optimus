@@ -155,8 +155,6 @@ class LinenController extends Controller
 
     public function download()
     {
-        $data = LinenFacades::dataRepository()->whereNull('item_linen_sync_at')->limit(10)->get();
-        $json = json_encode($data);
         // $jsongFile = 'data_file.json';
         // File::put(public_path('/files/linen/'.$jsongFile), $json);
 
@@ -165,5 +163,12 @@ class LinenController extends Controller
         // ]);
 
         // return FacadesResponse::download(public_path('/files/linen/'.$jsongFile));
+        $company = request()->get('item_linen_company_id');
+        return response()->streamDownload(function(){
+            $sql = LinenFacades::dataRepository();
+            $data = $sql->filter()->get();
+            echo json_encode($data);
+            
+        },$company.'_item_linen.json');
     }
 }

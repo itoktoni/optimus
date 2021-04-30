@@ -123,6 +123,13 @@
       0 => 'Kirschbaum\\PowerJoins\\PowerJoinsServiceProvider',
     ),
   ),
+  'laravel/legacy-factories' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'Illuminate\\Database\\Eloquent\\LegacyFactoryServiceProvider',
+    ),
+  ),
   'laravel/sanctum' => 
   array (
     'providers' => 
@@ -219,17 +226,6 @@
     'providers' => 
     array (
       0 => 'Rap2hpoutre\\FastExcel\\Providers\\FastExcelServiceProvider',
-    ),
-  ),
-  'webklex/laravel-imap' => 
-  array (
-    'providers' => 
-    array (
-      0 => 'Webklex\\IMAP\\Providers\\LaravelServiceProvider',
-    ),
-    'aliases' => 
-    array (
-      'Client' => 'Webklex\\IMAP\\Facades\\Client',
     ),
   ),
   'yajra/laravel-datatables-oracle' => 

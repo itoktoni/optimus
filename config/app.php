@@ -213,7 +213,6 @@ return [
         Alkhachatryan\LaravelWebConsole\LaravelWebConsoleServiceProvider::class,
         Maatwebsite\Excel\ExcelServiceProvider::class,
         Laravolt\Avatar\ServiceProvider::class,
-        Webklex\IMAP\Providers\LaravelServiceProvider::class,
         Ixudra\Curl\CurlServiceProvider::class,
         GeoSot\EnvEditor\ServiceProvider::class,
         PowerJoinsServiceProvider::class,
