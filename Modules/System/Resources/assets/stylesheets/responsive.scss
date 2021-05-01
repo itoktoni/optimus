@@ -31,7 +31,7 @@
       border:0
   }
   .screen{
-      margin-top:unset;
+    margin-top:80px
   }
   #selection{
       position:absolute;
@@ -159,8 +159,23 @@
       border:0
   }
   .screen{
-      margin-top:70px
+      margin-top:75px
   }
+
+  .filter-search{
+    margin-left: 17px;
+    margin-right: 17px;
+    margin-bottom: 10px;
+  }
+
+  .form-group{
+    .filter-search{
+        margin-left: 17px;
+        margin-right: 17px;
+        margin-bottom: 10px;
+      }    
+  }
+
   #selection{
       position:absolute;
       right:0;
@@ -249,8 +264,24 @@
       border:0
   }
   .screen{
-      margin-top:unset
+    margin-top:78px
   }
+
+  .filter-search{
+    margin-left: 4px;
+    margin-right: 4px;
+    margin-bottom: 10px;
+  }
+
+  
+  .form-group{
+    .filter-search{
+        margin-left: 15px;
+        margin-right: 15px;
+        margin-bottom: 10px;
+      }    
+  }
+
   #selection{
       position:absolute;
       right:0;

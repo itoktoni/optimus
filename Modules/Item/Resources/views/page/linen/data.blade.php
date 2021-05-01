@@ -88,42 +88,54 @@
                     {!! Form::open(['route' => $route_data, 'id' => 'search-form', 'files' => true]) !!}
                     <div class="form-horizontal">
 
-                        <div class="row">
-                            <div class="col-md-12">
-
-                                {!! Form::label($search_code, __('No. Seri RFID'), ['class' => 'col-md-1
-                                control-label']) !!}
-                                <div class="col-md-2 {{ $errors->has($search_code) ? 'has-error' : ''}}">
+                        <div class="">
+                            <div class="form-group">
+                               
+                                <div class="col-md-3 col-sm-2 {{ $errors->has($search_code) ? 'has-error' : ''}}">
+                                    <div class="row input-group filter-search space-sm">
+                                    <span class="input-group-addon">
+                                        {{ __('No. Seri RFID') }}
+                                    </span>
                                     {!! Form::text('item_linen_rfid', null, ['class' => 'form-control', 'id' => 'item_linen_rfid']) !!}
+                                    </div>
                                 </div>
 
-                                {!! Form::label($search_code, __('Product Name'), ['class' => 'col-md-1 control-label'])
-                                !!}
-                                <div class="col-md-2 {{ $errors->has($search_code) ? 'has-error' : ''}}">
+                                <div class="col-md-3 col-sm-2 {{ $errors->has($search_code) ? 'has-error' : ''}}">
+                                    <div class="row input-group filter-search space-sm">
+                                    <span class="input-group-addon">
+                                        {{ __('Product Name') }}
+                                    </span>
                                     {{ Form::select('item_linen_product_id', $product, null, ['class'=> 'form-control ']) }}
+                                    </div>
                                 </div>
 
-                                {!! Form::label($search_code, __('Company'), ['class' => 'col-md-1 control-label']) !!}
-                                <div class="col-md-2 {{ $errors->has($search_code) ? 'has-error' : ''}}">
+                                <div class="col-md-3 col-sm-2 {{ $errors->has($search_code) ? 'has-error' : ''}}">
+                                    <div class="row input-group filter-search space-sm">
+                                    <span class="input-group-addon">
+                                        {{ __('Company') }}
+                                    </span>
                                     {{ Form::select('item_linen_company_id', $company, null, ['class'=> 'form-control ']) }}
+                                    </div>
                                 </div>
 
-                                {!! Form::label($search_code, __('Location Name'), ['class' => 'col-md-1
-                                control-label']) !!}
-                                <div class="col-md-2 {{ $errors->has($search_code) ? 'has-error' : ''}}">
+                                <div class="col-md-3 col-sm-2 {{ $errors->has($search_code) ? 'has-error' : ''}}">
+                                    <div class="row input-group filter-search space-sm">
+                                    <span class="input-group-addon">
+                                        {{ __('Location Name') }}
+                                    </span>
                                     {{ Form::select('item_linen_location_id', $location, null, ['class'=> 'form-control ']) }}
+                                    </div>
                                 </div>
 
                             </div>
 
-                        </div>
-
-                        <div class="row mt-sm">
-                            <div class="col-md-12">
-                                {!! Form::label($search_code, __('Created at'), ['class' => 'col-md-1 control-label'])
-                                !!}
-                                <div class="col-md-2 {{ $errors->has($search_code) ? 'has-error' : ''}}">
-                                    <div class="input-group">
+                            <div class="form-group">
+                                
+                                <div class="col-md-3 col-sm-2 {{ $errors->has($search_code) ? 'has-error' : ''}}">
+                                    <div class="row input-group filter-search space-sm">
+                                        <span class="input-group-addon">
+                                        {{ __('Created At') }}
+                                        </span>
                                         <input type="text" name="item_linen_created_at" value="{{ old('item_linen_rfid') ?? null }}"
                                             class="date">
                                         <span class="input-group-addon">
@@ -132,70 +144,87 @@
                                     </div>
                                 </div>
 
-                                {!! Form::label($search_code, __('Register By'), ['class' => 'col-md-1 control-label'])
-                                !!}
-                                <div class="col-md-2 {{ $errors->has($search_code) ? 'has-error' : ''}}">
+                                <div class="col-md-3 col-sm-2 {{ $errors->has($search_code) ? 'has-error' : ''}}">
+                                    <div class="row input-group filter-search space-sm">
+                                    <span class="input-group-addon">
+                                        {{ __('Register By') }}
+                                    </span>
                                     {{ Form::select('item_linen_created_by', $user, null, ['class'=> 'form-control ']) }}
+                                    </div>
                                 </div>
 
-                                {!! Form::label($search_code, __('Rental'), ['class' => 'col-md-1 control-label']) !!}
-                                <div class="col-md-2 {{ $errors->has($search_code) ? 'has-error' : ''}}">
+                                <div class="col-md-3 col-sm-2 {{ $errors->has($search_code) ? 'has-error' : ''}}">
+                                    <div class="row input-group filter-search space-sm">
+                                    <span class="input-group-addon">
+                                        {{ __('Rental') }}
+                                    </span>
                                     {{ Form::select('rent', $rent, null, ['class'=> 'form-control ']) }}
+                                    </div>
                                 </div>
 
-                                {!! Form::label($search_code, __('Status'), ['class' => 'col-md-1 control-label']) !!}
-                                <div class="col-md-2 {{ $errors->has($search_code) ? 'has-error' : ''}}">
+                                <div class="col-md-3 col-sm-2 {{ $errors->has($search_code) ? 'has-error' : ''}}">
+                                    <div class="row input-group filter-search space-sm">
+                                    <span class="input-group-addon">
+                                        {{ __('Status') }}
+                                    </span>
                                     {{ Form::select('status', $status, null, ['class'=> 'form-control ']) }}
+                                    </div>
                                 </div>
 
                             </div>
 
-                        </div>
+                            <div class="form-group">
 
-                    </div>
+                            <div class="col-md-3 col-sm-2 {{ $errors->has($search_code) ? 'has-error' : ''}}">
+                                <div class="row input-group filter-search space-sm">
+                                    <span class="input-group-addon">
+                                        {{ __('Criteria') }}
+                                    </span>
+                                <select name="code" class="form-control">
+                                    <option value="">{{ __('Select Data') }}</option>
+                                    @foreach($fields as $item => $value)
+                                    <option value="{{ $item }}">{{ __($value['name']) }}</option>
+                                    @endforeach
+                                </select>
+                                </div>
+                            </div>
 
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-horizontal mt-sm">
-
-                                {!! Form::label($search_code, __('Criteria'), ['class' => 'col-md-1 control-label']) !!}
-                                <div class="col-md-2 {{ $errors->has($search_code) ? 'has-error' : ''}}">
-                                    <select name="code" class="form-control">
-                                        <option value="">{{ __('Select Data') }}</option>
-                                        @foreach($fields as $item => $value)
-                                        <option value="{{ $item }}">{{ __($value['name']) }}</option>
-                                        @endforeach
+                            <div class="col-md-3 col-sm-2 {{ $errors->has($search_code) ? 'has-error' : ''}}">
+                                <div class="row input-group filter-search space-sm">
+                                    <span class="input-group-addon">
+                                        {{ __('Operator') }}
+                                    </span>
+                                    <select name="aggregate" class="form-control">
+                                        <option value="">{{ __('Search With') }}</option>
+                                        <option value="=">{{ __('Equal') }}</option>
+                                        <option value="!=">{{ __('Not Equal') }}</option>
+                                        <option value="like">{{ __('Contains') }}</option>
+                                        <option value="not like">{{ __('Not Contains') }}</option>
+                                        <option value=">">{{ __('More Than') }}</option>
+                                        <option value="<">{{ __('Less Than') }}</option>
                                     </select>
                                 </div>
+                            </div>
 
-                                {!! Form::label($search_code, __('Operator'), ['class' => 'col-md-1 control-label']) !!}
-                                <div class="col-md-2 {{ $errors->has($search_code) ? 'has-error' : ''}}">
-                                    <div class="">
-                                        <select name="aggregate" class="form-control">
-                                            <option value="">{{ __('Search With') }}</option>
-                                            <option value="=">{{ __('Equal') }}</option>
-                                            <option value="!=">{{ __('Not Equal') }}</option>
-                                            <option value="like">{{ __('Contains') }}</option>
-                                            <option value="not like">{{ __('Not Contains') }}</option>
-                                            <option value=">">{{ __('More Than') }}</option>
-                                            <option value="<">{{ __('Less Than') }}</option>
-                                        </select>
-                                    </div>
-                                </div>
-
-                                {!! Form::label($search_code, __('Searching'), ['class' => 'col-md-1 control-label'])
-                                !!}
-                                <div class="col-md-5">
-                                    <div class="input-group">
-                                        <input autofocus name="search" class="form-control"
-                                            placeholder="{{ __('Advance Search') }}" type="text">
-                                        <span class="input-group-btn">
-                                            <button type="submit" class="btn btn-primary">{{ __('Search') }}</button>
-                                        </span>
-                                    </div>
+                            <div class="col-md-6 col-sm-12">
+                                <div class="row input-group filter-search space-sm">
+                                    <span class="input-group-addon">
+                                        {{ __('Searching') }}
+                                    </span>
+                                    <input autofocus name="search" class="form-control" placeholder="{{ __('Advance Search') }}"
+                                        type="text">
+                                    <span class="input-group-btn">
+                                        <button type="submit" class="btn btn-primary">{{ __('Search') }}</button>
+                                    </span>
                                 </div>
                             </div>
+
                         </div>
+
+                        </div>
+
+                        
+
                     </div>
 
                     {!! Form::close() !!}

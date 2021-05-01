@@ -11,8 +11,9 @@
     </div>
     
     <div class="header-right">
-        @if(config('website.notification'))
+       
         <ul class="notifications">
+            @if(config('website.notification'))
             <li class="mail">
                 <a onclick="showEmail();" class="dropdown-toggle notification-icon">
                     <i class="fa fa-envelope"></i>
@@ -66,14 +67,15 @@
                     </div>
                 </div>
             </li>
-            <li style="border-left: 1px solid grey;padding-left: 10px;">
+            @endif
+
+            <li>
                 <a id="rightMenu" href="#" style="border:none;background-color: #191c21;color:white;"
                     class="sidebar-right-toggle notification-icon" data-open="sidebar-right">
                     <i style="color: white;" class="fa fa-folder-open"></i>
                 </a>
             </li>
         </ul>
-        @endif
         <span class="separator"></span>
         <div id="userbox" onclick="showProfile();" class="userbox">
             <div class="drop">

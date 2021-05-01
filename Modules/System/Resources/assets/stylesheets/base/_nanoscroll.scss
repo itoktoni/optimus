@@ -116,6 +116,7 @@ html.no-overflowscrolling.sidebar-light:not(.dark) {
 		.sidebar-right,
 		.inner-menu {
 			.nano {
+				margin-top: 60px;
 				> .nano-content {
 					overflow: scroll !important;
 					overflow-x: hidden !important;

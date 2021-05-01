@@ -20,19 +20,25 @@
                 <div class="filter-data form-group">
                     {!! Form::open(['route' => $route_data, 'id' => 'search-form', 'files' => true]) !!}
                     <div class="form-horizontal">
-                        {!! Form::label($search_code, __('Criteria'), ['class' => 'col-md-1 control-label']) !!}
-                        <div class="col-md-2 {{ $errors->has($search_code) ? 'has-error' : ''}}">
-                            <select name="code" class="form-control">
-                                <option value="">{{ __('Select Data') }}</option>
-                                @foreach($fields as $item => $value)
-                                <option value="{{ $item }}">{{ __($value['name']) }}</option>
-                                @endforeach
-                            </select>
+                        <div class="col-md-3 col-sm-4 {{ $errors->has($search_code) ? 'has-error' : ''}}">
+                            <div class="row input-group filter-search space-sm">
+                                <span class="input-group-addon">
+                                    {{ __('Criteria') }}
+                                </span>
+                                <select name="code" class="form-control">
+                                    <option value="">{{ __('Select Data') }}</option>
+                                    @foreach($fields as $item => $value)
+                                    <option value="{{ $item }}">{{ __($value['name']) }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
                         </div>
 
-                        {!! Form::label($search_code, __('Operator'), ['class' => 'col-md-1 control-label']) !!}
-                        <div class="col-md-2 {{ $errors->has($search_code) ? 'has-error' : ''}}">
-                            <div class="">
+                        <div class="col-md-3 col-sm-4 {{ $errors->has($search_code) ? 'has-error' : ''}}">
+                            <div class="row input-group filter-search space-sm">
+                                <span class="input-group-addon">
+                                    {{ __('Operator') }}
+                                </span>
                                 <select name="aggregate" class="form-control">
                                     <option value="">{{ __('Search With') }}</option>
                                     <option value="=">{{ __('Equal') }}</option>
@@ -44,10 +50,12 @@
                                 </select>
                             </div>
                         </div>
-
-                        {!! Form::label($search_code, __('Searching'), ['class' => 'col-md-1 control-label']) !!}
-                        <div class="col-md-5">
-                            <div class="input-group">
+                        
+                        <div class="col-md-6 col-sm-12">
+                            <div class="row input-group filter-search">
+                                <span class="input-group-addon">
+                                    {{ __('Searching') }}
+                                </span>
                                 <input autofocus name="search" class="form-control" placeholder="{{ __('Advance Search') }}"
                                     type="text">
                                 <span class="input-group-btn">
