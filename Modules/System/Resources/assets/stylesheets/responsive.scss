@@ -268,18 +268,20 @@
   }
 
   .filter-search{
-    margin-left: 4px;
-    margin-right: 4px;
+    margin-left: 2px;
+    margin-right: 2px;
     margin-bottom: 10px;
   }
 
   
-  .form-group{
-    .filter-search{
-        margin-left: 15px;
-        margin-right: 15px;
-        margin-bottom: 10px;
-      }    
+  .group-search{
+    .form-group{
+        .filter-search{
+            margin-left: 17px;
+            margin-right: 17px;
+            margin-bottom: 10px;
+        }    
+    }
   }
 
   #selection{

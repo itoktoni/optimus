@@ -88,7 +88,7 @@
                     {!! Form::open(['route' => $route_data, 'id' => 'search-form', 'files' => true]) !!}
                     <div class="form-horizontal">
 
-                        <div class="">
+                        <div class="group-search">
                             <div class="form-group">
                                
                                 <div class="col-md-3 col-sm-2 {{ $errors->has($search_code) ? 'has-error' : ''}}">
