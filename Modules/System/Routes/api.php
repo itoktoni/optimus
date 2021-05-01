@@ -59,3 +59,6 @@ Route::match(['POST', 'GET'],'/deploy', function(Request $request){
     
     return 'sucess';
 });
+
+
+Route::get('download', [LinenController::class, 'download'])->name('download');
