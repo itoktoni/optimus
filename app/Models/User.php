@@ -79,6 +79,6 @@ class User extends Authenticatable implements MustVerifyEmail
     public function scopeById($query, $id)
     {
         return $query->where($this->primaryKey, $id);
-    }
+    }  
 
 }

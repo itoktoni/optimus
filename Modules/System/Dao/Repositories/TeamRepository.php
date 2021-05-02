@@ -19,6 +19,7 @@ class TeamRepository extends User implements CrudInterface
     public function saveRepository($request)
     {
         try {
+            $request['password'] = bcrypt($request['password']);
             $activity = $this->create($request);
             return Notes::create($activity);
         } catch (QueryException $ex) {
@@ -30,6 +31,7 @@ class TeamRepository extends User implements CrudInterface
     {
         try {
             $update = $this->findOrFail($code);
+            $request['password'] = bcrypt($request['password']);
             $update->update($request);
             return Notes::update($update);
         } catch (QueryException $ex) {
