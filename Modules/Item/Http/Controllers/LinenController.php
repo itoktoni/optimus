@@ -77,7 +77,7 @@ class LinenController extends Controller
     public function save(GeneralRequest $request, CreateService $service)
     {
         $data = $service->save(self::$model, $request);
-        return Response::redirectBack($data);
+        return Response::redirectBack($data)->withInput();
     }
 
     public function patch(GeneralRequest $request)

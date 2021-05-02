@@ -66,4 +66,9 @@ class LinenRepository extends Linen implements CrudInterface
         return $this->findOrFail($code);
     }
 
+    public function getTotal($company, $product){
+
+        return $this->where('item_linen_company_id', $company)->where('item_linen_product_id', $product);
+    }
+
 }

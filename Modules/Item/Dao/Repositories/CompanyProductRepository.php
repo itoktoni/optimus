@@ -23,6 +23,11 @@ class CompanyProductRepository extends CompanyConnectionItemProduct implements C
         ->leftJoinRelationship('unit')->groupby($this->getKeyName());
     }
 
+    public function getRealisasi($company, $product){
+
+        return $this->where('company_id', $company)->where('item_product_id', $product);
+    }
+
     public function saveRepository($request)
     {
         try {

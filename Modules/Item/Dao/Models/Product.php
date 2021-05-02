@@ -40,6 +40,7 @@ class Product extends Model
     public $incrementing = true;
     public $rules = [
         'item_product_name' => 'required|min:3',
+        'item_product_sku' => 'unique:item_product',
     ];
 
     const CREATED_AT = 'item_product_created_at';

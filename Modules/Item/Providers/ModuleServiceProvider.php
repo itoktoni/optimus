@@ -45,6 +45,9 @@ class ModuleServiceProvider extends ServiceProvider
         $this->app->bind('size_facades', function () {
             return new \Modules\Item\Dao\Repositories\SizeRepository();
         });
+        $this->app->bind('company_product_facades', function () {
+            return new \Modules\Item\Dao\Repositories\CompanyProductRepository();
+        });
     }
 
     /**

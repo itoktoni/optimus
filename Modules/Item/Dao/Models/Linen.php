@@ -16,6 +16,8 @@ use Illuminate\Validation\Rule;
 use Modules\System\Dao\Facades\CompanyFacades;
 use Mehradsadeghi\FilterQueryString\FilterQueryString;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Modules\Item\Dao\Facades\CompanyProductFacades;
+use Modules\Item\Dao\Facades\LinenFacades;
 use Modules\System\Dao\Models\Company;
 
 class Linen extends Model
@@ -168,6 +170,34 @@ class Linen extends Model
             if(empty($model->item_linen_status)){
                 $model->item_linen_status = 1;
             }
+        });
+
+        parent::saved(function($model){
+
+            $total = LinenFacades::getTotal($model->item_linen_company_id, $model->item_linen_product_id)->count();
+            $realisasi = CompanyProductFacades::getRealisasi($model->item_linen_company_id, $model->item_linen_product_id)->first();
+            if($realisasi){
+                $realisasi->company_item_realisasi = $total;
+                $realisasi->save();
+            }
+
+        });
+
+        parent::deleted(function($model){
+
+            foreach(request()->get('code') as $id){
+
+                $data = Linen::find($id);
+                if($data){
+                    $total = LinenFacades::getTotal($data->item_linen_company_id, $data->item_linen_product_id)->count();
+                    $realisasi = CompanyProductFacades::getRealisasi($model->item_linen_company_id, $model->item_linen_product_id)->first();
+                    if($realisasi){
+                        $realisasi->company_item_realisasi = $total;
+                        $realisasi->save();
+                    }
+                }
+            }
+            
         });
     }
 }
