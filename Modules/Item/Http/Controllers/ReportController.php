@@ -33,7 +33,7 @@ class ReportController extends Controller
         $location = Views::option(new LocationRepository());
         $company = Views::option(new CompanyRepository());
         $user = Views::option(new TeamRepository());
-        $status = Views::status(self::$model->status);
+        $status = Views::status(self::$model->status, true);
         $rent = Views::status(self::$model->rent, true);
 
         $view = [

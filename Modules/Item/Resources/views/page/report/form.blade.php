@@ -48,7 +48,7 @@
         {!! $errors->first('item_linen_product_id', '<p class="help-block">:message</p>') !!}
     </div>
 
-    {!! Form::label('name', __('Status'), ['class' => 'col-md-2 col-sm-2 control-label']) !!}
+    {!! Form::label('name', __('Rental'), ['class' => 'col-md-2 col-sm-2 control-label']) !!}
     <div class="col-md-4 col-sm-4 {{ $errors->has('item_linen_rent') ? 'has-error' : ''}}">
         {{ Form::select('item_linen_rent', $rental, null, ['class'=> 'form-control ']) }}
         {!! $errors->first('item_linen_rent', '<p class="help-block">:message</p>') !!}
@@ -64,10 +64,10 @@
         {!! $errors->first('item_linen_created_by', '<p class="help-block">:message</p>') !!}
     </div>
 
-    {!! Form::label('name', __('Updated By'), ['class' => 'col-md-2 col-sm-2 control-label']) !!}
-    <div class="col-md-4 col-sm-4 {{ $errors->has('item_linen_updated_by') ? 'has-error' : ''}}">
-        {{ Form::select('item_linen_updated_by', $user, null, ['class'=> 'form-control ']) }}
-        {!! $errors->first('item_linen_updated_by', '<p class="help-block">:message</p>') !!}
+    {!! Form::label('name', __('Status'), ['class' => 'col-md-2 col-sm-2 control-label']) !!}
+    <div class="col-md-4 col-sm-4 {{ $errors->has('item_linen_status') ? 'has-error' : ''}}">
+        {{ Form::select('item_linen_status', $status, null, ['class'=> 'form-control ']) }}
+        {!! $errors->first('item_linen_status', '<p class="help-block">:message</p>') !!}
     </div>
 
 </div>

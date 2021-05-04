@@ -25,6 +25,7 @@ class ReportLinenRegisterRepository extends LinenRepository implements FromColle
             'Tanggal Register',
             'Tanggal Update',
             'Rental',
+            'Status',
         ];
     }
 
@@ -55,6 +56,9 @@ class ReportLinenRegisterRepository extends LinenRepository implements FromColle
         if ($item_linen_rent = request()->get('item_linen_rent')) {
             $query->where('item_linen_rent', $item_linen_rent);
         }
+        if ($item_linen_status = request()->get('item_linen_status')) {
+            $query->where('item_linen_status', $item_linen_status);
+        }
         if ($from = request()->get('from')) {
             $query->whereDate('item_linen_created_at', '>=', $from);
         }
@@ -75,6 +79,7 @@ class ReportLinenRegisterRepository extends LinenRepository implements FromColle
            $data->item_linen_created_at ? $data->item_linen_created_at->isoFormat('dddd, D MMMM Y') : '', 
            $data->item_linen_updated_at ? $data->item_linen_updated_at->isoFormat('dddd, D MMMM Y') : '', 
            $data->rent[$data->item_linen_rent][0] ?? '', 
+           $data->status[$data->item_linen_status][0] ?? '', 
         ];
     }
 
