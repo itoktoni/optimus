@@ -3,6 +3,7 @@
 namespace Modules\System\Dao\Repositories;
 
 use Illuminate\Database\QueryException;
+use Modules\System\Dao\Facades\CompanyConnectionLocationFacades;
 use Modules\System\Dao\Interfaces\CrudInterface;
 use Modules\System\Dao\Models\Location;
 use Modules\System\Plugins\Helper;
@@ -53,6 +54,12 @@ class LocationRepository extends Location implements CrudInterface
             return $this->with($relation)->findOrFail($code);
         }
         return $this->findOrFail($code);
+    }
+
+    public function getLocationByCompany($code){
+
+        return $this->select($this->getTable().'.'.$this->getKeyName(), $this->searching)
+        ->join(CompanyConnectionLocationFacades::getTable(), CompanyConnectionLocationFacades::getForeignKey(), $this->getKeyName())->where(CompanyConnectionLocationFacades::getKeyName(), $code);
     }
 
 }

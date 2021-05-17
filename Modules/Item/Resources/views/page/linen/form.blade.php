@@ -1,8 +1,25 @@
+@push('javascript')
+<script>
+$('#company').change(function() {
+    var id = $("#company option:selected").val();
+    
+    var uri = window.location.toString();
+    var clean_uri = window.location.toString();
+	if (uri.indexOf("?") > 0) {
+	    clean_uri = uri.substring(0, uri.indexOf("?"));
+	    window.history.replaceState({}, document.title, clean_uri);
+    }
+    
+    window.location = clean_uri+'?company_id='+id;
+}); 
+</script>
+@endpush
+
 <div class="form-group">
 
     {!! Form::label('name', __('Company'), ['class' => 'col-md-2 col-sm-2 control-label']) !!}
     <div class="col-md-4 col-sm-4 {{ $errors->has('item_linen_company_id') ? 'has-error' : ''}}">
-        {{ Form::select('item_linen_company_id', $company, null, ['class'=> 'form-control ']) }}
+        {{ Form::select('item_linen_company_id', $company, request()->get('company_id') ?? null, ['class'=> 'form-control', 'id' => 'company']) }}
         {!! $errors->first('item_linen_company_id', '<p class="help-block">:message</p>') !!}
     </div>
 

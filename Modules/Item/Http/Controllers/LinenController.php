@@ -11,6 +11,10 @@ use Modules\Item\Dao\Facades\LinenFacades;
 use Modules\Item\Dao\Repositories\LinenRepository;
 use Modules\Item\Dao\Repositories\ProductRepository;
 use Modules\Item\Http\Services\LinenDataService;
+use Modules\System\Dao\Facades\CompanyConnectionLocationFacades;
+use Modules\System\Dao\Facades\CompanyFacades;
+use Modules\System\Dao\Facades\LocationFacades;
+use Modules\System\Dao\Models\Location;
 use Modules\System\Dao\Repositories\CompanyRepository;
 use Modules\System\Dao\Repositories\LocationRepository;
 use Modules\System\Http\Requests\DeleteRequest;
@@ -44,6 +48,13 @@ class LinenController extends Controller
         $company = Views::option(new CompanyRepository());
         $status = Views::status(self::$model->status, true);
         $rent = Views::status(self::$model->rent, true);
+
+        if($id = request()->get('company_id')){
+            $data_company = CompanyFacades::where(CompanyFacades::getKeyName(), $id)->first();
+            if(isset($data_company->locations)){
+                $location = $data_company->locations->pluck('location_name', 'location_id');
+            }
+        }
 
         $view = [
             'product' => $product,

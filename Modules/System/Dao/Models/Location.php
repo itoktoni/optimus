@@ -3,6 +3,7 @@
 namespace Modules\System\Dao\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Modules\System\Dao\Facades\CompanyConnectionLocationFacades;
 
 class Location extends Model
 {
@@ -37,5 +38,10 @@ class Location extends Model
         '1' => ['Show', 'info'],
         '0' => ['Hide', 'warning'],
     ];
+
+    public function company()
+	{
+		return $this->belongsToMany(Company::class, CompanyConnectionLocationFacades::getTable(), CompanyConnectionLocationFacades::getForeignKey(), CompanyConnectionLocationFacades::getKeyName());
+	}
 }
 
