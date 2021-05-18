@@ -12,7 +12,7 @@ class UpdateGroupModuleService extends UpdateService
 {
 
     public $visible = [
-        'create', 'list', 'create', 'index', 'stock',
+        'create', 'list', 'create', 'index', 'stock', 'report',
     ];
 
     public $method = [
@@ -90,28 +90,43 @@ class UpdateGroupModuleService extends UpdateService
 
                         $pathAction = '\Modules\\' . ucfirst($getData->system_group_module_folder) . '\Http\Controllers\\' . $module . 'Controller';
 
+
+                        $metode = $this->method[$function] ?? '';
+                        if (in_array($function, $this->visible)) {
+                            $visible = '1';
+                        }
+
+                        if (strpos($code, 'report') !== false) {
+                            
+                            $visible = '1';
+                            $metode = 'GET';
+
+                            if (strpos($function, 'export') !== false) {
+                                $visible = '0';
+                                $metode = 'POST';
+                            }
+                        }
+
                         ActionFacades::create([
-                            'system_action_code' => $code . '_' . $function,
+                            'system_action_code' => $code . '_' . Str::snake($function),
                             'system_action_module' => $code,
                             'system_action_name' => ucwords(str_replace('_', ' ', Str::snake($name))),
-                            'system_action_link' => $code . '/' . $function,
+                            'system_action_link' => $code . '/' . Str::snake($function),
                             'system_action_controller' => $module,
                             'system_action_function' => $function,
                             'system_action_sort' => 1,
                             'system_action_show' => $visible,
                             'system_action_enable' => 1,
                             'system_action_path' => $pathAction,
-                            'system_action_method' => $this->method[$function] ?? 'GET',
+                            'system_action_method' => $metode,
                             'system_action_api' => $this->api[$function] ?? 0,
                         ]);
                     }
-                    
                     if(isset($func['data'])){
                         $list_action = [];
                         foreach($func['data'] as $method){
-                            $list_action[] = $code . '_' . $method;
+                            $list_action[] = $code . '_' . Str::snake($method);
                         }
-                        
                         $object->connection_action()->sync($list_action);
                     }
 

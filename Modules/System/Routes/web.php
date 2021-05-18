@@ -42,10 +42,12 @@ Route::group(
                     $method = ['create', 'save', 'delete', 'data', 'index'];
                     foreach ($cache_query as $route) {
                         $link = $route->system_action_link . '/{code}';
-                        if (in_array($route->system_action_function, $method)) {
+
+                        if (in_array($route->system_action_function, $method) || strpos($route->system_action_code, 'report') !== false) {
 
                             $link = $route->system_action_link;
                         }
+                        
                         $path = $route->system_action_path . '@' . $route->system_action_function;
                         Route::match($route->system_action_method, $link, $path)->name($route->system_action_code);
                     }

@@ -22,14 +22,14 @@ $(document).ready( function () {
 
 <div class="row">
     <div class="panel-body">
-        {!! Form::model($model, ['route'=>[$route_save, 'code' => $model->{$model->getKeyName()}],'class'=>'form-horizontal','files'=>true]) !!}
+        {!! Form::model($model, ['route'=>[Route::currentRouteName().'_export', 'code' => $model->{$model->getKeyName()}],'class'=>'form-horizontal','files'=>true]) !!}
         <div class="panel panel-default">
             <header class="panel-heading">
-                <h2 class="panel-title">{{ __('Report') }} {{ __('Linen') }}</h2>
+                <h2 class="panel-title">{{ __('Report') }} {{ __('Linen') }} {{ __('Detail') }}</h2>
             </header>
 
             <div class="panel-body line">
-                @includeIf(Views::include($template, $folder))
+                @includeIf(Views::form('detail_form', $template, $folder))
             </div>
 
             <div class="navbar-fixed-bottom" id="menu_action">

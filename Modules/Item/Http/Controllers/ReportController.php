@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use Modules\Item\Dao\Facades\LinenFacades;
 use Modules\Item\Dao\Repositories\ProductRepository;
 use Modules\Item\Dao\Repositories\ReportLinenRegisterRepository;
+use Modules\Item\Dao\Repositories\ReportLinenSummaryRepository;
+use Modules\Item\Http\Services\ReportSummaryService;
 use Modules\System\Dao\Repositories\CompanyRepository;
 use Modules\System\Dao\Repositories\LocationRepository;
 use Modules\System\Dao\Repositories\TeamRepository;
@@ -20,9 +22,11 @@ class ReportController extends Controller
     public static $template;
     public static $service;
     public static $model;
+    public static $summary;
 
-    public function __construct(ReportLinenRegisterRepository $model, SingleService $service)
+    public function __construct(ReportLinenRegisterRepository $model, ReportLinenSummaryRepository $summary, SingleService $service)
     {
+        self::$summary = self::$summary ?? $summary;
         self::$model = self::$model ?? $model;
         self::$service = self::$service ?? $service;
     }
@@ -48,23 +52,43 @@ class ReportController extends Controller
         return array_merge($view, $data);
     }
 
-    public function create(Request $request, PreviewService $service)
+    public function detail(Request $request, PreviewService $service)
     {
         $linen = LinenFacades::dataRepository();
         $preview = $service->data($linen, $request);
         
-        return view(Views::create(config('page'), config('folder')))->with($this->share([
+        return view(Views::form(__FUNCTION__,config('page'), config('folder')))->with($this->share([
             'preview' => $preview,
             'model' => $linen->getModel(),
         ]));
     }
 
-    public function save(Request $request, ReportService $service)
+    public function detailExport(Request $request, ReportService $service)
     {
         if ($request->get('action') == 'report') {
             $data = $request->except('_token');
-            return redirect()->route('item_report_create', $data)->withInput();
+            return redirect()->route('item_report_detail', $data)->withInput();
         }
         return $service->generate(self::$model, $request);
+    }
+
+    public function summary(Request $request, PreviewService $service)
+    {
+        $linen = LinenFacades::dataRepository();
+        $preview = $service->data($linen, $request);
+        
+        return view(Views::form(__FUNCTION__ ,config('page'), config('folder')))->with($this->share([
+            'preview' => $preview,
+            'model' => $linen->getModel(),
+        ]));
+    }
+
+    public function summaryExport(Request $request, ReportSummaryService $service)
+    {
+        if ($request->get('action') == 'report') {
+            $data = $request->except('_token');
+            return redirect()->route('item_report_summary', $data)->withInput();
+        }
+        return $service->generate(self::$summary, $request);
     }
 }
