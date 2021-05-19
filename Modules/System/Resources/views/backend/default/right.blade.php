@@ -27,7 +27,7 @@
             <nav id="menu" style="border:none;" class="nav-main" role="navigation">
                 <div id="right-group" class="list-group">
                     @isset($group_list)
-                    @foreach($group_list as $group)
+                    @foreach($group_list->sortBy('system_group_module_sort') as $group)
                     <div id="linkMenu"
                         onclick="location.href = '{{ route('access_group',[$group->system_group_module_code]) }}';"
                         href="{{ route('access_group',[$group->system_group_module_code]) }}"
