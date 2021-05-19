@@ -87,5 +87,17 @@ class MasterOutstanding extends Model
     public function outstanding()
 	{
 		return $this->hasMany(Outstanding::class, OutstandingFacades::getSessionKeyName(), $this->getSessionKeyName());
-	}
+    }
+    
+    public static function boot()
+    {
+        parent::boot();
+
+        parent::saving(function($model){
+
+            if(empty($model->linen_master_outstanding_status)){
+                $model->linen_master_outstanding_status = 1;
+            }
+        });
+    }    
 }
