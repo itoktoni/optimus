@@ -17,9 +17,9 @@ class OutstandingResource extends JsonResource
     {
         $description = OutstandingFacades::description();
         $status = OutstandingFacades::status();
-
+        
         return [
-            // 'linen_outstanding_id' => $this->linen_outstanding_id,
+            'linen_outstanding_id' => $this->linen_outstanding_id,
             'linen_outstanding_rfid' => $this->linen_outstanding_rfid,
             'linen_outstanding_status' => $status[$this->linen_outstanding_status][0] ?? '',
             'linen_outstanding_created_at' => $this->linen_outstanding_created_at->format('Y-m-d H:i:s') ?? null,

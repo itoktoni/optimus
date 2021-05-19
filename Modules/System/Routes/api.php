@@ -4,6 +4,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Route;
 use Modules\Item\Http\Controllers\LinenController;
+use Modules\Linen\Dao\Facades\OutstandingFacades;
+use Modules\Linen\Http\Controllers\OutstandingController;
 use Modules\System\Http\Controllers\TeamController;
 use Symfony\Component\Process\Process;
 
@@ -37,6 +39,36 @@ if (Cache::has('routing')) {
                 Route::{$route->system_action_method}($code, $path)->name($route->system_action_code . '_api');
             }
         }
+
+        Route::get('sync_outstanding_download', function(){
+
+            $outstanding = OutstandingFacades::dataRepository()->select([
+                'linen_outstanding_rfid',
+                'linen_outstanding_status',
+                'linen_outstanding_created_at',
+                'linen_outstanding_updated_at',
+                'linen_outstanding_deleted_at',
+                'linen_outstanding_updated_by',
+                'linen_outstanding_created_name',
+                'linen_outstanding_created_by',
+                'linen_outstanding_deleted_by',
+                'linen_outstanding_session',
+                'linen_outstanding_scan_location_id',
+                'linen_outstanding_scan_location_name',
+                'linen_outstanding_scan_company_id',
+                'linen_outstanding_scan_company_name',
+                'linen_outstanding_product_id',
+                'linen_outstanding_product_name',
+                'linen_outstanding_ori_location_id',
+                'linen_outstanding_ori_location_name',
+                'linen_outstanding_ori_company_id',
+                'linen_outstanding_ori_company_name',
+                'linen_outstanding_description',
+        
+            ])->limit(10)->get();
+            return $outstanding->toArray();
+        
+        })->name('sync_outstanding_download');
     });
 }
 

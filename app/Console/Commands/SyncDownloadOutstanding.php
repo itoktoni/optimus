@@ -41,7 +41,7 @@ class SyncDownloadOutstanding extends Command
      */
     public function handle()
     {
-        $curl = Curl::to(env('API_SERVER') . 'linen_outstanding/data')
+        $curl = Curl::to(env('API_SERVER') . 'sync_outstanding_download')
         ->withData(
             [
                 'limit' => config('website.pagination'),
@@ -53,12 +53,13 @@ class SyncDownloadOutstanding extends Command
                 'Accept' => 'application/json',
                 'Content-Type' => 'application/json',
             ]
-        )->withBearer(env('API_TOKEN'))->post();
+        )->withBearer(env('API_TOKEN'))->get();
         
         $outstanding = json_decode($curl, true);
-        if(isset($outstanding['data']['data'])){
-            $bulk = array_values($outstanding['data']['data']);
-            OutstandingFacades::insert($bulk);
+
+        if(isset($outstanding)){
+            // $bulk = array_values($outstanding['data']['data']);
+            OutstandingFacades::insert($outstanding);
         }
 
         $this->info('The system has been download successfully!');
