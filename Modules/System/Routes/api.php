@@ -76,6 +76,15 @@ if (Cache::has('routing')) {
             return $outstanding->toArray();
         
         })->name('sync_outstanding_download');
+
+        Route::post('sync_outstanding_upload', function(){
+
+            $data = request()->get('id');
+            OutstandingFacades::whereIn('linen_outstanding_rfid', $data)->update([
+                'linen_outstanding_status' => 2
+            ]);
+        
+        })->name('sync_outstanding_upload');
     });
 }
 
