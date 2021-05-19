@@ -47,7 +47,7 @@ class Outstanding extends Model
     public $incrementing = true;
     public $rules = [
         'linen_outstanding_scan_company_id' => 'required|exists:system_company,company_id',
-        'linen_outstanding_scan_location_id' => 'required|exists:system_location,location_id',
+        // 'linen_outstanding_scan_location_id' => 'required|exists:system_location,location_id',
         'linen_outstanding_rfid' => 'required|unique:linen_outstanding|exists:item_linen,item_linen_rfid'
     ];
 
@@ -79,7 +79,6 @@ class Outstanding extends Model
         'linen_outstanding_rfid' => [true => 'No. Seri RFID', 'width' => 180],
         'linen_outstanding_product_name' => [true => 'Product'],
         'linen_outstanding_scan_company_name' => [true => 'Scan Rumah sakit'],
-        'linen_outstanding_scan_location_name' => [true => 'Scan Location'],
         'linen_outstanding_ori_company_name' => [true => 'Original Company'],
         'linen_outstanding_ori_location_name' => [true => 'Original Location'],
         'linen_outstanding_session' => [false => 'Session'],
@@ -101,7 +100,7 @@ class Outstanding extends Model
     public $description = [
         '1' => ['OK', 'success'],
         '2' => ['Beda Rumah Sakit', 'info'],
-        '3' => ['Beda Lokasi', 'info'],
+        // '3' => ['Beda Lokasi', 'info'],
     ];
 
     public function description()
@@ -177,21 +176,27 @@ class Outstanding extends Model
             $company = CompanyFacades::find($model->linen_outstanding_scan_company_id);
             $model->linen_outstanding_scan_company_name = $company->company_name ?? '';
 
-            $location = LocationFacades::find($model->linen_outstanding_scan_location_id);
-            $model->linen_outstanding_scan_location_name = $location->location_name ?? '';
+            // $location = LocationFacades::find($model->linen_outstanding_scan_location_id);
+            // $model->linen_outstanding_scan_location_name = $location->location_name ?? '';
 
-            if ($model->linen_outstanding_scan_company_id == $linen->item_linen_company_id && $linen->item_linen_location_id == $model->linen_outstanding_scan_location_id) {
-
-                $model->linen_outstanding_description = 1;
-
-            } else if ($model->linen_outstanding_scan_company_id != $linen->item_linen_company_id) {
+            $model->linen_outstanding_description = 1;
+            if($model->linen_outstanding_scan_company_id != $linen->item_linen_company_id){
 
                 $model->linen_outstanding_description = 2;
-
-            } else {
-
-                $model->linen_outstanding_description = 3;
             }
+
+            // if ($model->linen_outstanding_scan_company_id == $linen->item_linen_company_id && $linen->item_linen_location_id == $model->linen_outstanding_scan_location_id) {
+
+            //     $model->linen_outstanding_description = 1;
+
+            // } else if ($model->linen_outstanding_scan_company_id != $linen->item_linen_company_id) {
+
+            //     $model->linen_outstanding_description = 2;
+
+            // } else {
+
+            //     $model->linen_outstanding_description = 3;
+            // }
 
         });
 
