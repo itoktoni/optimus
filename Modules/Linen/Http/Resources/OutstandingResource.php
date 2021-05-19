@@ -15,22 +15,23 @@ class OutstandingResource extends JsonResource
      */
     public function toArray($request)
     {
-       $description = OutstandingFacades::description(); 
-       $status = OutstandingFacades::status(); 
+        $description = OutstandingFacades::description();
+        $status = OutstandingFacades::status();
 
-       return [
-           'linen_outstanding_id' => $this->linen_outstanding_id,
-           'linen_outstanding_rfid' => $this->linen_outstanding_rfid,
-           'linen_outstanding_product_name' => $this->linen_outstanding_product_name,
-           'linen_outstanding_scan_company_name' => $this->linen_outstanding_scan_company_name,
-           'linen_outstanding_scan_location_name' => $this->linen_outstanding_scan_location_name,
-           'linen_outstanding_ori_company_name' => $this->linen_outstanding_ori_company_name,
-           'linen_outstanding_ori_location_name' => $this->linen_outstanding_ori_location_name,
-           'linen_outstanding_description' => $description[$this->linen_outstanding_description][0] ?? '',
-           'linen_outstanding_status' => $status[$this->linen_outstanding_status][0] ?? '',
-           'linen_outstanding_session' => $this->linen_outstanding_session,
-           'linen_outstanding_created_at' => $this->linen_outstanding_created_at->format('Y-m-d H:i:s') ?? null,
-           'linen_outstanding_created_name' => $this->linen_outstanding_created_name ?? null,
-       ];
+        return [
+            // 'linen_outstanding_id' => $this->linen_outstanding_id,
+            'linen_outstanding_rfid' => $this->linen_outstanding_rfid,
+            'linen_outstanding_status' => $status[$this->linen_outstanding_status][0] ?? '',
+            'linen_outstanding_created_at' => $this->linen_outstanding_created_at->format('Y-m-d H:i:s') ?? null,
+            'linen_outstanding_created_by' => $this->linen_outstanding_created_by ?? null,
+            'linen_outstanding_created_name' => $this->linen_outstanding_created_name ?? null,
+            'linen_outstanding_scan_company_name' => $this->linen_outstanding_scan_company_name,
+            'linen_outstanding_ori_company_name' => $this->linen_outstanding_ori_company_name,
+            'linen_outstanding_product_name' => $this->linen_outstanding_product_name,
+            // 'linen_outstanding_scan_location_name' => $this->linen_outstanding_scan_location_name,
+            // 'linen_outstanding_ori_location_name' => $this->linen_outstanding_ori_location_name,
+            'linen_outstanding_description' => $description[$this->linen_outstanding_description][0] ?? '',
+            'linen_outstanding_session' => $this->linen_outstanding_session,
+        ];
     }
 }
