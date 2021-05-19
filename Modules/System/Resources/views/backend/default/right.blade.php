@@ -32,7 +32,7 @@
                         onclick="location.href = '{{ route('access_group',[$group->system_group_module_code]) }}';"
                         href="{{ route('access_group',[$group->system_group_module_code]) }}"
                         class="pointer linkRight list-group-item {{ (Session(Auth::User()->username.'_group_access') == $group->system_group_module_code ? 'active' : '') }}">
-                        <span>{{ __($group->system_group_module_code) }}</span>
+                        <span>{{ __($group->system_group_module_name) }}</span>
                     </div>
                     @endforeach
                     @endisset

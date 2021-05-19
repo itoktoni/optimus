@@ -100,7 +100,7 @@ class Outstanding extends Model
     public $description = [
         '1' => ['OK', 'success'],
         '2' => ['Beda Rumah Sakit', 'info'],
-        // '3' => ['Beda Lokasi', 'info'],
+        '3' => ['Belum di Scan', 'danger'],
     ];
 
     public function description()
