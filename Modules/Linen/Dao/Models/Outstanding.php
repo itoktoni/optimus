@@ -23,6 +23,8 @@ class Outstanding extends Model
         'linen_outstanding_status',
         'linen_outstanding_created_at',
         'linen_outstanding_updated_at',
+        'linen_outstanding_downloaded_at',
+        'linen_outstanding_uploaded_at',
         'linen_outstanding_deleted_at',
         'linen_outstanding_updated_by',
         'linen_outstanding_created_by',

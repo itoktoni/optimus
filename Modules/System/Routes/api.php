@@ -65,7 +65,14 @@ if (Cache::has('routing')) {
                 'linen_outstanding_ori_company_name',
                 'linen_outstanding_description',
         
-            ])->limit(10)->get();
+            ])->whereNull('linen_outstanding_downloaded_at')->limit(env('SYNC_LIMIT', 100))->get();
+
+            $id = $outstanding->pluck('linen_outstanding_rfid');
+
+            OutstandingFacades::whereIn('linen_outstanding_rfid', $id)->update([
+                'linen_outstanding_downloaded_at' => date('Y-m-d H:i:s')
+            ]);
+
             return $outstanding->toArray();
         
         })->name('sync_outstanding_download');

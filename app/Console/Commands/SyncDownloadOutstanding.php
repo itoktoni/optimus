@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\DB;
 use Ixudra\Curl\Facades\Curl;
 use Modules\Linen\Dao\Facades\OutstandingFacades;
 use Modules\Linen\Http\Services\OutstandingMasterService;
@@ -41,10 +42,10 @@ class SyncDownloadOutstanding extends Command
      */
     public function handle()
     {
-        $curl = Curl::to(env('API_SERVER') . 'sync_outstanding_download')
+        $curl = Curl::to(env('SYNC_SERVER') . 'sync_outstanding_download')
         ->withData(
             [
-                'limit' => config('website.pagination'),
+                'limit' => env('SYNC_LIMIT', 100),
                 'page' => 1,
                 'download' => true,
             ]
@@ -53,13 +54,13 @@ class SyncDownloadOutstanding extends Command
                 'Accept' => 'application/json',
                 'Content-Type' => 'application/json',
             ]
-        )->withBearer(env('API_TOKEN'))->get();
+        )->withBearer(env('SYNC_TOKEN'))->get();
         
         $outstanding = json_decode($curl, true);
 
         if(isset($outstanding)){
             // $bulk = array_values($outstanding['data']['data']);
-            OutstandingFacades::insert($outstanding);
+            DB::table('linen_outstanding')->insert($outstanding);
         }
 
         $this->info('The system has been download successfully!');
