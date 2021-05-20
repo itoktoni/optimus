@@ -643,23 +643,29 @@ use Illuminate\Support\Collection;
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($model->rules as $key => $rules)
 
                             <tr>
                                 <td>
-                                    <code>{{ $key }}</code>
+                                    <code>linen_master_outstanding_total</code>
                                 </td>
                                 <td>
-                                    {{ Str::of($rules)->replace('|', ' & ')->replace(':', ' : ') }}
+                                    required
                                 </td>
                             </tr>
 
-                            @endforeach
+                            <tr>
+                                <td>
+                                    <code>linen_master_outstanding_session</code>
+                                </td>
+                                <td>
+                                    required and unique
+                                </td>
+                            </tr>
 
                             <tr>
                                 <td colspan="2">
-                                    masukan data session <code>{ "linen_outstanding_session" : "xxxx" }</code> jika ingin
-                                    membuat sesi 1x scan
+                                    masukan data session <code>{ "linen_master_outstanding_session" : "xxxx" }</code> <br> jika ingin
+                                    membuat sesi 1x scan, dan di ikuti dengan masukan data session di detail outstanding pada saat save di api : <code>(https://optimus.local/api/linen_outstanding/create) </code>
                                 </td>
                             </tr>
 
@@ -674,7 +680,7 @@ use Illuminate\Support\Collection;
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach(collect($model->getFillable())->chunk(3) as $fields)
+                            @foreach(collect(Modules\Linen\Dao\Facades\MasterOutstandingFacades::getFillable())->chunk(3) as $fields)
                             <tr>
                                 @foreach($fields as $field)
                                 <td>
@@ -760,8 +766,10 @@ use Illuminate\Support\Collection;
                                             </h4>
                                         </div>
                                         <div class="card-body">
-
-                                            <pre><code>{{ json_encode(Notes::create($json), JSON_PRETTY_PRINT) }}</code></pre>
+                                            @php
+                                            $getMaster = Modules\Linen\Dao\Facades\MasterOutstandingFacades::first();
+                                            @endphp
+                                            <pre><code>{{ json_encode(Notes::create($getMaster), JSON_PRETTY_PRINT) }}</code></pre>
 
                                         </div>
                                     </div>
