@@ -20,18 +20,34 @@ class OutstandingRepository extends Outstanding implements CrudInterface
     public function saveRepository($request)
     {
         try {
-            $activity = $this->create($request);
+            unset($request['_token']);
+            $activity = $this->updateOrCreate(['linen_outstanding_rfid' => $request['linen_outstanding_rfid']], $request);
             return Notes::create($activity);
         } catch (QueryException $ex) {
             return Notes::error($ex->getMessage());
         }
     }
 
-    public function BatchRepository($request)
+    public function batchSelectRepository($code)
+    {
+        return $this->select('linen_outstanding_rfid')->whereIn('linen_outstanding_rfid', $code);
+    }
+
+    public function batchSaveRepository($request)
     {
         try {
             $activity = $this->insert($request);
             return Notes::create($activity);
+        } catch (QueryException $ex) {
+            return Notes::error($ex->getMessage());
+        }
+    }
+
+    public function batchDeleteRepository($rfid)
+    {
+        try {
+            $activity = $this->whereIn('linen_outstanding_rfid' , $rfid)->delete();
+            return Notes::delete($activity);
         } catch (QueryException $ex) {
             return Notes::error($ex->getMessage());
         }

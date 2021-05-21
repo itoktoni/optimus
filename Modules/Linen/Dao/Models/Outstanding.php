@@ -30,14 +30,14 @@ class Outstanding extends Model
         'linen_outstanding_created_by',
         'linen_outstanding_deleted_by',
         'linen_outstanding_session',
-        'linen_outstanding_scan_location_id',
-        'linen_outstanding_scan_location_name',
+        // 'linen_outstanding_scan_location_id',
+        // 'linen_outstanding_scan_location_name',
         'linen_outstanding_scan_company_id',
         'linen_outstanding_scan_company_name',
         'linen_outstanding_product_id',
         'linen_outstanding_product_name',
-        'linen_outstanding_ori_location_id',
-        'linen_outstanding_ori_location_name',
+        // 'linen_outstanding_ori_location_id',
+        // 'linen_outstanding_ori_location_name',
         'linen_outstanding_ori_company_id',
         'linen_outstanding_ori_company_name',
         'linen_outstanding_description',
@@ -50,7 +50,7 @@ class Outstanding extends Model
     public $rules = [
         'linen_outstanding_scan_company_id' => 'required|exists:system_company,company_id',
         // 'linen_outstanding_scan_location_id' => 'required|exists:system_location,location_id',
-        'linen_outstanding_rfid' => 'required|unique:linen_outstanding|exists:item_linen,item_linen_rfid'
+        'linen_outstanding_rfid' => 'required|exists:item_linen,item_linen_rfid'
     ];
 
     const CREATED_AT = 'linen_outstanding_created_at';
@@ -82,7 +82,7 @@ class Outstanding extends Model
         'linen_outstanding_product_name' => [true => 'Product'],
         'linen_outstanding_scan_company_name' => [true => 'Scan Rumah sakit'],
         'linen_outstanding_ori_company_name' => [true => 'Original Company'],
-        'linen_outstanding_ori_location_name' => [true => 'Original Location'],
+        // 'linen_outstanding_ori_location_name' => [true => 'Original Location'],
         'linen_outstanding_session' => [false => 'Session'],
         'linen_outstanding_created_at' => [false => 'Created At'],
         'linen_outstanding_created_by' => [false => 'Created By'],
@@ -169,8 +169,8 @@ class Outstanding extends Model
                 $model->linen_outstanding_ori_company_id = $linen->item_linen_company_id;
                 $model->linen_outstanding_ori_company_name = $linen->company->company_name ?? '';
 
-                $model->linen_outstanding_ori_location_id = $linen->item_linen_location_id;
-                $model->linen_outstanding_ori_location_name = $linen->location->location_name ?? '';
+                // $model->linen_outstanding_ori_location_id = $linen->item_linen_location_id;
+                // $model->linen_outstanding_ori_location_name = $linen->location->location_name ?? '';
             }
 
             $model->linen_outstanding_created_name = auth()->user()->name ?? '';

@@ -12,7 +12,14 @@ class OutstandingBatchService
     {
         $check = false;
         try {
-            $check = $repository->batchRepository($data->detail);
+            $exists = $repository->batchSelectRepository(array_keys($data->detail))->get();
+            
+            if(!empty($exists)){
+                $data_rfid = $exists->pluck('linen_outstanding_rfid');
+                $repository->batchDeleteRepository($data_rfid);
+            }
+           
+            $check = $repository->batchSaveRepository($data->detail);
 
             $session = $data->linen_outstanding_session;
             if($session)

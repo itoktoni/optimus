@@ -55,7 +55,7 @@ class OutstandingBatchRequest extends GeneralRequest
                 if (isset($linen[$item])) {
 
                     $slinen = $linen[$item];
-
+                    
                     if ($slinen->company_id != $company->company_id) {
                         $data = array_merge($data, [
                             'linen_outstanding_description' => 2,
@@ -66,16 +66,6 @@ class OutstandingBatchRequest extends GeneralRequest
                         $data = array_merge($data, [
                             'linen_outstanding_description' => 1,
                         ]);
-
-                        // if ($slinen->location_id != $location->location_id) {
-                        //     $data = array_merge($data, [
-                        //         'linen_outstanding_description' => 3,
-                        //     ]);
-                        // } else {
-                        //     $data = array_merge($data, [
-                        //         'linen_outstanding_description' => 1,
-                        //     ]);
-                        // }
                     }  
 
                     $data = array_merge($data, [
@@ -92,8 +82,8 @@ class OutstandingBatchRequest extends GeneralRequest
                     $data = array_merge($data, [
                         'linen_outstanding_product_id' => null,
                         'linen_outstanding_product_name' => null,
-                        'linen_outstanding_ori_location_id' => null,
-                        'linen_outstanding_ori_location_name' => null,
+                        // 'linen_outstanding_ori_location_id' => null,
+                        // 'linen_outstanding_ori_location_name' => null,
                         'linen_outstanding_ori_company_id' => null,
                         'linen_outstanding_ori_company_name' => null,
                         'linen_outstanding_description' => 2,
@@ -129,13 +119,8 @@ class OutstandingBatchRequest extends GeneralRequest
             ];
 
         } else {
-            // return [
-            //     'rfid.*' => 'required|unique:linen_outstanding,linen_outstanding_rfid|exists:item_linen,item_linen_rfid',
-            //     'linen_outstanding_scan_company_id' => 'required|exists:system_company,company_id',
-            //     'linen_outstanding_session' => 'required',
-            // ];
             return [
-                'rfid.*' => 'required',
+                'rfid.*' => 'required|exists:item_linen,item_linen_rfid',
                 'linen_outstanding_scan_company_id' => 'required|exists:system_company,company_id',
                 'linen_outstanding_session' => 'required',
             ];
