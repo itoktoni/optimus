@@ -129,10 +129,15 @@ class OutstandingBatchRequest extends GeneralRequest
             ];
 
         } else {
+            // return [
+            //     'rfid.*' => 'required|unique:linen_outstanding,linen_outstanding_rfid|exists:item_linen,item_linen_rfid',
+            //     'linen_outstanding_scan_company_id' => 'required|exists:system_company,company_id',
+            //     'linen_outstanding_session' => 'required',
+            // ];
             return [
-                // 'rfid.*' => 'required|unique:linen_outstanding,linen_outstanding_rfid|exists:item_linen,item_linen_rfid',
-                // 'linen_outstanding_scan_company_id' => 'required|exists:system_company,company_id',
-                // 'linen_outstanding_session' => 'required',
+                'rfid.*' => 'required',
+                'linen_outstanding_scan_company_id' => 'required|exists:system_company,company_id',
+                'linen_outstanding_session' => 'required',
             ];
         }
     }
