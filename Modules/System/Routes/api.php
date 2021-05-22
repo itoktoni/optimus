@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 use Modules\Item\Http\Controllers\LinenController;
 use Modules\Linen\Dao\Facades\OutstandingFacades;
@@ -53,19 +54,19 @@ if (Cache::has('routing')) {
                 'linen_outstanding_created_by',
                 'linen_outstanding_deleted_by',
                 'linen_outstanding_session',
-                'linen_outstanding_scan_location_id',
-                'linen_outstanding_scan_location_name',
+                // 'linen_outstanding_scan_location_id',
+                // 'linen_outstanding_scan_location_name',
                 'linen_outstanding_scan_company_id',
                 'linen_outstanding_scan_company_name',
                 'linen_outstanding_product_id',
                 'linen_outstanding_product_name',
-                'linen_outstanding_ori_location_id',
-                'linen_outstanding_ori_location_name',
+                // 'linen_outstanding_ori_location_id',
+                // 'linen_outstanding_ori_location_name',
                 'linen_outstanding_ori_company_id',
                 'linen_outstanding_ori_company_name',
                 'linen_outstanding_description',
         
-            ])->whereNull('linen_outstanding_downloaded_at')->limit(env('SYNC_LIMIT', 100))->get();
+            ])->whereNull('linen_outstanding_downloaded_at')->limit(env('SYNC_DOWNLOAD', 100))->get();
 
             $id = $outstanding->pluck('linen_outstanding_rfid');
 
@@ -79,12 +80,23 @@ if (Cache::has('routing')) {
 
         Route::post('sync_outstanding_upload', function(){
 
-            $data = request()->get('id');
-            OutstandingFacades::whereIn('linen_outstanding_rfid', $data)->update([
-                'linen_outstanding_status' => 2
-            ]);
+            $data = request()->get('data');
+            // $insert = OutstandingFacades::insert($data);
+            // $check = OutstandingFacades::whereIn('linen_outstanding_rfid', $data)->upload([
+            //     'linen_outstanding_status' => 2
+            // ]);
+            return $data;
         
         })->name('sync_outstanding_upload');
+
+        Route::post('sync_outstanding_update', function(){
+
+            $rfid = request()->get('rfid');
+            $update = request()->get('update');
+            $check = OutstandingFacades::whereIn('linen_outstanding_rfid', $rfid)->update($update);
+            return $rfid;
+        
+        })->name('sync_outstanding_update');
     });
 }
 
@@ -107,6 +119,5 @@ Route::match(['POST', 'GET'],'/deploy', function(Request $request){
     
     return 'sucess';
 });
-
 
 Route::get('download', [LinenController::class, 'download'])->name('download');

@@ -5,8 +5,6 @@ namespace App\Console\Commands;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 use Ixudra\Curl\Facades\Curl;
-use Modules\Linen\Dao\Facades\OutstandingFacades;
-use Modules\Linen\Http\Services\OutstandingMasterService;
 
 class SyncDownloadOutstanding extends Command
 {
@@ -43,24 +41,30 @@ class SyncDownloadOutstanding extends Command
     public function handle()
     {
         $curl = Curl::to(env('SYNC_SERVER') . 'sync_outstanding_download')
-        ->withData(
-            [
-                'limit' => env('SYNC_LIMIT', 100),
-                'page' => 1,
-                'download' => true,
-            ]
-        )->withHeaders(
+            ->withData(
+                [
+                    'limit' => env('SYNC_DOWNLOAD', 100),
+                    'page' => 1,
+                    'download' => true,
+                ]
+            )->withHeaders(
             [
                 'Accept' => 'application/json',
                 'Content-Type' => 'application/json',
             ]
         )->withBearer(env('SYNC_TOKEN'))->get();
-        
-        $outstanding = json_decode($curl, true);
 
-        if(isset($outstanding)){
-            // $bulk = array_values($outstanding['data']['data']);
-            DB::table('linen_outstanding')->insert($outstanding);
+        $outstanding = json_decode($curl, true);
+        $collect = collect($outstanding)->pluck('linen_outstanding_rfid');
+
+        if (isset($outstanding)) {
+            $sql = DB::connection('testing')->table('linen_outstanding')->whereIn('linen_outstanding_rfid', $collect);
+            $check = $sql->count();
+            if ($check > 0) {
+                $sql->delete();
+            }
+
+            $insert = DB::connection('testing')->table('linen_outstanding')->insert($outstanding);
         }
 
         $this->info('The system has been download successfully!');
