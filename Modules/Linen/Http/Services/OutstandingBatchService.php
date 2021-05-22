@@ -37,12 +37,14 @@ class OutstandingBatchService
 
             if(isset($check['status']) && $check['status']){
 
-                Alert::create();
+                Alert::create($data->detail);
             }
             else{
+
                 $message = env('APP_DEBUG') ? $check['data'] : $check['message'];
                 Alert::error($message);
             }
+            
         } catch (\Throwable $th) {
             Alert::error($th->getMessage());
             return $th->getMessage();

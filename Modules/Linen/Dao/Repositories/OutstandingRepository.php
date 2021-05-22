@@ -37,7 +37,7 @@ class OutstandingRepository extends Outstanding implements CrudInterface
     {
         try {
             $activity = $this->insert($request);
-            return Notes::create($activity);
+            return Notes::create(array_keys($request));
         } catch (QueryException $ex) {
             return Notes::error($ex->getMessage());
         }
