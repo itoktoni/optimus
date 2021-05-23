@@ -4,9 +4,9 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Http;
 use Ixudra\Curl\Facades\Curl;
 use Modules\Linen\Dao\Facades\OutstandingFacades;
-use Modules\Linen\Http\Services\OutstandingMasterService;
 
 class SyncUploadOutstanding extends Command
 {
@@ -60,63 +60,29 @@ class SyncUploadOutstanding extends Command
             'linen_outstanding_ori_company_name',
             'linen_outstanding_description',
         ])
-        ->where('linen_outstanding_description', 3)
-        ->whereNull('linen_outstanding_uploaded_at')
-        ->limit(env('SYNC_UPLOAD', 100))
-        ->get();
+            ->where('linen_outstanding_description', 3)
+            ->whereNull('linen_outstanding_uploaded_at')
+            ->limit(env('SYNC_UPLOAD', 100))
+            ->get();
 
-        $curl = Curl::to(env('SYNC_SERVER') . 'sync_outstanding_upload')
-        ->withData(
-            [
-                'data' => $outstanding->toArray() ?? [],
-            ]
-        )->withHeaders(
-            [
-                'Accept' => 'application/json',
-                'Content-Type' => 'application/json',
-            ]
-        )->withBearer(env('SYNC_TOKEN'))->post();
-        dd(json_decode($curl));
-
-
-        if(isset($outstanding)){
-            DB::table('linen_outstanding')
-            ->whereIn('linen_outstanding_rfid', $outstanding)
-            ->update([
-                'linen_outstanding_uploaded_at' => date('Y-m-d H:i:s')
+        $array = json_decode(json_encode($outstanding), true) ?? [];
+       
+        $response = Http::withoutVerifying()
+            ->withToken('245|kibh7d0CHZRmU3AxLaFFtKHKnyQsu4jRbgCebGD7')
+            ->withOptions(['debug' => true])
+            ->post(env('SYNC_SERVER') . 'sync_outstanding_upload', [
+                'insert' => $array,
             ]);
+
+        if (isset($outstanding)) {
+
+            $pluck = collect($outstanding)->pluck('linen_outstanding_rfid');
+            DB::connection('testing')->table('linen_outstanding')
+                ->whereIn('linen_outstanding_rfid', $pluck)
+                ->update([
+                    'linen_outstanding_uploaded_at' => date('Y-m-d H:i:s'),
+                ]);
         }
-
-        // status gate == 2 and description != 3
-        $outstanding = OutstandingFacades::dataRepository()
-        ->where('linen_outstanding_status', 2)
-        ->where('linen_outstanding_description', '!=', 3)
-        ->whereNull('linen_outstanding_uploaded_at')
-        ->limit(env('SYNC_UPLOAD', 100))
-        ->get()
-        ->pluck('linen_outstanding_rfid');
-
-        $curl = Curl::to(env('SYNC_SERVER') . 'sync_outstanding_upload')
-        ->withData(
-            [
-                'id' => $outstanding,
-            ]
-        )->withHeaders(
-            [
-                'Accept' => 'application/json',
-                'Content-Type' => 'application/json',
-            ]
-        )->withBearer(env('SYNC_TOKEN'))->post();
-
-        if(isset($outstanding)){
-            DB::table('linen_outstanding')
-            ->whereIn('linen_outstanding_rfid', $outstanding)
-            ->update([
-                'linen_outstanding_uploaded_at' => date('Y-m-d H:i:s')
-            ]);
-        }
-
-        // status == 
 
         $this->info('The system has been download successfully!');
     }

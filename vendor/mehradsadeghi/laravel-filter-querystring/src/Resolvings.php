@@ -11,6 +11,7 @@ trait Resolvings {
         }
 
         $availableFilter = $this->availableFilters[$filterName] ?? $this->availableFilters['default'];
+
         return app($availableFilter, ['filter' => $filterName, 'values' => $values]);
     }
 
