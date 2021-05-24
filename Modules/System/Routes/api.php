@@ -38,6 +38,8 @@ if (Cache::has('routing')) {
 
         Route::post('sync_outstanding_download', function () {
 
+            $limit = request()->get('limit');
+
             $outstanding = OutstandingFacades::dataRepository()->select([
                 'linen_outstanding_rfid',
                 'linen_outstanding_status',
@@ -61,7 +63,7 @@ if (Cache::has('routing')) {
                 'linen_outstanding_ori_company_name',
                 'linen_outstanding_description',
 
-            ])->whereNull('linen_outstanding_downloaded_at')->limit(env('SYNC_DOWNLOAD', 100))->get();
+            ])->whereNull('linen_outstanding_downloaded_at')->limit($limit)->get();
 
             $id = $outstanding->pluck('linen_outstanding_rfid');
 

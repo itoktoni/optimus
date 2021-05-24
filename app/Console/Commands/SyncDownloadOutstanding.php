@@ -4,7 +4,7 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
-use Ixudra\Curl\Facades\Curl;
+use Illuminate\Support\Facades\Http;
 
 class SyncDownloadOutstanding extends Command
 {
@@ -40,19 +40,29 @@ class SyncDownloadOutstanding extends Command
      */
     public function handle()
     {
-        $curl = Curl::to(env('SYNC_SERVER') . 'sync_outstanding_download')
-            ->withData(
-                [
-                    'limit' => env('SYNC_DOWNLOAD', 100),
-                    'page' => 1,
-                    'download' => true,
-                ]
-            )->withHeaders(
-            [
+        // $curl = Curl::to(env('SYNC_SERVER') . 'sync_outstanding_download')
+        //     ->withData(
+        //         [
+        //             'limit' => env('SYNC_DOWNLOAD', 100),
+        //             'page' => 1,
+        //             'download' => true,
+        //         ]
+        //     )->withHeaders(
+        //     [
+        //         'Accept' => 'application/json',
+        //         'Content-Type' => 'application/json',
+        //     ]
+        // )->withBearer(env('SYNC_TOKEN'))->get();
+
+        $curl = Http::withToken(env('SYNC_TOKEN'))->withoutVerifying()
+            ->withOptions(['debug' => true])
+            ->withHeaders([
                 'Accept' => 'application/json',
                 'Content-Type' => 'application/json',
-            ]
-        )->withBearer(env('SYNC_TOKEN'))->get();
+            ])
+            ->post(env('SYNC_SERVER') . 'sync_outstanding_download', [
+                'limit' => env('SYNC_DOWNLOAD', 5),
+            ]);
 
         $outstanding = json_decode($curl, true);
         $collect = collect($outstanding)->pluck('linen_outstanding_rfid');
