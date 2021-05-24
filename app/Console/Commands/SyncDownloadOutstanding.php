@@ -40,20 +40,6 @@ class SyncDownloadOutstanding extends Command
      */
     public function handle()
     {
-        // $curl = Curl::to(env('SYNC_SERVER') . 'sync_outstanding_download')
-        //     ->withData(
-        //         [
-        //             'limit' => env('SYNC_DOWNLOAD', 100),
-        //             'page' => 1,
-        //             'download' => true,
-        //         ]
-        //     )->withHeaders(
-        //     [
-        //         'Accept' => 'application/json',
-        //         'Content-Type' => 'application/json',
-        //     ]
-        // )->withBearer(env('SYNC_TOKEN'))->get();
-
         $curl = Http::withToken(env('SYNC_TOKEN'))->withoutVerifying()
             ->withOptions(['debug' => true])
             ->withHeaders([

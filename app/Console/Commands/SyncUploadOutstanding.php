@@ -68,7 +68,7 @@ class SyncUploadOutstanding extends Command
         $array = json_decode(json_encode($outstanding), true) ?? [];
        
         $response = Http::withoutVerifying()
-            ->withToken('245|kibh7d0CHZRmU3AxLaFFtKHKnyQsu4jRbgCebGD7')
+            ->withToken(env('SYNC_TOKEN'))
             ->withOptions(['debug' => true])
             ->post(env('SYNC_SERVER') . 'sync_outstanding_upload', [
                 'insert' => $array,
