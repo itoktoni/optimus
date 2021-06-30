@@ -14,6 +14,7 @@ use Modules\Linen\Http\Services\OutstandingMasterService;
 use Modules\Linen\Http\Services\OutstandingPatchService;
 use Modules\System\Dao\Repositories\CompanyRepository;
 use Modules\System\Dao\Repositories\LocationRepository;
+use Modules\System\Dao\Repositories\TeamRepository;
 use Modules\System\Http\Requests\DeleteRequest;
 use Modules\System\Http\Requests\GeneralRequest;
 use Modules\System\Http\Services\CreateService;
@@ -38,11 +39,12 @@ class OutstandingController extends Controller
 
     private function share($data = [])
     {
-        $status = Views::status(self::$model->status);
-        $description = Views::status(self::$model->description);
+        $status = Views::status(self::$model->status, true);
+        $description = Views::status(self::$model->description, true);
         $product = Views::option(new ProductRepository());
         $location = Views::option(new LocationRepository());
         $company = Views::option(new CompanyRepository());
+        $user = Views::option(new TeamRepository());
         
         $view = [
             'status' => $status,
@@ -50,6 +52,7 @@ class OutstandingController extends Controller
             'product' => $product,
             'location' => $location,
             'company' => $company,
+            'user' => $user,
         ];
         
         return array_merge($view, $data);
@@ -57,9 +60,13 @@ class OutstandingController extends Controller
 
     public function index()
     {
-        return view(Views::index())->with([
+        // return view(Views::index())->with([
+        //     'fields' => Helper::listData(self::$model->datatable),
+        // ]);
+
+        return view(Views::index(config('page'), config('folder')))->with($this->share([
             'fields' => Helper::listData(self::$model->datatable),
-        ]);
+        ]));
     }
 
     public function create()

@@ -37,6 +37,37 @@ class OutstandingDataService extends DataService
             return new OutstandingCollection($pagination);
         }
 
+        $request = request()->all();
+        $filter = $this->filter;
+
+        if($key = $request['linen_outstanding_key']){
+            $filter = $filter->where('linen_outstanding_key', $key);
+        }
+        if($rfid = $request['linen_outstanding_rfid']){
+            $filter = $filter->where('linen_outstanding_rfid', $rfid);
+        }
+        if($company_ori = $request['linen_outstanding_ori_company_id']){
+            $filter = $filter->where('linen_outstanding_ori_company_id', $company_ori);
+        }
+        if($company_scan = $request['linen_outstanding_scan_company_id']){
+            $filter = $filter->where('linen_outstanding_scan_company_id', $company_scan);
+        }
+        if($product = $request['linen_outstanding_product_id']){
+            $filter = $filter->where('linen_outstanding_product_id', $product);
+        }
+        if($create = $request['linen_outstanding_created_by']){
+            $filter = $filter->where('linen_outstanding_created_by', $create);
+        }
+        // if($register = $request['item_linen_created_by']){
+        //     $filter = $filter->where('item_linen_created_by', $register);
+        // }
+        if($status = $request['status']){
+            $filter = $filter->where('linen_outstanding_status', $status);
+        }
+        if($description = $request['description']){
+            $filter = $filter->where('linen_outstanding_description', $description);
+        }
+
         $this->datatable = Datatables::of($this->filter);
         $this->setAction();
         $this->setStatus();

@@ -14,6 +14,15 @@
     </div>
     @endif
 
+    {!! Form::label('name', __('Description'), ['class' => 'col-md-2 col-sm-2 control-label']) !!}
+    <div class="col-md-4 col-sm-4">
+        {!! Form::textarea('company_item_description', null, ['class' => 'form-control', 'rows' => '3']) !!}
+    </div> 
+
+</div>
+
+<div class="form-group">
+
     {!! Form::label('name', __('Product'), ['class' => 'col-md-2 col-sm-2 control-label']) !!}
     @if(isset($master['item_product_id']))
     <div class="col-md-4 col-sm-4 {{ $errors->has('item_product_id') ? 'has-error' : ''}}">
@@ -28,27 +37,15 @@
     </div>
     @endif
 
-    
-
-</div>
-
-<div class="form-group">
-
     {!! Form::label('name', __('Size'), ['class' => 'col-md-2 col-sm-2 control-label']) !!}
     <div class="col-md-4 col-sm-4 {{ $errors->has('company_item_size_id') ? 'has-error' : ''}}">
         {{ Form::select('company_item_size_id', $size, null, ['class'=> 'form-control', ]) }}
         {!! $errors->first('company_item_size_id', '<p class="help-block">:message</p>') !!}
     </div>
 
-    {!! Form::label('name', __('Unit'), ['class' => 'col-md-2 col-sm-2 control-label']) !!}
-    <div class="col-md-4 col-sm-4 {{ $errors->has('company_item_unit_id') ? 'has-error' : ''}}">
-        {{ Form::select('company_item_unit_id', $unit, null, ['class'=> 'form-control ']) }}
-        {!! $errors->first('company_item_unit_id', '<p class="help-block">:message</p>') !!}
-    </div>
-
 </div>
 
-<div class="form-group">
+<!-- <div class="form-group">
 
     {!! Form::label('name', __('Minimal'), ['class' => 'col-md-2 col-sm-2 control-label']) !!}
     <div class="col-md-4 col-sm-4 {{ $errors->has('company_item_minimal') ? 'has-error' : ''}}">
@@ -62,16 +59,10 @@
         {!! $errors->first('company_item_maximal', '<p class="help-block">:message</p>') !!}
     </div>
 
-</div>
+</div> -->
 
 
 <div class="form-group">
-
-    {!! Form::label('name', __('Target'), ['class' => 'col-md-2 col-sm-2 control-label']) !!}
-    <div class="col-md-4 col-sm-4 {{ $errors->has('company_item_target') ? 'has-error' : ''}}">
-        {!! Form::text('company_item_target', null, ['class' => 'form-control']) !!}
-        {!! $errors->first('company_item_target', '<p class="help-block">:message</p>') !!}
-    </div>
 
     {!! Form::label('name', __('Weight'), ['class' => 'col-md-2 col-sm-2 control-label']) !!}
     <div class="col-md-4 col-sm-4 {{ $errors->has('company_item_weight') ? 'has-error' : ''}}">
@@ -79,11 +70,41 @@
         {!! $errors->first('company_item_weight', '<p class="help-block">:message</p>') !!}
     </div>
 
+    {!! Form::label('name', __('Unit'), ['class' => 'col-md-2 col-sm-2 control-label']) !!}
+    <div class="col-md-4 col-sm-4 {{ $errors->has('company_item_unit_id') ? 'has-error' : ''}}">
+        {{ Form::select('company_item_unit_id', $unit, null, ['class'=> 'form-control ']) }}
+        {!! $errors->first('company_item_unit_id', '<p class="help-block">:message</p>') !!}
+    </div>
+
 </div>
 
+<hr>
+
 <div class="form-group">
-    {!! Form::label('name', __('Description'), ['class' => 'col-md-2 col-sm-2 control-label']) !!}
-    <div class="col-md-10 col-sm-10">
-        {!! Form::textarea('company_item_description', null, ['class' => 'form-control', 'rows' => '3']) !!}
+   
+    {!! Form::label('name', __('Parstok'), ['class' => 'col-md-1 col-sm-2 control-label']) !!}
+    <div class="col-md-3 col-sm-4 {{ $errors->has('company_item_target') ? 'has-error' : ''}}">
+        {!! Form::text('company_item_target', null, ['class' => 'form-control']) !!}
+        {!! $errors->first('company_item_target', '<p class="help-block">:message</p>') !!}
     </div>
+    
+    {!! Form::label('name', __('Realisasi'), ['class' => 'col-md-1 col-sm-2 control-label']) !!}
+    <div class="col-md-3 col-sm-4 {{ $errors->has('company_item_realisasi') ? 'has-error' : ''}}">
+        {!! Form::text('company_item_realisasi', null, ['class' => 'form-control', 'readonly']) !!}
+        {!! $errors->first('company_item_realisasi', '<p class="help-block">:message</p>') !!}
+    </div>
+
+    @php
+    $kekurangan = '';
+    if(isset($model)){
+        $kekurangan = $model->company_item_target - $model->company_item_realisasi;
+    }
+    @endphp
+
+    {!! Form::label('name', __('Kekurangan'), ['class' => 'col-md-1 col-sm-2 control-label']) !!}
+    <div class="col-md-3 col-sm-4 {{ $errors->has('company_item_target') ? 'has-error' : ''}}">
+        {!! Form::text('company_item_target', $kekurangan, ['class' => 'form-control', 'disabled']) !!}
+        {!! $errors->first('company_item_target', '<p class="help-block">:message</p>') !!}
+    </div>
+
 </div>

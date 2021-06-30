@@ -2,12 +2,14 @@
 
 namespace Modules\Linen\Dao\Models;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Modules\Item\Dao\Facades\LinenFacades;
 use Modules\Item\Dao\Models\Linen;
 use Modules\Linen\Dao\Facades\MasterOutstandingFacades;
 use Modules\System\Dao\Facades\CompanyFacades;
 use Modules\System\Dao\Facades\LocationFacades;
+use Modules\System\Dao\Facades\TeamFacades;
 use Wildside\Userstamps\Userstamps;
 
 class Outstanding extends Model
@@ -30,6 +32,7 @@ class Outstanding extends Model
         'linen_outstanding_created_by',
         'linen_outstanding_deleted_by',
         'linen_outstanding_session',
+        'linen_outstanding_key',
         // 'linen_outstanding_scan_location_id',
         // 'linen_outstanding_scan_location_name',
         'linen_outstanding_scan_company_id',
@@ -77,16 +80,15 @@ class Outstanding extends Model
 
     public $searching = 'linen_outstanding_rfid';
     public $datatable = [
+        'linen_outstanding_session' => [false => 'No. Transaksi'],
+        'linen_outstanding_key' => [true => 'No. Transaksi'],
         'linen_outstanding_id' => [false => 'Code', 'width' => 50],
         'linen_outstanding_rfid' => [true => 'No. Seri RFID', 'width' => 180],
         'linen_outstanding_product_name' => [true => 'Product'],
-        'linen_outstanding_scan_company_name' => [true => 'Scan Rumah sakit'],
-        'linen_outstanding_ori_company_name' => [true => 'Original Company'],
-        // 'linen_outstanding_ori_location_name' => [true => 'Original Location'],
-        'linen_outstanding_session' => [false => 'Session'],
+        'linen_outstanding_scan_company_name' => [true => 'Scan R.S'],
+        'linen_outstanding_ori_company_name' => [true => 'Original R.S'],
         'linen_outstanding_created_at' => [false => 'Created At'],
-        'linen_outstanding_created_by' => [false => 'Created By'],
-        'linen_outstanding_created_name' => [false => 'Created Name'],
+        'name' => [true => 'Operator'],
         'linen_outstanding_status' => [true => 'Status', 'width' => 50, 'class' => 'text-center', 'status' => 'status'],
         'linen_outstanding_description' => [true => 'Description', 'width' => 100, 'class' => 'text-center', 'status' => 'description'],
     ];
@@ -137,6 +139,11 @@ class Outstanding extends Model
     public function rfid()
     {
         return $this->hasOne(Linen::class, 'item_linen_rfid', 'linen_outstanding_rfid');
+    }
+
+    public function user(){
+
+		return $this->hasOne(User::class, TeamFacades::getKeyName(), self::CREATED_BY);
     }
     
     public static function boot()

@@ -69,7 +69,12 @@ class CompanyProductController extends Controller
 
     public function data(DataService $service)
     {
-        return $service->setModel(self::$model)->make();
+        return $service
+            ->setModel(self::$model)
+            ->EditColumn([
+                'company_item_minimal' => 'company_item_outstanding',
+            ])
+            ->make();
     }
 
     public function edit($code)

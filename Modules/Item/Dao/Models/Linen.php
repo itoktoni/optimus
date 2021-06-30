@@ -111,7 +111,7 @@ class Linen extends Model
     
     public $status    = [
         '1' => ['Register Baru', 'info'],
-        '2' => ['Ganti chip rusak atau hilang', 'danger'],
+        '2' => ['Ganti chip', 'danger'],
     ];
 
     public $rent    = [

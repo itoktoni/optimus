@@ -3,6 +3,7 @@
 namespace Modules\Linen\Dao\Repositories;
 
 use Illuminate\Database\QueryException;
+use Kirschbaum\PowerJoins\PowerJoins;
 use Modules\Linen\Dao\Models\MasterOutstanding;
 use Modules\Linen\Dao\Models\Outstanding;
 use Modules\System\Dao\Interfaces\CrudInterface;
@@ -11,10 +12,12 @@ use Modules\System\Plugins\Notes;
 
 class OutstandingRepository extends Outstanding implements CrudInterface
 {
+    use PowerJoins;
+    
     public function dataRepository()
     {
         $list = Helper::dataColumn($this->datatable);
-        return $this->select($list);
+        return $this->select($list)->leftJoinRelationship('user');
     }
 
     public function saveRepository($request)

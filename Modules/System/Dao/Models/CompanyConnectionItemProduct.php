@@ -41,14 +41,14 @@ class CompanyConnectionItemProduct extends Model
         'item_product.item_product_id' => [false => 'Product Id'],
         'item_product_name' => [true => 'Product Name'],
         'company_item_unit_id' => [false => 'Unit Id'],
-        'item_unit_name' => [true => 'Unit Name'],
         'item_size_code' => [false => 'Size Id'],
         'item_size_name' => [true => 'Size Name'],
-        'company_item_target' => [true => 'Target', 'width' => '50'],
+        'company_item_target' => [true => 'Parstok', 'width' => '50'],
         'company_item_realisasi' => [true => 'Real', 'width' => '50'],
+        'company_item_minimal' => [true => 'Kekurangan', 'width' => '80'],
         'company_item_weight' => [true => 'Weight', 'width' => '50'],
-        'company_item_minimal' => [true => 'Min', 'width' => '50'],
-        'company_item_maximal' => [true => 'Max', 'width' => '50'],
+        'item_unit_name' => [true => 'Unit Name', 'width' => '80'],
+        'company_item_maximal' => [false => 'Max', 'width' => '50'],
 	];
 	
 	public $rules = [

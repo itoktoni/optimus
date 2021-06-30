@@ -113,6 +113,7 @@ class DataService
 
             foreach ($this->transform as $key => $data) {
                 $this->datatable->editColumn($key, function ($select) use ($key, $data) {
+                    // dd($select);
                     return $select->{$data};
                 });
             }

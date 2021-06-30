@@ -21,9 +21,6 @@ class LinenDataService extends DataService
         $request = request()->all();
         $filter = $this->filter;
 
-        // $check = $this->filter->filter();
-        // dd($check->toSql());
-
         if($rfid = $request['item_linen_rfid']){
             $filter = $filter->where('item_linen_rfid', $rfid);
         }

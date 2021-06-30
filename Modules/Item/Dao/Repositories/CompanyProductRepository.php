@@ -3,6 +3,7 @@
 namespace Modules\Item\Dao\Repositories;
 
 use Illuminate\Database\QueryException;
+use Illuminate\Support\Facades\DB;
 use Kirschbaum\PowerJoins\PowerJoins;
 use Modules\System\Dao\Interfaces\CrudInterface;
 use Modules\System\Dao\Models\CompanyConnectionItemProduct;
@@ -16,7 +17,7 @@ class CompanyProductRepository extends CompanyConnectionItemProduct implements C
     public function dataRepository()
     {
         $list = Helper::dataColumn($this->datatable);
-        return $this->select($list)
+        return $this->select($list)->addSelect(DB::raw('company_item_target - company_item_realisasi as company_item_outstanding'))
         ->leftJoinRelationship('product')
         ->leftJoinRelationship('company')
         ->leftJoinRelationship('size')
