@@ -131,7 +131,7 @@ class GroupingController extends Controller
     {
         $relation = $relation ?? request()->get('relation');
         if ($relation) {
-            return self::$service->get(self::$model, $code, $relation)->makeVisible(['linen_grouping_status']);
+            return self::$service->get(self::$model, $code, $relation);
         }
         return self::$service->get(self::$model, $code);
     }
