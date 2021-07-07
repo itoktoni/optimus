@@ -131,6 +131,10 @@ class Outstanding extends Model
         return 'linen_outstanding_session';
     }
 
+    public function getGroupingKeyName(){
+        return 'linen_outstanding_grouping';
+    }
+
     public function master()
 	{
 		return $this->hasOne(MasterOutstanding::class, MasterOutstandingFacades::getSessionKeyName(), $this->getSessionKeyName());

@@ -82,6 +82,7 @@ class Linen extends Model
         'item_linen_rfid' => [true => 'No. Seri RFID', 'width' => 200],
         'item_linen_product_id' => [false => 'Product Id'],
         'item_product_name' => [true => 'Product Name'],
+        'item_linen_company_id' => [false => 'Company Id'],
         'item_linen_location_id' => [false => 'Location Id'],
         'company_id' => [false => 'Company Id'],
         'company_name' => [true => 'Company Name'],

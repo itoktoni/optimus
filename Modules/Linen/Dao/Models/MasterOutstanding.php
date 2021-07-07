@@ -35,7 +35,7 @@ class MasterOutstanding extends Model
     public $timestamps = true;
     public $incrementing = true;
     public $rules = [
-        'linen_master_outstanding_session' => 'required|exists:item_linen,item_linen_rfid|unique:linen_master_outstanding',
+        'linen_master_outstanding_session' => 'required|unique:linen_master_outstanding',
         'linen_master_outstanding_total' => 'required',
     ];
 
