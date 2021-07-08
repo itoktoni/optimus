@@ -53,7 +53,7 @@ class UpdateModuleService extends UpdateService
             foreach ($data->get('list_action') as $function) {
                 $visible = '0';
                 
-                $metode = $this->method[$function] ?? '';
+                $metode = $this->method[$function] ?? 'GET';
                 if (in_array($function, $this->visible)) {
                     $visible = '1';
                 }

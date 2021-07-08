@@ -39,7 +39,7 @@
             </td>
             <td data-title="Send" class="text-right col-lg-1">
                 
-                <a class="btn btn-danger btn-sm btn-block" href="http://">Delete</a>
+                <a class="btn btn-danger btn-sm btn-block" href="{{ route('linen_grouping_delete_detail', ['code' => $item->linen_grouping_detail_id]) }}">Delete</a>
 
             </td>
         </tr>

@@ -4,6 +4,7 @@ namespace Modules\Linen\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Modules\Item\Dao\Repositories\ProductRepository;
+use Modules\Linen\Dao\Models\GroupingDetail;
 use Modules\Linen\Dao\Repositories\GroupingRepository;
 use Modules\Linen\Http\Requests\GroupBatchRequest;
 use Modules\Linen\Http\Requests\GroupingRequest;
@@ -22,6 +23,7 @@ use Modules\System\Http\Services\DataService;
 use Modules\System\Http\Services\DeleteService;
 use Modules\System\Http\Services\SingleService;
 use Modules\System\Http\Services\UpdateService;
+use Modules\System\Plugins\Alert;
 use Modules\System\Plugins\Helper;
 use Modules\System\Plugins\Response;
 use Modules\System\Plugins\Views;
@@ -102,6 +104,13 @@ class GroupingController extends Controller
     {
         return $service
             ->setModel(self::$model)->make();
+    }
+
+    public function deleteDetail($code){
+
+        GroupingDetail::findOrFail($code)->delete();
+        Alert::delete($code);
+        return Response::redirectBack($code);
     }
 
     public function edit($code)
