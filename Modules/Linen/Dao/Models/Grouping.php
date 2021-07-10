@@ -41,7 +41,6 @@ class Grouping extends Model
     public $incrementing = true;
     public $rules = [
         'linen_grouping_barcode' => 'required|unique:linen_grouping',
-        'linen_grouping_total' => 'required',
         'linen_grouping_location_id' => 'required|unique:system_location',
         'linen_grouping_company_id' => 'required|unique:system_company',
         'rfid' => 'required',
@@ -112,7 +111,6 @@ class Grouping extends Model
 
             $location = $model->linen_grouping_location_id;
             $model->linen_grouping_location_name = LocationFacades::find($location)->location_name ?? '';
-
 
         });
     }    

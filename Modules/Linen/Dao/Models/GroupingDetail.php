@@ -109,7 +109,14 @@ class GroupingDetail extends Model
             $location = $model->linen_grouping_detail_location_id;
             $model->linen_grouping_detail_location_name = LocationFacades::find($location)->location_name ?? '';
 
+        });
 
+        parent::deleted(function($model){
+
+            $detail = GroupingDetail::where('linen_grouping_detail_barcode', $model->linen_grouping_detail_barcode)->count();
+            Grouping::where('linen_grouping_barcode', $model->linen_grouping_detail_barcode)->update([
+                'linen_grouping_total' => $detail
+            ]);
         });
     }    
 }

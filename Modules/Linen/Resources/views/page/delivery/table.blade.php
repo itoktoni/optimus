@@ -23,7 +23,24 @@
     </thead>
     <tbody class="markup">
         @if(!empty($detail) || old('detail'))
-        @foreach (old('detail') ?? $detail as $item)
+
+        @php
+        $detail = $detail->mapToGroups(function($item){
+           return [$item->linen_grouping_detail_barcode => $item];
+        });
+
+        @endphp
+
+        @foreach (old('detail') ?? $detail as $key => $barcode)
+        <tr>
+            <td colspan="5">
+                <h5>
+                    <strong>Barcode : {{ $key }}</strong>
+                </h5>
+            </td>
+        </tr>
+        @if(!empty($barcode))
+        @foreach($barcode as $item)
         <tr>
             <td data-title="Product">
                 <input type="hidden" value="{{ $item['temp_id'] ?? $item->linen_grouping_detail_rfid ?? '' }}"
@@ -56,6 +73,9 @@
 
             </td>
         </tr>
+
+        @endforeach
+        @endif
         @endforeach
         @endisset
     </tbody>

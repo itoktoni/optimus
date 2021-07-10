@@ -91,7 +91,7 @@ class UpdateGroupModuleService extends UpdateService
                         $pathAction = '\Modules\\' . ucfirst($getData->system_group_module_folder) . '\Http\Controllers\\' . $module . 'Controller';
 
 
-                        $metode = $this->method[$function] ?? '';
+                        $metode = $this->method[$function] ?? 'GET';
                         if (in_array($function, $this->visible)) {
                             $visible = '1';
                         }

@@ -3,15 +3,19 @@
       padding:5px!important
   }
 }
+
 @media(min-width:1025px) and (max-width:1280px){
   #datatable td{
       padding:5px!important
   }
 }
+
 @media(min-width:768px) and (max-width:1024px){
 }
+
 @media(min-width:768px) and (max-width:1024px) and (orientation:landscape){
 }
+
 @media only screen and (max-width:767px){
 
   .filter-data{
@@ -151,6 +155,7 @@
       height:25px
   }
 }
+
 @media(min-width:481px) and (max-width:767px){
   .action{
       text-align:right
@@ -256,6 +261,7 @@
     background-color: unset;
   }
 }
+
 @media(min-width:320px) and (max-width:480px){
   .action{
       text-align:right
@@ -273,6 +279,9 @@
     margin-bottom: 10px;
   }
 
+  #transaction input{
+      font-size: 11px;
+  }
   
   .group-search{
     .form-group{
@@ -361,4 +370,48 @@
   #action-master .row{
       margin-right:-7px
   }
+}
+
+@media only screen and (max-width:991px) {
+    .table.table-no-more,
+    .table.table-no-more tbody,
+    .table.table-no-more td,
+    .table.table-no-more th,
+    .table.table-no-more thead,
+    .table.table-no-more tr {
+        display: block
+    }
+    .table.table-no-more thead tr {
+        left: -9999px;
+        position: absolute;
+        top: -9999px
+    }
+    .table.table-no-more td {
+        border: 0;
+        position: relative;
+        padding-left: 50%;
+        text-align: left;
+        white-space: normal
+    }
+    .table.table-no-more td:before {
+        content: attr(data-title);
+        font-weight: 700;
+        left: 6px;
+        padding-right: 10px;
+        position: absolute;
+        text-align: left;
+        top: 8px;
+        white-space: nowrap;
+        width: 45%
+    }
+    .table.table-no-more.table-bordered td {
+        border-bottom: 1px solid #EFEFEF
+    }
+    .table.table-no-more.table-condensed td:before {
+        top: 5px
+    }
+    html.dark .table.table-no-more tr,
+    html.dark .table.table-no-more.table-bordered td {
+        border-bottom-color: #262b33
+    }
 }
