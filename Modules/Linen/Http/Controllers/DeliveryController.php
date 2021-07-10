@@ -13,6 +13,7 @@ use Modules\Linen\Http\Requests\GroupingRequest;
 use Modules\Linen\Http\Requests\OutstandingBatchRequest;
 use Modules\Linen\Http\Requests\OutstandingMasterRequest;
 use Modules\Linen\Http\Services\DeliveryCreateService;
+use Modules\Linen\Http\Services\GroupingSingleService;
 use Modules\Linen\Http\Services\OutstandingBatchService;
 use Modules\Linen\Http\Services\OutstandingMasterService;
 use Modules\System\Dao\Repositories\CompanyRepository;
@@ -23,7 +24,6 @@ use Modules\System\Http\Requests\GeneralRequest;
 use Modules\System\Http\Services\CreateService;
 use Modules\System\Http\Services\DataService;
 use Modules\System\Http\Services\DeleteService;
-use Modules\System\Http\Services\SingleService;
 use Modules\System\Http\Services\UpdateService;
 use Modules\System\Plugins\Alert;
 use Modules\System\Plugins\Helper;
@@ -36,7 +36,7 @@ class DeliveryController extends Controller
     public static $service;
     public static $model;
 
-    public function __construct(DeliveryRepository $model, SingleService $service)
+    public function __construct(DeliveryRepository $model, GroupingSingleService $service)
     {
         self::$model = self::$model ?? $model;
         self::$service = self::$service ?? $service;

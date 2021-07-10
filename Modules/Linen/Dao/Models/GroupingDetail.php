@@ -37,7 +37,11 @@ class GroupingDetail extends Model
         'linen_grouping_detail_ori_company_id',
         'linen_grouping_detail_ori_company_name',
         'linen_grouping_detail_ori_location_id',
-        'linen_grouping_detail_ori_location_name',
+        'linen_grouping_detail_ori_location_name',        
+        'linen_grouping_detail_scan_company_id',
+        'linen_grouping_detail_scan_company_name',
+        'linen_grouping_detail_scan_location_id',
+        'linen_grouping_detail_scan_location_name',
     ];
 
     // public $with = ['module'];

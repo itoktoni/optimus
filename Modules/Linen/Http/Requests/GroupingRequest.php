@@ -32,7 +32,7 @@ class GroupingRequest extends GeneralRequest
             });
         }
 
-        $validate = $linen->map(function ($item) {
+        $validate = $linen->map(function ($item) use($company, $location) {
 
             $user = auth()->user();
             $data = [
@@ -44,7 +44,11 @@ class GroupingRequest extends GeneralRequest
                 'linen_grouping_detail_ori_company_id' => $item->company->company_id ?? '',
                 'linen_grouping_detail_ori_company_name' => $item->company->company_name ?? '',
                 'linen_grouping_detail_ori_location_id' => $item->location->location_id ?? '',
-                'linen_grouping_detail_ori_location_name' => $item->location->location_name ?? '',
+                'linen_grouping_detail_ori_location_name' => $item->location->location_name ?? '', 
+                'linen_grouping_detail_scan_company_id' => $company->company_id ?? '',
+                'linen_grouping_detail_scan_company_name' => $company->company_name ?? '',
+                'linen_grouping_detail_scan_location_id' => $location->location_id ?? '',
+                'linen_grouping_detail_scan_location_name' => $location->location_name ?? '',
                 'linen_grouping_detail_created_at' => date('Y-m-d H:i:s') ?? '',
                 'linen_grouping_detail_created_by' => $user->id ?? '',
                 'linen_grouping_detail_created_name' => $user->name ?? '',
