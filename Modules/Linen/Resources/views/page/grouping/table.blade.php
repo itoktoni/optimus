@@ -42,12 +42,12 @@
             <td data-title="Qty" class="text-right col-lg-1">
                 <input type="text" tabindex="{{ $loop->iteration }}1" name="detail[{{ $loop->index }}][temp_qty]"
                     class="form-control" readonly
-                    value="{{ $item['temp_qty'] ?? $item->linen_grouping_detail_ori_company_name }}">
+                    value="{{ $item['temp_qty'] ?? $item->linen_grouping_detail_scan_company_name }}">
             </td>
             <td data-title="Send" class="text-right col-lg-1">
                 <input type="text" tabindex="{{ $loop->iteration }}2" name="detail[{{ $loop->index }}][temp_out]"
                     class="form-control" readonly
-                    value="{{ $item['temp_qty'] ?? $item->linen_grouping_detail_ori_location_name }}">
+                    value="{{ $item['temp_qty'] ?? $item->linen_grouping_detail_scan_location_name }}">
 
             </td>
             <td data-title="Send" class="text-right col-lg-1">

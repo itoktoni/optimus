@@ -16,6 +16,7 @@ class Delivery extends Model
 
     protected $table = 'linen_delivery';
     protected $primaryKey = 'linen_delivery_key';
+    protected $keyType = 'string';
 
     protected $fillable = [
         'linen_delivery_id',
@@ -38,7 +39,7 @@ class Delivery extends Model
     // public $with = ['module'];
 
     public $timestamps = true;
-    public $incrementing = true;
+    public $incrementing = false;
     public $rules = [
         'linen_delivery_key' => 'required|unique:linen_delivery',
         'linen_delivery_company_id' => 'required|unique:system_company',

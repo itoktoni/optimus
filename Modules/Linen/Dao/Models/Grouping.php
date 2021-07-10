@@ -12,10 +12,11 @@ use Wildside\Userstamps\Userstamps;
 
 class Grouping extends Model
 {
-    use SoftDeletes, Userstamps;
+    use Userstamps;
 
     protected $table = 'linen_grouping';
     protected $primaryKey = 'linen_grouping_barcode';
+    protected $keyType = 'string';
 
     protected $fillable = [
         'linen_grouping_id',
@@ -38,7 +39,7 @@ class Grouping extends Model
     // public $with = ['module'];
 
     public $timestamps = true;
-    public $incrementing = true;
+    public $incrementing = false;
     public $rules = [
         'linen_grouping_barcode' => 'required|unique:linen_grouping',
         'linen_grouping_location_id' => 'required|unique:system_location',

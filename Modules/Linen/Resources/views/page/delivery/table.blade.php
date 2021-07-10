@@ -25,18 +25,20 @@
         @if(!empty($detail) || old('detail'))
 
         @php
-        $detail = $detail->mapToGroups(function($item){
+        $detail = $detail->where('linen_grouping_deleted_at', null)->mapToGroups(function($item){
            return [$item->linen_grouping_detail_barcode => $item];
         });
-
         @endphp
 
         @foreach (old('detail') ?? $detail as $key => $barcode)
         <tr>
-            <td colspan="5">
+            <td colspan="4">
                 <h5>
                     <strong>Barcode : {{ $key }}</strong>
                 </h5>
+            </td>
+            <td>
+                <a class="btn btn-success btn-block" href="{{ route('linen_delivery_delete_detail', ['code' => $key]) }}">Delete</a>
             </td>
         </tr>
         @if(!empty($barcode))
@@ -59,12 +61,12 @@
             <td data-title="Qty" class="text-right col-lg-1">
                 <input type="text" tabindex="{{ $loop->iteration }}1" name="detail[{{ $loop->index }}][temp_qty]"
                     class="form-control" readonly
-                    value="{{ $item['temp_qty'] ?? $item->linen_grouping_detail_ori_company_name }}">
+                    value="{{ $item['temp_qty'] ?? $item->linen_grouping_detail_scan_company_name }}">
             </td>
             <td data-title="Send" class="text-right col-lg-1">
                 <input type="text" tabindex="{{ $loop->iteration }}2" name="detail[{{ $loop->index }}][temp_out]"
                     class="form-control" readonly
-                    value="{{ $item['temp_qty'] ?? $item->linen_grouping_detail_ori_location_name }}">
+                    value="{{ $item['temp_qty'] ?? $item->linen_grouping_detail_scan_location_name }}">
 
             </td>
             <td data-title="Send" class="text-right col-lg-1">

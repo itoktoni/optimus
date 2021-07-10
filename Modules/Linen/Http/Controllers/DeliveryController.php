@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Modules\Item\Dao\Repositories\ProductRepository;
 use Modules\Linen\Dao\Models\Delivery;
 use Modules\Linen\Dao\Models\DeliveryDetail;
+use Modules\Linen\Dao\Models\Grouping;
+use Modules\Linen\Dao\Models\GroupingDetail;
 use Modules\Linen\Dao\Repositories\DeliveryRepository;
 use Modules\Linen\Http\Requests\GroupBatchRequest;
 use Modules\Linen\Http\Requests\DeliveryRequest;
@@ -110,7 +112,8 @@ class DeliveryController extends Controller
 
     public function deleteDetail($code){
 
-        Delivery::findOrFail($code)->delete();
+        $data = Grouping::where('linen_grouping_barcode', $code)->delete();
+        $data = GroupingDetail::where('linen_grouping_detail_barcode', $code)->delete();
         Alert::delete($code);
         return Response::redirectBack($code);
     }
