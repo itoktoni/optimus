@@ -16,7 +16,7 @@ class GroupingSingleService
             $delivery = Delivery::where(['linen_delivery_key' => $code])->with(['detail'])->first();
             $detail = $delivery->detail->groupBy('linen_grouping_detail_scan_location_name');
             
-            $data = [];
+            $data = $arr = [];
             foreach($detail as $key => $summary){
                 $concat = $summary->groupBy('linen_grouping_detail_product_name');
                 $con_data = [];
@@ -29,8 +29,11 @@ class GroupingSingleService
 
                 $data[] = ['room' => $key, 'linen' => $con_data];
             }
-            // dd(json_encode($data));
-            return Notes::single($data);
+
+            $arr['company'] = $delivery->linen_delivery_company_name;
+            $arr['summary'] = $data;
+            
+            return Notes::single($arr);
         }
         else if($relation == 'detail'){
             $delivery = GroupingDetail::select([
