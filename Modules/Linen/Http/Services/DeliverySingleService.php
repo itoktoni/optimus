@@ -35,7 +35,7 @@ class DeliverySingleService
 
                 $arr['company'] = $delivery->linen_delivery_company_name;
                 $arr['total'] = $total;
-                $arr['date'] = $delivery->linen_delivery_created_at->format('d-m-Y');
+                $arr['date'] = $delivery->linen_delivery_created_at->format('d/m/Y');
                 $arr['summary'] = $data;
             }
 
