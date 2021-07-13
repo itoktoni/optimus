@@ -11,6 +11,7 @@ use Modules\Linen\Http\Requests\GroupingRequest;
 use Modules\Linen\Http\Requests\OutstandingBatchRequest;
 use Modules\Linen\Http\Requests\OutstandingMasterRequest;
 use Modules\Linen\Http\Services\GroupingCreateService;
+use Modules\Linen\Http\Services\GroupingSingleService;
 use Modules\Linen\Http\Services\OutstandingBatchService;
 use Modules\Linen\Http\Services\OutstandingMasterService;
 use Modules\System\Dao\Repositories\CompanyRepository;

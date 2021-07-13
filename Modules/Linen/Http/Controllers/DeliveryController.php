@@ -15,6 +15,7 @@ use Modules\Linen\Http\Requests\GroupingRequest;
 use Modules\Linen\Http\Requests\OutstandingBatchRequest;
 use Modules\Linen\Http\Requests\OutstandingMasterRequest;
 use Modules\Linen\Http\Services\DeliveryCreateService;
+use Modules\Linen\Http\Services\DeliverySingleService;
 use Modules\Linen\Http\Services\GroupingSingleService;
 use Modules\Linen\Http\Services\OutstandingBatchService;
 use Modules\Linen\Http\Services\OutstandingMasterService;
@@ -38,7 +39,7 @@ class DeliveryController extends Controller
     public static $service;
     public static $model;
 
-    public function __construct(DeliveryRepository $model, GroupingSingleService $service)
+    public function __construct(DeliveryRepository $model, DeliverySingleService $service)
     {
         self::$model = self::$model ?? $model;
         self::$service = self::$service ?? $service;

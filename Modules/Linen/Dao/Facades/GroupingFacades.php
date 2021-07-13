@@ -6,7 +6,7 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Facade;
 use Modules\System\Plugins\Helper;
 
-class GroupingOutstandingFacades extends Facade
+class GroupingFacades extends Facade
 {
     protected static function getFacadeAccessor()
     {

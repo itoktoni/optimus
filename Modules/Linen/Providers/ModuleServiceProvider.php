@@ -35,6 +35,9 @@ class ModuleServiceProvider extends ServiceProvider
         });
         $this->app->bind('delivery_facades', function () {
             return new \Modules\Linen\Dao\Repositories\DeliveryRepository();
+        }); 
+        $this->app->bind('grouping_facades', function () {
+            return new \Modules\Linen\Dao\Repositories\GroupingRepository();
         });
         $this->app->bind('master_outstanding_facades', function () {
             return new \Modules\Linen\Dao\Models\MasterOutstanding();
