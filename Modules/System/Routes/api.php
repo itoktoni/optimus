@@ -67,9 +67,9 @@ if (Cache::has('routing')) {
 
             $id = $outstanding->pluck('linen_outstanding_rfid');
 
-            OutstandingFacades::whereIn('linen_outstanding_rfid', $id)->update([
-                'linen_outstanding_downloaded_at' => date('Y-m-d H:i:s'),
-            ]);
+            // OutstandingFacades::whereIn('linen_outstanding_rfid', $id)->update([
+            //     'linen_outstanding_downloaded_at' => date('Y-m-d H:i:s'),
+            // ]);
 
             return $outstanding->toArray();
 

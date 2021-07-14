@@ -60,7 +60,7 @@ class GroupingRequest extends GeneralRequest
 
         // dd($validate);
 
-        $this->merge([
+        $this->merge([  
             'detail' => $validate,
             'linen_grouping_company_name' => $company->company_name ?? '',
             'linen_grouping_location_name' => $location->location_name ?? '',

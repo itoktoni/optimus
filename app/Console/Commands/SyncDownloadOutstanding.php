@@ -41,7 +41,7 @@ class SyncDownloadOutstanding extends Command
     public function handle()
     {
         $curl = Http::withToken(env('SYNC_TOKEN'))->withoutVerifying()
-            ->withOptions(['debug' => true])
+            ->withOptions(['debug' => false])
             ->withHeaders([
                 'Accept' => 'application/json',
                 'Content-Type' => 'application/json',
@@ -51,6 +51,7 @@ class SyncDownloadOutstanding extends Command
             ]);
 
         $outstanding = json_decode($curl, true);
+        dd($outstanding);
         $collect = collect($outstanding)->pluck('linen_outstanding_rfid');
 
         if (isset($outstanding)) {
@@ -59,6 +60,8 @@ class SyncDownloadOutstanding extends Command
             if ($check > 0) {
                 $sql->delete();
             }
+
+            dd($outstanding);
 
             $insert = DB::connection('testing')->table('linen_outstanding')->insert($outstanding);
         }
