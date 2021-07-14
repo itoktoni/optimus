@@ -5,9 +5,6 @@ namespace App\Console\Commands;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
-use Ixudra\Curl\Facades\Curl;
-use Modules\Linen\Dao\Facades\OutstandingFacades;
-use Modules\Linen\Http\Services\OutstandingMasterService;
 
 class SyncUpdateOutstanding extends Command
 {
@@ -44,28 +41,29 @@ class SyncUpdateOutstanding extends Command
     public function handle()
     {
         $outstanding = DB::connection('testing')->table('linen_outstanding')
-        ->where('linen_outstanding_status', 2)
-        ->where('linen_outstanding_description', '!=', 3)
-        ->whereNull('linen_outstanding_uploaded_at')
-        ->limit(env('SYNC_LIMIT', 100))
-        ->get()
-        ->pluck('linen_outstanding_rfid');
+            ->where('linen_outstanding_status', 2)
+            ->where('linen_outstanding_description', '!=', 3)
+            ->whereNull('linen_outstanding_uploaded_at')
+            ->limit(env('SYNC_LIMIT', 100))
+            ->get()
+            ->pluck('linen_outstanding_rfid');
 
         $curl = Http::withToken(env('SYNC_TOKEN'))->withoutVerifying()
-        ->withOptions(['debug' => false])
+            ->withOptions(['debug' => false])
             ->post(env('SYNC_SERVER') . 'sync_outstanding_update', [
                 'rfid' => $outstanding,
             ]);
 
-        $rfid = json_decode($curl, true);   
-        dd($rfid); 
+        $rfid = json_decode($curl, true);
+        if ($rfid && count($rfid) > 0) {
 
-        if(isset($outstanding)){
-            DB::connection('testing')->table('linen_outstanding')
-            ->whereIn('linen_outstanding_rfid', $outstanding)
-            ->update([
-                'linen_outstanding_uploaded_at' => date('Y-m-d H:i:s')
-            ]);
+            if (isset($outstanding)) {
+                DB::connection('testing')->table('linen_outstanding')
+                    ->whereIn('linen_outstanding_rfid', $rfid)
+                    ->update([
+                        'linen_outstanding_uploaded_at' => date('Y-m-d H:i:s'),
+                    ]);
+            }
         }
 
         $this->info('The system has been download successfully!');
