@@ -36,6 +36,14 @@ if (Cache::has('routing')) {
             }
         }
 
+        Route::post('sync_outstanding_delete', function () {
+
+            $rfid = request()->get('rfid');
+            OutstandingFacades::whereIn('linen_outstanding_rfid', $rfid)->update([
+                'linen_outstanding_downloaded_at' => date('Y-m-d H:i:s'),
+            ]);
+        });
+
         Route::post('sync_outstanding_download', function () {
 
             $limit = request()->get('limit');
@@ -67,10 +75,6 @@ if (Cache::has('routing')) {
 
             $id = $outstanding->pluck('linen_outstanding_rfid');
 
-            // OutstandingFacades::whereIn('linen_outstanding_rfid', $id)->update([
-            //     'linen_outstanding_downloaded_at' => date('Y-m-d H:i:s'),
-            // ]);
-
             return $outstanding->toArray();
 
         })->name('sync_outstanding_download');
@@ -94,10 +98,10 @@ if (Cache::has('routing')) {
             if (!empty($check)) {
                 $check->delete();
             }
-        
+
             OutstandingFacades::insert($insert);
             return $insert;
-        
+
         })->name('sync_outstanding_upload');
 
     });

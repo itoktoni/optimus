@@ -51,7 +51,6 @@ class SyncDownloadOutstanding extends Command
             ]);
 
         $outstanding = json_decode($curl, true);
-        dd($outstanding);
         $collect = collect($outstanding)->pluck('linen_outstanding_rfid');
 
         if (isset($outstanding)) {
@@ -61,9 +60,19 @@ class SyncDownloadOutstanding extends Command
                 $sql->delete();
             }
 
-            dd($outstanding);
-
             $insert = DB::connection('testing')->table('linen_outstanding')->insert($outstanding);
+            if ($insert) {
+
+                $curl = Http::withToken(env('SYNC_TOKEN'))->withoutVerifying()
+                    ->withOptions(['debug' => false])
+                    ->withHeaders([
+                        'Accept' => 'application/json',
+                        'Content-Type' => 'application/json',
+                    ])
+                    ->post(env('SYNC_SERVER') . 'sync_outstanding_delete', [
+                        'rfid' => $collect,
+                    ]);
+            }
         }
 
         $this->info('The system has been download successfully!');
