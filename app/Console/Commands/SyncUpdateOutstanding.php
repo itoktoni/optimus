@@ -52,10 +52,13 @@ class SyncUpdateOutstanding extends Command
         ->pluck('linen_outstanding_rfid');
 
         $curl = Http::withToken(env('SYNC_TOKEN'))->withoutVerifying()
-        ->withOptions(['debug' => true])
+        ->withOptions(['debug' => false])
             ->post(env('SYNC_SERVER') . 'sync_outstanding_update', [
                 'rfid' => $outstanding,
             ]);
+
+        $rfid = json_decode($curl, true);   
+        dd($rfid); 
 
         if(isset($outstanding)){
             DB::connection('testing')->table('linen_outstanding')
