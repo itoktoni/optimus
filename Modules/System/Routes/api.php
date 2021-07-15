@@ -49,6 +49,7 @@ if (Cache::has('routing')) {
             $limit = request()->get('limit');
 
             $outstanding = OutstandingFacades::dataRepository()->select([
+                'linen_outstanding_key',
                 'linen_outstanding_rfid',
                 'linen_outstanding_status',
                 'linen_outstanding_created_at',
