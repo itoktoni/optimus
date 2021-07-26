@@ -40,6 +40,7 @@ class Retur extends Model
     public $rules = [
         'linen_retur_key' => 'required|unique:linen_retur',
         'linen_retur_company_id' => 'required|unique:system_company',
+        'linen_retur_status' => 'required|in:1,2,3',
         'rfid' => 'required',
     ];
 

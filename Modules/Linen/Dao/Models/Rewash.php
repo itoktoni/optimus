@@ -40,6 +40,7 @@ class Rewash extends Model
     public $rules = [
         'linen_rewash_key' => 'required|unique:linen_rewash',
         'linen_rewash_company_id' => 'required|unique:system_company',
+        'linen_rewash_status' => 'required|in:1,2',
         'rfid' => 'required',
     ];
 
