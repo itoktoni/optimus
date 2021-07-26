@@ -49,6 +49,9 @@ class OutstandingDataService extends DataService
         if($company_ori = $request['linen_outstanding_ori_company_id']){
             $filter = $filter->where('linen_outstanding_ori_company_id', $company_ori);
         }
+        if($location_ori = $request['linen_outstanding_ori_location_id']){
+            $filter = $filter->where('linen_outstanding_ori_location_id', $location_ori);
+        }
         if($company_scan = $request['linen_outstanding_scan_company_id']){
             $filter = $filter->where('linen_outstanding_scan_company_id', $company_scan);
         }

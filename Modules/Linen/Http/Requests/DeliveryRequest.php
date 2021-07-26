@@ -3,6 +3,7 @@
 namespace Modules\Linen\Http\Requests;
 
 use App\Models\User;
+use Carbon\Carbon;
 use Modules\Item\Dao\Facades\LinenFacades;
 use Modules\Linen\Dao\Models\Grouping;
 use Modules\System\Dao\Facades\CompanyFacades;
@@ -35,12 +36,22 @@ class DeliveryRequest extends GeneralRequest
 
         $driver = User::find($this->linen_delivery_driver_id);
 
+        $startDate = Carbon::createFromFormat('Y-m-d H:i', date('Y-m-d').' 13:00');
+        $endDate = Carbon::createFromFormat('Y-m-d H:i', date('Y-m-d').' 23:59');
+
+        $check = Carbon::now()->between($startDate, $endDate);
+        $report_date = Carbon::now();
+        if($check){
+            $report_date = Carbon::now()->addDay(1);
+        }
+
         $this->merge([
             'detail' => $data,
             'linen_delivery_company_name' => $company->company_name ?? '',
             'linen_delivery_driver_name' => $driver->name ?? '',
             'linen_delivery_total' => count($grouping),
             'linen_delivery_total_detail' => count($data),
+            'linen_delivery_reported_date' => $report_date->format('Y-m-d'),
         ]);
         
     }

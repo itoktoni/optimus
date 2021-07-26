@@ -4,19 +4,15 @@ namespace Modules\Linen\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Modules\Item\Dao\Repositories\ProductRepository;
-use Modules\Linen\Dao\Models\Delivery;
-use Modules\Linen\Dao\Models\DeliveryDetail;
 use Modules\Linen\Dao\Models\Grouping;
 use Modules\Linen\Dao\Models\GroupingDetail;
 use Modules\Linen\Dao\Repositories\DeliveryRepository;
-use Modules\Linen\Http\Requests\GroupBatchRequest;
 use Modules\Linen\Http\Requests\DeliveryRequest;
-use Modules\Linen\Http\Requests\GroupingRequest;
 use Modules\Linen\Http\Requests\OutstandingBatchRequest;
 use Modules\Linen\Http\Requests\OutstandingMasterRequest;
 use Modules\Linen\Http\Services\DeliveryCreateService;
+use Modules\Linen\Http\Services\DeliveryDataService;
 use Modules\Linen\Http\Services\DeliverySingleService;
-use Modules\Linen\Http\Services\GroupingSingleService;
 use Modules\Linen\Http\Services\OutstandingBatchService;
 use Modules\Linen\Http\Services\OutstandingMasterService;
 use Modules\System\Dao\Repositories\CompanyRepository;
@@ -24,7 +20,6 @@ use Modules\System\Dao\Repositories\LocationRepository;
 use Modules\System\Dao\Repositories\TeamRepository;
 use Modules\System\Http\Requests\DeleteRequest;
 use Modules\System\Http\Requests\GeneralRequest;
-use Modules\System\Http\Services\CreateService;
 use Modules\System\Http\Services\DataService;
 use Modules\System\Http\Services\DeleteService;
 use Modules\System\Http\Services\UpdateService;
@@ -53,7 +48,7 @@ class DeliveryController extends Controller
         $location = Views::option(new LocationRepository());
         $company = Views::option(new CompanyRepository());
         $user = Views::option(new TeamRepository());
-        
+
         $view = [
             'status' => $status,
             'description' => $description,
@@ -62,15 +57,15 @@ class DeliveryController extends Controller
             'company' => $company,
             'user' => $user,
         ];
-        
+
         return array_merge($view, $data);
     }
 
     public function index()
     {
-        return view(Views::index())->with([
+        return view(Views::index(config('page'), config('folder')))->with($this->share([
             'fields' => Helper::listData(self::$model->datatable),
-        ]);
+        ]));
     }
 
     // public function create()
@@ -92,12 +87,11 @@ class DeliveryController extends Controller
 
     public function batch(OutstandingBatchRequest $request, OutstandingBatchService $service)
     {
-        if(request()->get('type') == 'update'){
+        if (request()->get('type') == 'update') {
 
             $data = $service->update(self::$model, $request);
 
-        }
-        else{
+        } else {
 
             $data = $service->save(self::$model, $request);
         }
@@ -105,14 +99,18 @@ class DeliveryController extends Controller
         return Response::redirectBack($data);
     }
 
-    public function data(DataService $service)
+    public function data(DeliveryDataService $service)
     {
         return $service
+            ->EditAction([
+                'page' => config('page'),
+                'folder' => config('folder'),
+            ])
             ->setModel(self::$model)->make();
     }
 
-    public function deleteDetail($code){
-
+    public function deleteDetail($code)
+    {
         $data = Grouping::where('linen_grouping_barcode', $code)->delete();
         $data = GroupingDetail::where('linen_grouping_detail_barcode', $code)->delete();
         Alert::delete($code);

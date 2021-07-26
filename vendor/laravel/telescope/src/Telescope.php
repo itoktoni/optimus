@@ -8,12 +8,10 @@ use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Log\Events\MessageLogged;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 use Illuminate\Support\Testing\Fakes\EventFake;
 use Laravel\Telescope\Contracts\EntriesRepository;
 use Laravel\Telescope\Contracts\TerminableRepository;
-use RuntimeException;
 use Symfony\Component\Debug\Exception\FatalThrowableError;
 use Throwable;
 
@@ -262,9 +260,11 @@ class Telescope
 
         static::$shouldRecord = false;
 
-        call_user_func($callback);
-
-        static::$shouldRecord = $shouldRecord;
+        try {
+            call_user_func($callback);
+        } finally {
+            static::$shouldRecord = $shouldRecord;
+        }
     }
 
     /**
@@ -511,6 +511,17 @@ class Telescope
     public static function recordView(IncomingEntry $entry)
     {
         static::record(EntryType::VIEW, $entry);
+    }
+
+    /**
+     * Record the given entry.
+     *
+     * @param  \Laravel\Telescope\IncomingEntry  $entry
+     * @return void
+     */
+    public static function recordClientRequest(IncomingEntry $entry)
+    {
+        static::record(EntryType::CLIENT_REQUEST, $entry);
     }
 
     /**
@@ -787,23 +798,5 @@ class Telescope
         static::$runsMigrations = false;
 
         return new static;
-    }
-
-    /**
-     * Check if assets are up-to-date.
-     *
-     * @return bool
-     *
-     * @throws \RuntimeException
-     */
-    public static function assetsAreCurrent()
-    {
-        $publishedPath = public_path('vendor/telescope/mix-manifest.json');
-
-        if (! File::exists($publishedPath)) {
-            throw new RuntimeException('The Telescope assets are not published. Please run: php artisan telescope:publish');
-        }
-
-        return File::get($publishedPath) === File::get(__DIR__.'/../public/mix-manifest.json');
     }
 }

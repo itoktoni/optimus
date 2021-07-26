@@ -2,6 +2,9 @@
 
 @component('components.responsive', ['array' => $fields])
 @endcomponent
+
+<x-date :array="['date']" />
+
 @push('js')
 <script src="{{ Helper::backend('vendor/jquery-datatables/media/js/jquery.dataTables.min.js') }}"></script>
 @endpush
@@ -21,7 +24,7 @@
             fixedHeader: true,
             dom: '<<t>p><"pull-left"i>',
             serverSide: true,
-            order: [],
+            order: [[5, 'asc']],
             pageLength: {{ config('website.pagination') }},
             pagingType: 'first_last_numbers',
             ajax: {
@@ -31,14 +34,11 @@
                     d.code = $('select[name=code]').val();
                     d.search = $('input[name=search]').val();
                     d.aggregate = $('select[name=aggregate]').val();
-                    d.linen_outstanding_key = $('input[name=linen_outstanding_key]').val();
-                    d.linen_outstanding_rfid = $('input[name=linen_outstanding_rfid]').val();
-                    d.linen_outstanding_scan_company_id = $('select[name=linen_outstanding_scan_company_id]').val();
-                    d.linen_outstanding_ori_company_id = $('select[name=linen_outstanding_ori_company_id]').val();
-                    d.linen_outstanding_product_id = $('select[name=linen_outstanding_product_id]').val();
-                    d.linen_outstanding_created_by = $('select[name=linen_outstanding_created_by]').val();
-                    d.status = $('select[name=status]').val();
-                    d.description = $('select[name=description]').val();
+                    d.linen_delivery_key = $('input[name=linen_delivery_key]').val();
+                    d.date_from = $('input[name=date_from]').val();
+                    d.date_to = $('input[name=date_to]').val();
+                    d.linen_delivery_company_id = $('select[name=linen_delivery_company_id]').val();
+                    d.linen_delivery_created_by = $('select[name=linen_delivery_created_by]').val();
                 },
                 error: function (xhr, textStatus, errorThrown) {
                     new PNotify({
@@ -91,39 +91,39 @@
                         <div class="group-search">
                             <div class="form-group">
                                
-                                <div class="col-md-3 col-sm-2 {{ $errors->has('linen_outstanding_key') ? 'has-error' : ''}}">
+                                <div class="col-md-3 col-sm-2">
                                     <div class="row input-group filter-search space-sm">
                                     <span class="input-group-addon">
                                         {{ __('No. Transaksi') }}
                                     </span>
-                                    {!! Form::text('linen_outstanding_key', null, ['class' => 'form-control', 'id' => 'linen_outstanding_key']) !!}
+                                    {!! Form::text('linen_delivery_key', null, ['class' => 'form-control', 'id' => 'linen_delivery_key']) !!}
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3 col-sm-2 {{ $errors->has($search_code) ? 'has-error' : ''}}">
+                                    <div class="row input-group filter-search space-sm">
+                                    <span class="input-group-addon">
+                                        {{ __('Rumah Sakit') }}
+                                    </span>
+                                    {{ Form::select('linen_delivery_company_id', $company, null, ['class'=> 'form-control ']) }}
                                     </div>
                                 </div>
                                 
                                 <div class="col-md-3 col-sm-2 {{ $errors->has($search_code) ? 'has-error' : ''}}">
                                     <div class="row input-group filter-search space-sm">
                                     <span class="input-group-addon">
-                                        {{ __('No. Seri RFID') }}
+                                        {{ __('Date From') }}
                                     </span>
-                                    {!! Form::text('linen_outstanding_rfid', null, ['class' => 'form-control', 'id' => 'linen_outstanding_rfid']) !!}
+                                    {!! Form::text('date_from', old('date_from') ?? date('Y-m-d'), ['class' => 'form-control date', 'id' => 'linen_delivery_reported_date']) !!}
                                     </div>
                                 </div>
 
                                 <div class="col-md-3 col-sm-2 {{ $errors->has($search_code) ? 'has-error' : ''}}">
                                     <div class="row input-group filter-search space-sm">
                                     <span class="input-group-addon">
-                                        {{ __('Product Name') }}
+                                        {{ __('Date To') }}
                                     </span>
-                                    {{ Form::select('linen_outstanding_product_id', $product, null, ['class'=> 'form-control ']) }}
-                                    </div>
-                                </div>
-
-                                <div class="col-md-3 col-sm-2 {{ $errors->has($search_code) ? 'has-error' : ''}}">
-                                    <div class="row input-group filter-search space-sm">
-                                    <span class="input-group-addon">
-                                        {{ __('Scan R.S') }}
-                                    </span>
-                                    {{ Form::select('linen_outstanding_scan_company_id', $company, null, ['class'=> 'form-control ']) }}
+                                    {!! Form::text('date_to', old('date_to') ?? date('Y-m-d'), ['class' => 'form-control date', 'id' => 'linen_delivery_reported_date']) !!}
                                     </div>
                                 </div>
 
@@ -131,92 +131,60 @@
 
                             <div class="form-group">
 
-                                <div class="col-md-3 col-sm-2 {{ $errors->has($search_code) ? 'has-error' : ''}}">
-                                    <div class="row input-group filter-search space-sm">
-                                    <span class="input-group-addon">
-                                        {{ __('Original R.S') }}
-                                    </span>
-                                    {{ Form::select('linen_outstanding_ori_company_id', $company, null, ['class'=> 'form-control ']) }}
-                                    </div>
-                                </div>
-
-                                
                                 <div class="col-md-3 col-sm-2 {{ $errors->has($search_code) ? 'has-error' : ''}}">
                                     <div class="row input-group filter-search space-sm">
                                     <span class="input-group-addon">
                                         {{ __('Created By') }}
                                     </span>
-                                    {{ Form::select('linen_outstanding_created_by', $user, null, ['class'=> 'form-control ']) }}
+                                    {{ Form::select('linen_delivery_created_by', $user, null, ['class'=> 'form-control ']) }}
                                     </div>
                                 </div>
 
                                 <div class="col-md-3 col-sm-2 {{ $errors->has($search_code) ? 'has-error' : ''}}">
                                     <div class="row input-group filter-search space-sm">
-                                    <span class="input-group-addon">
-                                        {{ __('Status') }}
-                                    </span>
-                                    {{ Form::select('status', $status, null, ['class'=> 'form-control ']) }}
-                                    </div>
-                                </div>
-                                
-                                <div class="col-md-3 col-sm-2 {{ $errors->has($search_code) ? 'has-error' : ''}}">
-                                    <div class="row input-group filter-search space-sm">
-                                    <span class="input-group-addon">
-                                        {{ __('Description') }}
-                                    </span>
-                                    {{ Form::select('description', $description, null, ['class'=> 'form-control ']) }}
-                                    </div>
-                                </div>
-
-                            </div>
-
-                            <div class="form-group">
-
-                            <div class="col-md-3 col-sm-2 {{ $errors->has($search_code) ? 'has-error' : ''}}">
-                                <div class="row input-group filter-search space-sm">
-                                    <span class="input-group-addon">
-                                        {{ __('Criteria') }}
-                                    </span>
-                                <select name="code" class="form-control">
-                                    <option value="">{{ __('Select Data') }}</option>
-                                    @foreach($fields as $item => $value)
-                                    <option value="{{ $item }}">{{ __($value['name']) }}</option>
-                                    @endforeach
-                                </select>
-                                </div>
-                            </div>
-
-                            <div class="col-md-3 col-sm-2 {{ $errors->has($search_code) ? 'has-error' : ''}}">
-                                <div class="row input-group filter-search space-sm">
-                                    <span class="input-group-addon">
-                                        {{ __('Operator') }}
-                                    </span>
-                                    <select name="aggregate" class="form-control">
-                                        <option value="">{{ __('Search With') }}</option>
-                                        <option value="=">{{ __('Equal') }}</option>
-                                        <option value="!=">{{ __('Not Equal') }}</option>
-                                        <option value="like">{{ __('Contains') }}</option>
-                                        <option value="not like">{{ __('Not Contains') }}</option>
-                                        <option value=">">{{ __('More Than') }}</option>
-                                        <option value="<">{{ __('Less Than') }}</option>
+                                        <span class="input-group-addon">
+                                            {{ __('Criteria') }}
+                                        </span>
+                                    <select name="code" class="form-control">
+                                        <option value="">{{ __('Select Data') }}</option>
+                                        @foreach($fields as $item => $value)
+                                        <option value="{{ $item }}">{{ __($value['name']) }}</option>
+                                        @endforeach
                                     </select>
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div class="col-md-6 col-sm-12">
-                                <div class="row input-group filter-search space-sm">
-                                    <span class="input-group-addon">
-                                        {{ __('Searching') }}
-                                    </span>
-                                    <input autofocus name="search" class="form-control" placeholder="{{ __('Advance Search') }}"
-                                        type="text">
-                                    <span class="input-group-btn">
-                                        <button type="submit" class="btn btn-primary">{{ __('Search') }}</button>
-                                    </span>
+                                <div class="col-md-3 col-sm-2 {{ $errors->has($search_code) ? 'has-error' : ''}}">
+                                    <div class="row input-group filter-search space-sm">
+                                        <span class="input-group-addon">
+                                            {{ __('Operator') }}
+                                        </span>
+                                        <select name="aggregate" class="form-control">
+                                            <option value="">{{ __('Search With') }}</option>
+                                            <option value="=">{{ __('Equal') }}</option>
+                                            <option value="!=">{{ __('Not Equal') }}</option>
+                                            <option value="like">{{ __('Contains') }}</option>
+                                            <option value="not like">{{ __('Not Contains') }}</option>
+                                            <option value=">">{{ __('More Than') }}</option>
+                                            <option value="<">{{ __('Less Than') }}</option>
+                                        </select>
+                                    </div>
                                 </div>
-                            </div>
 
-                        </div>
+                                <div class="col-md-3 col-sm-12">
+                                    <div class="row input-group filter-search space-sm">
+                                        <span class="input-group-addon">
+                                            {{ __('Searching') }}
+                                        </span>
+                                        <input autofocus name="search" class="form-control" placeholder="{{ __('Advance Search') }}"
+                                            type="text">
+                                        <span class="input-group-btn">
+                                            <button type="submit" class="btn btn-primary">{{ __('Search') }}</button>
+                                        </span>
+                                    </div>
+                                </div>
+
+                            </div>
 
                         </div>
 
@@ -249,7 +217,17 @@
                             
                         </thead>
                     </table>
-                    @include($template_action)
+                    <div class="navbar-fixed-bottom" id="menu_action">
+                        <div class="text-right action-wrapper">
+
+                            <a class="btn btn-success" href="{{ route(Route::currentRouteName()) }}">{{ __('Refresh') }}</a>
+                            
+                            <button type="submit" onclick="return confirm('Are you sure to delete data ?');" id="delete-action"
+                                value="delete" name="action" class="btn btn-danger">{{ __('Delete') }}</button>
+                            
+                        </div>
+                    </div>
+
                     {!! Form::close() !!}
                 </div>
 

@@ -20,6 +20,7 @@ class DataService
     protected $datatable;
     protected $status = null;
     protected $image = null;
+    protected $action = null;
     protected $transform = null;
     protected $column = ['action', 'checkbox'];
 
@@ -38,6 +39,12 @@ class DataService
     public function EditImage($data)
     {
         $this->image = $data;
+        return $this;
+    }
+
+    public function EditAction($data)
+    {
+        $this->action = $data;
         return $this;
     }
 
@@ -102,9 +109,20 @@ class DataService
         $this->datatable->addColumn('checkbox', function($model){
            return view(Views::checkbox())->with(['model' => $model]);
         });
-        $this->datatable->addColumn('action', function($model){
-           return view(Views::action())->with(['model' => $model]);
-        });
+
+        if(!empty($this->action)){
+
+            $view = $this->action;
+            $this->datatable->addColumn('action', function($model) use ($view){
+                return view(Views::action($view['page'], $view['folder']))->with(['model' => $model]);
+             });
+        }
+        else{
+
+            $this->datatable->addColumn('action', function($model){
+                return view(Views::action())->with(['model' => $model]);
+            });
+        }
     }
 
     protected function setColumn()
@@ -113,7 +131,6 @@ class DataService
 
             foreach ($this->transform as $key => $data) {
                 $this->datatable->editColumn($key, function ($select) use ($key, $data) {
-                    // dd($select);
                     return $select->{$data};
                 });
             }

@@ -27,6 +27,7 @@ class CompanyConnectionItemProduct extends Model
 		'company_item_unit_id',
 		'company_item_size_id',
 		'company_item_weight',
+		'company_item_price',
 		'company_item_description',
 	];
 
@@ -43,6 +44,7 @@ class CompanyConnectionItemProduct extends Model
         'company_item_unit_id' => [false => 'Unit Id'],
         'item_size_code' => [false => 'Size Id'],
         'item_size_name' => [true => 'Size Name'],
+        'company_item_price' => [true => 'Price', 'width' => '50'],
         'company_item_target' => [true => 'Parstok', 'width' => '50'],
         'company_item_realisasi' => [true => 'Real', 'width' => '50'],
         'company_item_minimal' => [true => 'Kekurangan', 'width' => '80'],

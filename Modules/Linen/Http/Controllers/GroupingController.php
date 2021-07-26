@@ -62,12 +62,12 @@ class GroupingController extends Controller
         return array_merge($view, $data);
     }
 
-    public function index()
-    {
-        return view(Views::index())->with([
-            'fields' => Helper::listData(self::$model->datatable),
-        ]);
-    }
+    // public function index()
+    // {
+    //     return view(Views::index())->with([
+    //         'fields' => Helper::listData(self::$model->datatable),
+    //     ]);
+    // }
 
     // public function create()
     // {

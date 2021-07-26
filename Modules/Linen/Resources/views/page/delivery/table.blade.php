@@ -17,8 +17,8 @@
             <th class="text-left col-md-2">No. Seri RFID</th>
             <th class="text-left col-md-4">Product Name</th>
             <th class="text-left col-md-3">Default R.S</th>
-            <th class="text-left col-md-2">Default Location</th>
-            <th class="text-center col-md-1">Action</th>
+            <th class="text-left col-md-3">Default Location</th>
+            <!-- <th class="text-center col-md-1">Action</th> -->
         </tr>
     </thead>
     <tbody class="markup">
@@ -32,14 +32,14 @@
 
         @foreach (old('detail') ?? $detail as $key => $barcode)
         <tr>
-            <td colspan="4">
+            <td colspan="5">
                 <h5>
                     <strong>Barcode : {{ $key }}</strong>
                 </h5>
             </td>
-            <td>
+            <!-- <td>
                 <a class="btn btn-success btn-block" href="{{ route('linen_delivery_delete_detail', ['code' => $key]) }}">Delete</a>
-            </td>
+            </td> -->
         </tr>
         @if(!empty($barcode))
         @foreach($barcode as $item)
@@ -69,11 +69,11 @@
                     value="{{ $item['temp_qty'] ?? $item->linen_grouping_detail_scan_location_name }}">
 
             </td>
-            <td data-title="Send" class="text-right col-lg-1">
+            <!-- <td data-title="Send" class="text-right col-lg-1">
                 
                 <a class="btn btn-danger btn-block" href="{{ route('linen_grouping_delete_detail', ['code' => $item->linen_grouping_detail_id]) }}">Delete</a>
 
-            </td>
+            </td> -->
         </tr>
 
         @endforeach

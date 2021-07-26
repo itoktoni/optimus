@@ -41,6 +41,12 @@ class ModuleServiceProvider extends ServiceProvider
         });
         $this->app->bind('master_outstanding_facades', function () {
             return new \Modules\Linen\Dao\Models\MasterOutstanding();
+        }); 
+        $this->app->bind('retur_facades', function () {
+            return new \Modules\Linen\Dao\Repositories\ReturRepository();
+        }); 
+        $this->app->bind('rewash_facades', function () {
+            return new \Modules\Linen\Dao\Repositories\RewashRepository();
         });
     }
 

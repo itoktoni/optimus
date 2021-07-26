@@ -35,6 +35,7 @@
                     d.linen_outstanding_rfid = $('input[name=linen_outstanding_rfid]').val();
                     d.linen_outstanding_scan_company_id = $('select[name=linen_outstanding_scan_company_id]').val();
                     d.linen_outstanding_ori_company_id = $('select[name=linen_outstanding_ori_company_id]').val();
+                    d.linen_outstanding_ori_location_id = $('select[name=linen_outstanding_ori_location_id]').val();
                     d.linen_outstanding_product_id = $('select[name=linen_outstanding_product_id]').val();
                     d.linen_outstanding_created_by = $('select[name=linen_outstanding_created_by]').val();
                     d.status = $('select[name=status]').val();
@@ -91,7 +92,7 @@
                         <div class="group-search">
                             <div class="form-group">
                                
-                                <div class="col-md-3 col-sm-2 {{ $errors->has('linen_outstanding_key') ? 'has-error' : ''}}">
+                                <div class="col-md-3 col-sm-2">
                                     <div class="row input-group filter-search space-sm">
                                     <span class="input-group-addon">
                                         {{ __('No. Transaksi') }}
@@ -100,7 +101,7 @@
                                     </div>
                                 </div>
                                 
-                                <div class="col-md-3 col-sm-2 {{ $errors->has($search_code) ? 'has-error' : ''}}">
+                                <div class="col-md-3 col-sm-2">
                                     <div class="row input-group filter-search space-sm">
                                     <span class="input-group-addon">
                                         {{ __('No. Seri RFID') }}
@@ -109,7 +110,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-md-3 col-sm-2 {{ $errors->has($search_code) ? 'has-error' : ''}}">
+                                <div class="col-md-3 col-sm-2">
                                     <div class="row input-group filter-search space-sm">
                                     <span class="input-group-addon">
                                         {{ __('Product Name') }}
@@ -118,7 +119,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-md-3 col-sm-2 {{ $errors->has($search_code) ? 'has-error' : ''}}">
+                                <div class="col-md-3 col-sm-2">
                                     <div class="row input-group filter-search space-sm">
                                     <span class="input-group-addon">
                                         {{ __('Scan R.S') }}
@@ -131,7 +132,7 @@
 
                             <div class="form-group">
 
-                                <div class="col-md-3 col-sm-2 {{ $errors->has($search_code) ? 'has-error' : ''}}">
+                                <div class="col-md-3 col-sm-2">
                                     <div class="row input-group filter-search space-sm">
                                     <span class="input-group-addon">
                                         {{ __('Original R.S') }}
@@ -140,8 +141,16 @@
                                     </div>
                                 </div>
 
+                                <div class="col-md-3 col-sm-2">
+                                    <div class="row input-group filter-search space-sm">
+                                    <span class="input-group-addon">
+                                        {{ __('Location') }}
+                                    </span>
+                                    {{ Form::select('linen_outstanding_ori_location_id', $location, null, ['class'=> 'form-control ']) }}
+                                    </div>
+                                </div>
                                 
-                                <div class="col-md-3 col-sm-2 {{ $errors->has($search_code) ? 'has-error' : ''}}">
+                                <div class="col-md-3 col-sm-2">
                                     <div class="row input-group filter-search space-sm">
                                     <span class="input-group-addon">
                                         {{ __('Created By') }}
@@ -150,7 +159,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-md-3 col-sm-2 {{ $errors->has($search_code) ? 'has-error' : ''}}">
+                                <div class="col-md-3 col-sm-2">
                                     <div class="row input-group filter-search space-sm">
                                     <span class="input-group-addon">
                                         {{ __('Status') }}
@@ -159,20 +168,20 @@
                                     </div>
                                 </div>
                                 
-                                <div class="col-md-3 col-sm-2 {{ $errors->has($search_code) ? 'has-error' : ''}}">
-                                    <div class="row input-group filter-search space-sm">
-                                    <span class="input-group-addon">
-                                        {{ __('Description') }}
-                                    </span>
-                                    {{ Form::select('description', $description, null, ['class'=> 'form-control ']) }}
-                                    </div>
-                                </div>
-
                             </div>
 
                             <div class="form-group">
 
-                            <div class="col-md-3 col-sm-2 {{ $errors->has($search_code) ? 'has-error' : ''}}">
+                            <div class="col-md-3 col-sm-2">
+                                <div class="row input-group filter-search space-sm">
+                                <span class="input-group-addon">
+                                    {{ __('Description') }}
+                                </span>
+                                {{ Form::select('description', $description, null, ['class'=> 'form-control ']) }}
+                                </div>
+                            </div>
+
+                            <div class="col-md-3 col-sm-2">
                                 <div class="row input-group filter-search space-sm">
                                     <span class="input-group-addon">
                                         {{ __('Criteria') }}
@@ -186,7 +195,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-md-3 col-sm-2 {{ $errors->has($search_code) ? 'has-error' : ''}}">
+                            <div class="col-md-3 col-sm-2">
                                 <div class="row input-group filter-search space-sm">
                                     <span class="input-group-addon">
                                         {{ __('Operator') }}
@@ -203,7 +212,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-md-6 col-sm-12">
+                            <div class="col-md-3 col-sm-12">
                                 <div class="row input-group filter-search space-sm">
                                     <span class="input-group-addon">
                                         {{ __('Searching') }}
@@ -219,8 +228,6 @@
                         </div>
 
                         </div>
-
-                        
 
                     </div>
 
@@ -242,7 +249,7 @@
                                 <th width="9" class="center"><input id="checkAll" class="selectall"
                                         onclick="toggle(this)" type="checkbox"></th>
 
-                                <th class="text-center" width=70>
+                                <th class="text-center" width=40>
                                     <strong>{{ __('Actions') }}</strong>
                                 </th>
                             </tr>

@@ -1,6 +1,41 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/telescope/compare/v4.4.9...4.x)
+## [Unreleased](https://github.com/laravel/telescope/compare/v4.6.0...4.x)
+
+
+## [v4.6.0 (2021-07-13)](https://github.com/laravel/telescope/compare/v4.5.1...v4.6.0)
+
+### Added
+- Add a new "Clear Entries" button ([#1091](https://github.com/laravel/telescope/pull/1091))
+
+### Changed
+- `Telescope:withoutRecording()` should be exception safe ([#1092](https://github.com/laravel/telescope/pull/1092))
+
+### Fixed
+- Fixed frontend request polling memory leaks ([#1086](https://github.com/laravel/telescope/pull/1086))
+- Fix for `JobWatchers` when the job payload is encrypted ([#1089](https://github.com/laravel/telescope/pull/1089))
+
+
+## [v4.5.1 (2021-06-22)](https://github.com/laravel/telescope/compare/v4.5.0...v4.5.1)
+
+### Fixed
+- Http Client Link State ([#1078](https://github.com/laravel/telescope/pull/1078))
+- Improve file handling in client request watcher ([#1080](https://github.com/laravel/telescope/pull/1080))
+
+
+## [v4.5.0 (2021-06-01)](https://github.com/laravel/telescope/compare/v4.4.10...v4.5.0)
+
+### Added
+- Add http client request watcher ([#1073](https://github.com/laravel/telescope/pull/1073))
+
+
+## [v4.4.10 (2021-06-01)](https://github.com/laravel/telescope/compare/v4.4.9...v4.4.10)
+
+### Changed
+- Remove asset manifest check and warning ([#1063](https://github.com/laravel/telescope/pull/1063))
+
+### Fixed
+- Implemented fallback for `PDO::quote` method on `QueryWatcher` ([#1066](https://github.com/laravel/telescope/pull/1066))
 
 
 ## [v4.4.9 (2021-04-06)](https://github.com/laravel/telescope/compare/v4.4.8...v4.4.9)
