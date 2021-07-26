@@ -86,20 +86,6 @@ class ReturController extends Controller
         return Response::redirectBack($data);
     }
 
-    public function batch(OutstandingBatchRequest $request, OutstandingBatchService $service)
-    {
-        if (request()->get('type') == 'update') {
-
-            $data = $service->update(self::$model, $request);
-
-        } else {
-
-            $data = $service->save(self::$model, $request);
-        }
-
-        return Response::redirectBack($data);
-    }
-
     public function data(ReturDataService $service)
     {
         return $service
