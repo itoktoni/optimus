@@ -4,15 +4,15 @@ namespace Modules\Linen\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Modules\Item\Dao\Repositories\ProductRepository;
-use Modules\Linen\Dao\Models\Grouping;
-use Modules\Linen\Dao\Models\GroupingDetail;
-use Modules\Linen\Dao\Repositories\DeliveryRepository;
-use Modules\Linen\Http\Requests\DeliveryRequest;
+use Modules\Linen\Dao\Models\kotor;
+use Modules\Linen\Dao\Models\kotorDetail;
+use Modules\Linen\Dao\Repositories\KotorRepository;
+use Modules\Linen\Http\Requests\KotorRequest;
 use Modules\Linen\Http\Requests\OutstandingBatchRequest;
 use Modules\Linen\Http\Requests\OutstandingMasterRequest;
-use Modules\Linen\Http\Services\DeliveryCreateService;
-use Modules\Linen\Http\Services\DeliveryDataService;
-use Modules\Linen\Http\Services\DeliverySingleService;
+use Modules\Linen\Http\Services\KotorCreateService;
+use Modules\Linen\Http\Services\KotorDataService;
+use Modules\Linen\Http\Services\KotorSingleService;
 use Modules\Linen\Http\Services\OutstandingBatchService;
 use Modules\Linen\Http\Services\OutstandingMasterService;
 use Modules\System\Dao\Repositories\CompanyRepository;
@@ -22,19 +22,20 @@ use Modules\System\Http\Requests\DeleteRequest;
 use Modules\System\Http\Requests\GeneralRequest;
 use Modules\System\Http\Services\DataService;
 use Modules\System\Http\Services\DeleteService;
+use Modules\System\Http\Services\SingleService;
 use Modules\System\Http\Services\UpdateService;
 use Modules\System\Plugins\Alert;
 use Modules\System\Plugins\Helper;
 use Modules\System\Plugins\Response;
 use Modules\System\Plugins\Views;
 
-class DeliveryController extends Controller
+class KotorController extends Controller
 {
     public static $template;
     public static $service;
     public static $model;
 
-    public function __construct(DeliveryRepository $model, DeliverySingleService $service)
+    public function __construct(KotorRepository $model, SingleService $service)
     {
         self::$model = self::$model ?? $model;
         self::$service = self::$service ?? $service;
@@ -73,13 +74,13 @@ class DeliveryController extends Controller
     //     return view(Views::create())->with($this->share());
     // }
 
-    public function save(DeliveryRequest $request, DeliveryCreateService $service)
+    public function save(KotorRequest $request, KotorCreateService $service)
     {
         $data = $service->save(self::$model, $request);
         return Response::redirectBack($data);
     }
 
-    public function data(DeliveryDataService $service)
+    public function data(KotorDataService $service)
     {
         return $service
             ->EditAction([
@@ -91,8 +92,8 @@ class DeliveryController extends Controller
 
     public function deleteDetail($code)
     {
-        $data = Grouping::where('linen_grouping_barcode', $code)->delete();
-        $data = GroupingDetail::where('linen_grouping_detail_barcode', $code)->delete();
+        $data = Kotor::where('linen_kotor_barcode', $code)->delete();
+        $data = kotorDetail::where('linen_kotor_detail_barcode', $code)->delete();
         Alert::delete($code);
         return Response::redirectBack($code);
     }

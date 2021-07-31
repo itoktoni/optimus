@@ -79,9 +79,9 @@ class Retur extends Model
     ];
 
     public $status = [
-        '1' => ['Chip rusak', 'success'],
-        '2' => ['Linen rusak', 'primary'],
-        '3' => ['Kelebihan stock', 'danger'],
+        '4' => ['Chip rusak', 'success'],
+        '5' => ['Linen rusak', 'primary'],
+        '6' => ['Kelebihan stock', 'danger'],
     ];
 
     public function status(){

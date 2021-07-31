@@ -1,14 +1,14 @@
 <?php
 
-namespace Modules\Item\Http\Controllers;
+namespace Modules\Report\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Modules\Item\Dao\Facades\LinenFacades;
 use Modules\Item\Dao\Repositories\ProductRepository;
-use Modules\Item\Dao\Repositories\ReportLinenRegisterRepository;
-use Modules\Item\Dao\Repositories\ReportLinenSummaryRepository;
-use Modules\Item\Http\Services\ReportSummaryService;
+use Modules\Report\Dao\Repositories\ReportLinenRegisterRepository;
+use Modules\Report\Dao\Repositories\ReportLinenSummaryRepository;
+use Modules\Report\Http\Services\ReportSummaryService;
 use Modules\System\Dao\Repositories\CompanyRepository;
 use Modules\System\Dao\Repositories\LocationRepository;
 use Modules\System\Dao\Repositories\TeamRepository;
@@ -17,7 +17,7 @@ use Modules\System\Http\Services\ReportService;
 use Modules\System\Http\Services\SingleService;
 use Modules\System\Plugins\Views;
 
-class ReportLinenController extends Controller
+class RegisterLinenController extends Controller
 {
     public static $template;
     public static $service;
@@ -67,7 +67,7 @@ class ReportLinenController extends Controller
     {
         if ($request->get('action') == 'report') {
             $data = $request->except('_token');
-            return redirect()->route('item_report_linen_detail', $data)->withInput();
+            return redirect()->route('report_register_linen_detail', $data)->withInput();
         }
         return $service->generate(self::$model, $request);
     }
@@ -87,7 +87,7 @@ class ReportLinenController extends Controller
     {
         if ($request->get('action') == 'report') {
             $data = $request->except('_token');
-            return redirect()->route('item_report_linen_summary', $data)->withInput();
+            return redirect()->route('report_register_linen_summary', $data)->withInput();
         }
         return $service->generate(self::$summary, $request);
     }

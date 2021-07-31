@@ -87,6 +87,22 @@ a.btn {
 .btn-danger {
   @include button-variant($btn-danger-color, $btn-danger-bg, $btn-danger-border);
 }
+// Danger and error appear as red
+.btn-dark {
+  @include button-variant($btn-danger-color, $brand-dark, $brand-dark);
+}
+// Danger and error appear as red
+.btn-brown {
+  @include button-variant($btn-danger-color, $brand-brown, $brand-brown);
+}
+// Danger and error appear as red
+.btn-grey {
+  @include button-variant($btn-danger-color, $brand-grey, $brand-grey);
+}
+// Danger and error appear as red
+.btn-lavender {
+  @include button-variant($btn-danger-color, $brand-lavender, $brand-lavender);
+}
 
 
 // Link buttons

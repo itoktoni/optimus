@@ -39,7 +39,7 @@
                                         <div class="col-md-9 col-xs-10">
                                             <div class="row">
                                                 <span onclick="show($(this))"
-                                                    class="btn btn-default btn-block btn-sm">{{ $control }}</span>
+                                                    class="btn btn-default btn-block btn-sm">{{ Helper::functionToLabel($control) }}</span>
                                             </div>
                                         </div>
                                     </div>
@@ -61,7 +61,7 @@
                                                 {{ in_array($act, $dataAction) ? 'checked' : ''}} value="{{ $act }}">
                                             
                                             <span class="btn btn-xs btn-primary">
-                                                {{ ucwords(str_replace('_', ' ', $act))  }}
+                                                {{ Helper::functionToLabel($act)  }}
                                             </span>
                                         </label>
 

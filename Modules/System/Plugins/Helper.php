@@ -341,6 +341,11 @@ class Helper
         return ucwords(str_replace('-', ' ', $value));
     }
 
+    public static function functionToLabel($value){
+
+        return Str::of($value)->snake('_')->replace('_', ' ')->ucfirst();
+    } 
+
     public static function createTag($data, $implode = false)
     {
         $string = '';

@@ -8,7 +8,6 @@ use Modules\Item\Dao\Facades\LinenFacades;
 use Modules\Item\Dao\Models\Linen;
 use Modules\Linen\Dao\Facades\MasterOutstandingFacades;
 use Modules\System\Dao\Facades\CompanyFacades;
-use Modules\System\Dao\Facades\LocationFacades;
 use Modules\System\Dao\Facades\TeamFacades;
 use Wildside\Userstamps\Userstamps;
 
@@ -101,12 +100,19 @@ class Outstanding extends Model
         '3' => ['Done', 'primary'],
         '4' => ['Pending', 'warning'],
         '5' => ['Hilang', 'danger'],
+        '6' => ['Retur', 'danger'],
+        '7' => ['Rewash', 'warning'],
     ];
 
     public $description = [
         '1' => ['OK', 'success'],
         '2' => ['Beda Rumah Sakit', 'info'],
         '3' => ['Belum di Scan', 'danger'],
+        '4' => ['Chip Rusak', 'danger'],
+        '5' => ['Linen Rusak', 'primary'],
+        '6' => ['Kelebihan Stock', 'info'],
+        '7' => ['Bernoda', 'primary'],
+        '8' => ['Bahan Usang', 'danger'],
     ];
 
     public function description()
@@ -213,15 +219,6 @@ class Outstanding extends Model
             //     $model->linen_outstanding_description = 3;
             // }
 
-        });
-
-        parent::creating(function ($model) {
-
-            $model->linen_outstanding_status = 1;
-            $rfid = $model->rfid;
-            $counter = $rfid->item_linen_counter ?? 0;
-            $rfid->item_linen_counter = $counter + 1;
-            $rfid->save();
         });
     }
 

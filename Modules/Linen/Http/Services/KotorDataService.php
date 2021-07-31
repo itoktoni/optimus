@@ -8,7 +8,7 @@ use Modules\Linen\Http\Resources\OutstandingCollection;
 use Yajra\DataTables\Facades\DataTables;
 use Modules\System\Http\Services\DataService;
 
-class DeliveryDataService extends DataService
+class KotorDataService extends DataService
 {
     public function make()
     {
@@ -23,20 +23,20 @@ class DeliveryDataService extends DataService
         $request = request()->all();
         $filter = $this->filter;
 
-        if($key = $request['linen_delivery_key']){
-            $filter = $filter->where('linen_delivery_key', $key);
+        if($key = $request['linen_kotor_key']){
+            $filter = $filter->where('linen_kotor_key', $key);
         }
         if($date_from = $request['date_from']){
-            $filter = $filter->where('linen_delivery_reported_date','>=', $date_from);
+            $filter = $filter->where('linen_kotor_created_at','>=', $date_from);
         }
         if($date_to = $request['date_to']){
-            $filter = $filter->where('linen_delivery_reported_date', '<=', $date_to);
+            $filter = $filter->where('linen_kotor_created_at', '<=', $date_to);
         }
-        if($company_ori = $request['linen_delivery_company_id']){
-            $filter = $filter->where('linen_delivery_company_id', $company_ori);
+        if($company_ori = $request['linen_kotor_company_id']){
+            $filter = $filter->where('linen_kotor_company_id', $company_ori);
         }
-        if($create = $request['linen_delivery_created_by']){
-            $filter = $filter->where('linen_delivery_created_by', $create);
+        if($create = $request['linen_kotor_created_by']){
+            $filter = $filter->where('linen_kotor_created_by', $create);
         }
 
         $this->datatable = Datatables::of($this->filter);
@@ -44,7 +44,7 @@ class DeliveryDataService extends DataService
         $this->setStatus();
         $this->setImage();
         $this->datatable->rawColumns($this->column);
-        $this->datatable->orderColumn('linen_delivery_created_at', '-linen_delivery_created_at $1');
+        $this->datatable->orderColumn('linen_kotor_created_at', '-linen_kotor_created_at $1');
         return $this->datatable->make(true);
     }
 }

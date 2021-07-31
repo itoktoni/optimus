@@ -32,6 +32,7 @@ class ReturDetail extends Model
         'linen_retur_detail_product_id',
         'linen_retur_detail_product_name',
         'linen_retur_detail_key',
+        'linen_retur_detail_status',
         'linen_retur_detail_ori_company_id',
         'linen_retur_detail_ori_company_name',
         'linen_retur_detail_ori_location_id',

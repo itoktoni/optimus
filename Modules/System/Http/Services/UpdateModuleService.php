@@ -63,7 +63,7 @@ class UpdateModuleService extends UpdateService
                     $visible = '1';
                     $metode = 'GET';
 
-                    if (strpos($function, 'Export') !== false) {
+                    if (strpos($function, 'Export') !== false || strpos($function, 'export') !== false) {
                         $visible = '0';
                         $metode = 'POST';
                     }

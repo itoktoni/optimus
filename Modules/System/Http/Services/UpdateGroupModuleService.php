@@ -74,7 +74,6 @@ class UpdateGroupModuleService extends UpdateService
                     ]);
 
                     ActionFacades::where(ActionFacades::getModuleKeyName(), $code)->delete();
-
                     foreach ($func['real'] as $function) {
                         $visible = '0';
                         if (in_array($function, $this->visible)) {
@@ -95,13 +94,12 @@ class UpdateGroupModuleService extends UpdateService
                         if (in_array($function, $this->visible)) {
                             $visible = '1';
                         }
-
                         if (strpos($code, 'report') !== false) {
                             
                             $visible = '1';
                             $metode = 'GET';
-
-                            if (strpos($function, 'export') !== false) {
+                            
+                            if (strpos($function, 'export') !== false || strpos($function, 'Export') !== false) {
                                 $visible = '0';
                                 $metode = 'POST';
                             }

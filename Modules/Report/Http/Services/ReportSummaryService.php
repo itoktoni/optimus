@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Item\Http\Services;
+namespace Modules\Report\Http\Services;
 
 use Maatwebsite\Excel\Excel;
 use Barryvdh\DomPDF\Facade as PDF;

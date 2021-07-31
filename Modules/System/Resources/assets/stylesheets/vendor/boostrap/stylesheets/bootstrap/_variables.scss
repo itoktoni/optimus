@@ -16,10 +16,14 @@ $gray-light:             lighten($gray-base, 46.7%) !default; // #777
 $gray-lighter:           lighten($gray-base, 93.5%) !default; // #eee
 
 $brand-primary:         darken(#428bca, 6.5%) !default; // #337ab7
-$brand-success:         #5cb85c !default;
-$brand-info:            #5bc0de !default;
-$brand-warning:         #f0ad4e !default;
+$brand-success:         #009726 !default;
+$brand-info:            #009e91 !default;
+$brand-warning:         #f3981a !default;
 $brand-danger:          #d9534f !default;
+$brand-dark:          #000000 !default;
+$brand-brown:          #a34e26 !default;
+$brand-grey:          #4d4d4d !default;
+$brand-lavender:          #7000b1 !default;
 
 
 //== Scaffolding

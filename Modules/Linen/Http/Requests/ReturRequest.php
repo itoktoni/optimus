@@ -59,7 +59,7 @@ class ReturRequest extends GeneralRequest
             'detail' => $validate,
             'linen_retur_company_name' => $company->company_name ?? '',
             'linen_retur_total' => count($validate),
-            'linen_retur_status' => 'required|in:1,2,3',,
+            'linen_retur_status' => 'required|in:4,5,6',,
         ]);
 
     }

@@ -1,18 +1,18 @@
 <?php
 
-namespace Modules\Item\Dao\Repositories;
+namespace Modules\Report\Dao\Repositories;
 
 use Plugin\Notes;
 use Plugin\Helper;
 use App\Dao\Models\Branch;
 use Illuminate\Support\Facades\DB;
-use Modules\Item\Dao\Models\Brand;
-use Modules\Item\Dao\Models\Color;
-use Modules\Item\Dao\Models\Stock;
+use Modules\Report\Dao\Models\Brand;
+use Modules\Report\Dao\Models\Color;
+use Modules\Report\Dao\Models\Stock;
 use Illuminate\Contracts\View\View;
 use Modules\Sales\Dao\Models\Order;
-use Modules\Item\Dao\Models\Product;
-use Modules\Item\Dao\Models\Category;
+use Modules\Report\Dao\Models\Product;
+use Modules\Report\Dao\Models\Category;
 use App\Dao\Interfaces\MasterInterface;
 use Illuminate\Database\QueryException;
 use Maatwebsite\Excel\Concerns\FromView;
@@ -25,10 +25,11 @@ use PhpOffice\PhpSpreadsheet\Style\Alignment;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
-use Modules\Item\Dao\Repositories\StockRepository;
+use Modules\Report\Dao\Repositories\StockRepository;
 use Modules\Procurement\Dao\Models\PurchaseDetail;
 use Modules\Sales\Dao\Repositories\OrderRepository;
 use Maatwebsite\Excel\Concerns\WithColumnFormatting;
+use Modules\Item\Dao\Repositories\LinenRepository;
 use Modules\Procurement\Dao\Repositories\PurchaseRepository;
 
 class ReportLinenSummaryRepository extends LinenRepository implements FromView, ShouldAutoSize
@@ -54,8 +55,8 @@ class ReportLinenSummaryRepository extends LinenRepository implements FromView, 
         // $query = $this->model
         // ->leftJoin($this->branch->getTable(), 'sales_order_from_id', $this->branch->getKeyName())
         // ->leftJoin($this->detail->getTable(), $this->model->getKeyName(), 'sales_order_detail_order_id')
-        // ->leftJoin($this->product->getTable(), 'sales_order_detail_item_product_id', $this->product->getKeyName())
-        // ->leftJoin($this->category->getTable(), 'item_product_item_category_id', $this->category->getKeyName())
+        // ->leftJoin($this->product->getTable(), 'sales_order_detail_report_product_id', $this->product->getKeyName())
+        // ->leftJoin($this->category->getTable(), 'report_product_report_category_id', $this->category->getKeyName())
         //     ->select([
         //         'sales_order_id',
         //         'sales_order_created_at',
@@ -97,8 +98,8 @@ class ReportLinenSummaryRepository extends LinenRepository implements FromView, 
         //         'sales_order_payment_notes',
         //         'sales_order_core_user_id',
         //         'branch_name',
-        //         'item_category_name',
-        //         'item_product.*',
+        //         'report_category_name',
+        //         'report_product.*',
         //         'sales_order_detail.*',
         //     ]);
 
@@ -148,7 +149,7 @@ class ReportLinenSummaryRepository extends LinenRepository implements FromView, 
         // }
 
         // $query = $query->orderBy($this->model->getKeyName(), 'ASC');
-        return view('Item::page.report.excel_report_summary', [
+        return view('Report::page.register_linen.excel_report_summary', [
             'export' => $query->get()
         ]);
     }

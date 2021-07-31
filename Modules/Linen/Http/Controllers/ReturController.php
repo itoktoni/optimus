@@ -80,12 +80,6 @@ class ReturController extends Controller
         return Response::redirectBack($data);
     }
 
-    public function master(OutstandingMasterRequest $request, OutstandingMasterService $service)
-    {
-        $data = $service->save(self::$model, $request);
-        return Response::redirectBack($data);
-    }
-
     public function data(ReturDataService $service)
     {
         return $service
@@ -97,15 +91,6 @@ class ReturController extends Controller
             ->EditStatus([
                 'linen_retur_status' => self::$model->status,
             ])->make();
-    }
-
-    public function deleteDetail($code)
-    {
-
-        $data = Grouping::where('linen_grouping_barcode', $code)->delete();
-        $data = GroupingDetail::where('linen_grouping_detail_barcode', $code)->delete();
-        Alert::delete($code);
-        return Response::redirectBack($code);
     }
 
     public function edit($code)

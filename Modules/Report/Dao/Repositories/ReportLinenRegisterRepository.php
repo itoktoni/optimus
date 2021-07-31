@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Item\Dao\Repositories;
+namespace Modules\Report\Dao\Repositories;
 
 use Plugin\Helper;
 use Maatwebsite\Excel\Concerns\WithMapping;
@@ -10,7 +10,6 @@ use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 use Maatwebsite\Excel\Concerns\WithColumnFormatting;
 use Modules\Item\Dao\Repositories\LinenRepository;
-use Modules\Sales\Dao\Repositories\OrderRepository;
 
 class ReportLinenRegisterRepository extends LinenRepository implements FromCollection, WithHeadings, ShouldAutoSize, WithColumnFormatting, WithMapping
 {
