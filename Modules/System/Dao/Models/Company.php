@@ -61,7 +61,17 @@ class Company extends Model
 
     public function products()
 	{
-		return $this->belongsToMany(Product::class, CompanyConnectionItemProductFacades::getTable(), CompanyFacades::GetKeyName(), ProductFacades::getKeyName());
+		return $this->belongsToMany(Product::class, CompanyConnectionItemProductFacades::getTable(), CompanyFacades::GetKeyName(), ProductFacades::getKeyName())->withPivot([
+            'company_item_target',
+            'company_item_maximal',
+            'company_item_minimal',
+            'company_item_unit_id',
+            'company_item_size_id',
+            'company_item_weight',
+            'company_item_description',
+            'company_item_realisasi',
+            'company_item_price',
+        ]);
     }
 
     public static function boot()

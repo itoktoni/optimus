@@ -36,7 +36,10 @@
                             <li onclick="rmSidebar()"
                                 {{ $action_code == $data_action->system_action_code ? 'class=nav-active' : '' }}>
                                 <a id="childMenu" href="{!! route($data_action->system_action_code) !!}">
-                                    {{ __(ucfirst($data_action->system_action_function)) }}
+                                    @php
+                                    $function_name = Helper::functionToLabel($data_action->system_action_function)->__toString();
+                                    @endphp
+                                    {{ __($function_name) }}
                                     {{ $menu->system_module_name == 'Module' ? __($menu->system_module_name.'s') : __($menu->system_module_name) }}
                                 </a>
                             </li>

@@ -16,7 +16,7 @@ class ReturCreateService
             ReturDetail::insert($data['detail']);
             if(isset($check['status']) && $check['status']){
 
-                Alert::create();
+                Alert::create($data['rfid']);
             }
             else{
                 $message = env('APP_DEBUG') ? $check['data'] : $check['message'];

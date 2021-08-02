@@ -22,7 +22,6 @@ class Product extends Model
         'item_product_sku',
         'item_product_image',
         'item_product_status',
-        'item_product_weight',
         'item_product_category_id',
         'item_product_unit_code',
         'item_product_description',

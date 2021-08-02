@@ -65,11 +65,11 @@ class RegisterLinenController extends Controller
 
     public function detailExport(Request $request, ReportService $service)
     {
-        if ($request->get('action') == 'report') {
+        if ($request->get('action') == 'preview') {
             $data = $request->except('_token');
             return redirect()->route('report_register_linen_detail', $data)->withInput();
         }
-        return $service->generate(self::$model, $request);
+        return $service->generate(self::$model, $request, 'report_register_linen_detail');
     }
 
     public function summary(Request $request, PreviewService $service)
@@ -83,12 +83,12 @@ class RegisterLinenController extends Controller
         ]));
     }
 
-    public function summaryExport(Request $request, ReportSummaryService $service)
+    public function summaryExport(Request $request, ReportService $service)
     {
-        if ($request->get('action') == 'report') {
+        if ($request->get('action') == 'preview') {
             $data = $request->except('_token');
             return redirect()->route('report_register_linen_summary', $data)->withInput();
         }
-        return $service->generate(self::$summary, $request);
+        return $service->generate(self::$summary, $request, 'excel_report_summary');
     }
 }

@@ -48,14 +48,14 @@ class AccessMiddleware
         self::$module_connection_action = $module_connection_action;
         self::$group_module_connection_module = $group_module_connection_module;
 
-        if (self::$username == null) {
+        if (self::$username == null && auth()->check()) {
             self::$username = Auth::user()->username ?? null;
             self::$groupUser = Auth::user()->group_user ?? null;
             self::$groupAccess = session()->get(Auth::User()->username . '_group_access') ?? null;
         }
 
         
-        if (self::$list_group_module == null) {
+        if (self::$list_group_module == null && auth()->check()) {
             if (Cache::has(self::$username . '_group_list')) {
                 self::$list_group_module = Cache::get(self::$username . '_group_list');
             } else {
@@ -71,7 +71,7 @@ class AccessMiddleware
 
     public function handle($request, Closure $next)
     {
-        if (auth()->user()->group_user == 'customer') {
+        if (auth()->user()->group_user == 'customer' && auth()->check()) {
             return redirect()->to('/');
         }
         $access = $this->gate($this->data());

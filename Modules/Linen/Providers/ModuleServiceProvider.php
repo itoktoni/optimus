@@ -47,6 +47,9 @@ class ModuleServiceProvider extends ServiceProvider
         }); 
         $this->app->bind('rewash_facades', function () {
             return new \Modules\Linen\Dao\Repositories\RewashRepository();
+        });  
+        $this->app->bind('kotor_facades', function () {
+            return new \Modules\Linen\Dao\Repositories\KotorRepository();
         });
     }
 

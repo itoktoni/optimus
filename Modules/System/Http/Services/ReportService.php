@@ -4,6 +4,7 @@ namespace Modules\System\Http\Services;
 
 use Maatwebsite\Excel\Excel;
 use Barryvdh\DomPDF\Facade as PDF;
+use Maatwebsite\Excel\Facades\Excel as FacadesExcel;
 use Modules\System\Plugins\Views;
 
 class ReportService
@@ -15,17 +16,16 @@ class ReportService
         $this->excel = $excel;
     }
 
-    public function generate($repository, $data)
+    public function generate($repository, $data, $name)
     {
         if($data->action == 'excel'){
             
-            $name = 'report_register_linen_' . date('Y_m_d') . '.xlsx';
+            $name = $name .'_'. date('Y_m_d') . '.xlsx';
             return $this->excel->download($repository, $name);
         }
         else if($data->action == 'pdf'){
-            $pdf = PDF::loadView(Views::pdf(config('page'), config('folder')), $repository)->setPaper('A4', 'potrait');
-            return $pdf->download();
-            // return $pdf->stream();
+            $pdf = PDF::loadView(Views::pdf(config('page'), config('folder'), $name), $repository)->setPaper('A4', 'potrait');
+            return $pdf->download(); // return $pdf->stream();
         }
     } 
 }

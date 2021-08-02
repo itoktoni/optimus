@@ -38,7 +38,7 @@
                                         </div>
                                         <div class="col-md-9 col-xs-10">
                                             <div class="row">
-                                                <span onclick="show($(this))"
+                                                <span onclick="show($(this))" control="{{ $control }}"
                                                     class="btn btn-default btn-block btn-sm">{{ Helper::functionToLabel($control) }}</span>
                                             </div>
                                         </div>
@@ -102,11 +102,13 @@
 function show(value) {
 
     if (value.attr('data') == 'true') {
-        $('#' + value.text()).checkboxes('uncheck');
+
+        $('#' + value.attr('control')).checkboxes('uncheck');
         value.attr('data', false);
+
     } else {
 
-        $('#' + value.text()).checkboxes('check');
+        $('#' + value.attr('control')).checkboxes('check');
         value.attr('data', true);
     }
 }

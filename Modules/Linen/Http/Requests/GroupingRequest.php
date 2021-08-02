@@ -3,6 +3,7 @@
 namespace Modules\Linen\Http\Requests;
 
 use Modules\Item\Dao\Facades\LinenFacades;
+use Modules\Linen\Dao\Facades\OutstandingFacades;
 use Modules\System\Dao\Facades\CompanyFacades;
 use Modules\System\Dao\Facades\LocationFacades;
 use Modules\System\Http\Requests\GeneralRequest;
@@ -22,9 +23,7 @@ class GroupingRequest extends GeneralRequest
         $company = CompanyFacades::find($this->linen_grouping_company_id);
         $location = LocationFacades::find($this->linen_grouping_location_id);
 
-        $linen = LinenFacades::dataRepository()->whereIn('item_linen_rfid', $this->rfid)->with([
-            'company', 'location', 'product'
-        ])->get();
+        $linen = OutstandingFacades::dataRepository()->whereIn('linen_outstanding_rfid', $this->rfid)->get();
 
         if ($linen) {
             $linen = $linen->mapWithKeys(function ($data_linen) {
@@ -37,14 +36,14 @@ class GroupingRequest extends GeneralRequest
             $user = auth()->user();
             $data = [
 
-                'linen_grouping_detail_rfid' => $item->item_linen_rfid,
-                'linen_grouping_detail_product_id' => $item->product->item_product_id ?? '',
-                'linen_grouping_detail_product_name' => $item->product->item_product_name ?? '',
+                'linen_grouping_detail_rfid' => $item->linen_outstanding_rfid,
+                'linen_grouping_detail_product_id' => $item->linen_outstanding_product_id ?? '',
+                'linen_grouping_detail_product_name' => $item->linen_outstanding_product_name ?? '',
                 'linen_grouping_detail_barcode' => $this->linen_grouping_barcode,
-                'linen_grouping_detail_ori_company_id' => $item->company->company_id ?? '',
-                'linen_grouping_detail_ori_company_name' => $item->company->company_name ?? '',
-                'linen_grouping_detail_ori_location_id' => $item->location->location_id ?? '',
-                'linen_grouping_detail_ori_location_name' => $item->location->location_name ?? '', 
+                'linen_grouping_detail_ori_company_id' => $item->linen_outstanding_ori_company_id ?? '',
+                'linen_grouping_detail_ori_company_name' => $item->linen_outstanding_ori_company_name ?? '',
+                'linen_grouping_detail_ori_location_id' => $item->linen_outstanding_ori_location_id ?? '',
+                'linen_grouping_detail_ori_location_name' => $item->linen_outstanding_ori_location_name ?? '', 
                 'linen_grouping_detail_scan_company_id' => $company->company_id ?? '',
                 'linen_grouping_detail_scan_company_name' => $company->company_name ?? '',
                 'linen_grouping_detail_scan_location_id' => $location->location_id ?? '',
@@ -52,6 +51,8 @@ class GroupingRequest extends GeneralRequest
                 'linen_grouping_detail_created_at' => date('Y-m-d H:i:s') ?? '',
                 'linen_grouping_detail_created_by' => $user->id ?? '',
                 'linen_grouping_detail_created_name' => $user->name ?? '',
+                'linen_grouping_detail_status' => $item->linen_outstanding_status ?? '',
+                'linen_grouping_detail_description' => $item->linen_outstanding_description ?? '',
             ];
 
             return $data;

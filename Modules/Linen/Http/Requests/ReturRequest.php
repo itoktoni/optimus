@@ -20,7 +20,6 @@ class ReturRequest extends GeneralRequest
     public function prepareForValidation()
     {
         $company = CompanyFacades::find($this->linen_retur_company_id);
-
         $linen = LinenFacades::dataRepository()->whereIn('item_linen_rfid', $this->rfid)->with([
             'company', 'location', 'product'
         ])->get();
@@ -59,7 +58,6 @@ class ReturRequest extends GeneralRequest
             'detail' => $validate,
             'linen_retur_company_name' => $company->company_name ?? '',
             'linen_retur_total' => count($validate),
-            'linen_retur_status' => 'required|in:4,5,6',,
         ]);
 
     }
@@ -76,6 +74,7 @@ class ReturRequest extends GeneralRequest
         return [
             'linen_retur_key' => 'required|unique:linen_retur',
             'linen_retur_company_id' => 'required|exists:system_company,company_id',
+            'linen_retur_status' => 'required|in:4,5,6',
             'rfid.*' => 'required',
         ];
     }

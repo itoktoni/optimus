@@ -2,26 +2,28 @@
 
 namespace Modules\System\Plugins;
 
+use Illuminate\Support\Str;
+
 class Views
 {
     public static function create($page = 'master', $folder = 'system')
     {
-        return ucfirst($folder) . '::page.' . $page . '.create';
+        return ucfirst($folder) . '::page.' . Helper::snake($page) . '.create';
     }
 
     public static function update($page = 'master', $folder = 'system')
     {
-        return ucfirst($folder) . '::page.' . $page . '.update';
+        return ucfirst($folder) . '::page.' . Helper::snake($page) . '.update';
     }
 
     public static function index($page = 'master', $folder = 'system')
     {
-        return ucfirst($folder) . '::page.' . $page . '.data';
+        return ucfirst($folder) . '::page.' . Helper::snake($page) . '.data';
     }
 
     public static function show($page = 'master', $folder = 'system')
     {
-        return ucfirst($folder) . '::page.' . $page . '.show';
+        return ucfirst($folder) . '::page.' . Helper::snake($page) . '.show';
     }
 
     public static function backend($file = false)
@@ -33,27 +35,27 @@ class Views
     public static function include ($page, $folder = false)
     {
         $folder = $folder ? $folder : config('folder');
-        return ucfirst($folder) . '::page.' . $page . '.form';
+        return ucfirst($folder) . '::page.' . Helper::snake($page) . '.form';
     }
 
     public static function action($page = 'master', $folder = 'system')
     {
-        return ucfirst($folder) . '::page.' . $page . '.actions';
+        return ucfirst($folder) . '::page.' . Helper::snake($page) . '.actions';
     }
 
     public static function checkbox($page = 'master', $folder = 'system')
     {
-        return ucfirst($folder) . '::page.' . $page . '.checkbox';
+        return ucfirst($folder) . '::page.' . Helper::snake($page) . '.checkbox';
     }
 
-    public static function pdf($page = 'master', $folder = 'system')
+    public static function pdf($page = 'master', $folder = 'system', $name = 'default')
     {
-        return ucfirst($folder) . '::page.' . $page . '.pdf';
+        return ucfirst($folder) . '::page.' .Helper::snake($page) .'_'.$name.'.pdf';
     }
 
     public static function form($form, $page = 'master', $folder = 'system')
     {
-        return ucfirst($folder) . '::page.' . $page . '.' . $form;
+        return ucfirst($folder) . '::page.' . Helper::snake($page) . '.' . Helper::snake($form);
     }
 
     public static function option($option, $placeholder = true, $raw = false, $cache = false)

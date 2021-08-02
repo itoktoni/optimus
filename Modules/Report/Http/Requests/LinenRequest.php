@@ -32,10 +32,9 @@ class LinenRequest extends GeneralRequest
     public function rules()
     {
         return [
-            'report_linen_rfid' => 'required',
-            'report_linen_location_id' => 'required|exists:system_location,location_id',
-            'report_linen_product_id' => 'required|exists:report_product,report_product_id',
-            'report_linen_rent' => 'required',
+            'from' => 'required',
+            'to' => 'required',
+            'company_id' => 'required',
         ];
     }
 }

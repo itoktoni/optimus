@@ -73,6 +73,7 @@ class Delivery extends Model
     public $datatable = [
         'linen_delivery_id' => [false => 'Code', 'width' => 50],
         'linen_delivery_key' => [true => 'No. DO'],
+        'linen_delivery_company_id' => [false => 'Company'],
         'linen_delivery_company_name' => [true => 'Company'],
         'linen_delivery_total' => [true => 'Total'],
         'linen_delivery_total_detail' => [true => 'Detail'],

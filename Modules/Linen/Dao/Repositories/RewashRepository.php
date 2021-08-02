@@ -27,7 +27,7 @@ class RewashRepository extends Rewash implements CrudInterface
     {
         try {
             $activity = $this->create($request);
-            return Notes::create($activity);
+            return Notes::create(array_keys($request['detail']));
         } catch (QueryException $ex) {
             return Notes::error($ex->getMessage());
         }

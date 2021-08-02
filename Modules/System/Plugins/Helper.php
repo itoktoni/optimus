@@ -343,7 +343,7 @@ class Helper
 
     public static function functionToLabel($value){
 
-        return Str::of($value)->snake('_')->replace('_', ' ')->ucfirst();
+        return Str::of($value)->snake('_')->replace('_', ' ')->title();
     } 
 
     public static function createTag($data, $implode = false)
@@ -945,5 +945,11 @@ class Helper
             }
         }
         return $hp;
+    }
+
+    public static function getAlfabetByNumber($value){
+        
+        $alphabet = range('A', 'Z');
+        return $alphabet[$value]; // returns D
     }
 }
