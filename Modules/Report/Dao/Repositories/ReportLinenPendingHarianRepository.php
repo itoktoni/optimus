@@ -29,6 +29,7 @@ use Modules\Report\Dao\Repositories\StockRepository;
 use Modules\Procurement\Dao\Models\PurchaseDetail;
 use Modules\Sales\Dao\Repositories\OrderRepository;
 use Maatwebsite\Excel\Concerns\WithColumnFormatting;
+use Maatwebsite\Excel\Concerns\WithColumnWidths;
 use Maatwebsite\Excel\Concerns\WithDrawings;
 use Maatwebsite\Excel\Concerns\WithStyles;
 use Modules\Item\Dao\Repositories\LinenRepository;
@@ -38,11 +39,13 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use Maatwebsite\Excel\Concerns\WithEvents;
 use Maatwebsite\Excel\Events\AfterSheet;
+use Modules\Linen\Dao\Facades\OutstandingFacades;
 use Modules\Linen\Dao\Repositories\KotorRepository;
 use Modules\Linen\Dao\Repositories\OutstandingRepository;
 use Modules\System\Dao\Facades\CompanyConnectionLocationFacades;
 use Modules\System\Dao\Facades\CompanyFacades;
 use Modules\System\Plugins\Helper;
+use Modules\System\Plugins\Views;
 
 class ReportLinenPendingHarianRepository extends OutstandingRepository implements FromView, WithStyles, WithEvents
 {
@@ -74,72 +77,73 @@ class ReportLinenPendingHarianRepository extends OutstandingRepository implement
         $sheet->getStyle('A1')->getFont()->setBold(true);
     }
 
+    public function columnWidths(): array
+    {
+        return [
+            'A' => 30,
+            'B' => 100,            
+        ];
+    }
+
     public function registerEvents(): array
     {
-        $total_location = count($this->location)+4;
-        $total_product = count($this->product)+10;
-        $alfa = Helper::getAlfabetByNumber($total_location);
-        $cell = $alfa.$total_location;
+        // return [];
+        // $total_location = count($this->location)+4;
+        // $total_product = count($this->product)+10;
+        $alfa = Helper::getAlfabetByNumber(5);
+        // $cell = $alfa.$total_location;
 
         return [
-            AfterSheet::class    => function(AfterSheet $event) use($alfa, $total_product) {
+            AfterSheet::class    => function(AfterSheet $event) use($alfa){
                 $event->sheet->getDelegate()->mergeCells('A1:'.$alfa.'1');
-                $event->sheet->getDelegate()->mergeCells('A2:'.$alfa.'2');
-                $event->sheet->getDelegate()->mergeCells('A3:'.$alfa.'3');
 
-                $event->sheet->getDelegate()->getStyle('A1:'.$alfa.'3')->getAlignment()->applyFromArray([
+                $event->sheet->getDelegate()->getStyle('A1:'.$alfa.'1')->getAlignment()->applyFromArray([
                     'horizontal' => 'center'
                 ]);
                     
                 $event->sheet->getDelegate()->getColumnDimension('A')->setWidth(5);
-                $event->sheet->getDelegate()->getColumnDimension('B')->setAutoSize(true);
-                foreach(range('C', $alfa) as $columnID)
-                {
-                    $event->sheet->getDelegate()->getColumnDimension($columnID)->setWidth(5);
-                }
+                $event->sheet->getDelegate()->getColumnDimension('B')->setWidth(30);
+                $event->sheet->getDelegate()->getColumnDimension('C')->setWidth(20);
+                $event->sheet->getDelegate()->getColumnDimension('D')->setWidth(30);
+                $event->sheet->getDelegate()->getColumnDimension('E')->setWidth(10);
+                // foreach(range('B', $alfa) as $columnID)
+                // {
+                //     // $event->sheet->getDelegate()->getColumnDimension($columnID)->setWidth(5);
+                // }
                 
-                $event->sheet->getDelegate()->getStyle('C8:'.$alfa.'8')->getAlignment()->setTextRotation(90);
+                // $event->sheet->getDelegate()->getStyle('C8:'.$alfa.'8')->getAlignment()->setTextRotation(90);
             },
         ];
     }
 
     public function view(): View
     {
-        $query = $this->dataRepository()->with('detail');
+        $query = $this->dataRepository();
         
         if ($company_id = request()->get('company_id')) {
-            $query->where('linen_kotor_company_id', $company_id);
+            $query->where('linen_oustanding_company_id', $company_id);
         } 
         
         if ($key = request()->get('key')) {
-            $query->where('linen_kotor_key', $key);
+            $query->where('linen_oustanding_key', $key);
         }
         
-        if ($from = request()->get('from')) {
-            $query->whereDate('linen_kotor_created_at', '>=', $from);
-        }
-        if ($to = request()->get('to')) {
-            $query->whereDate('linen_kotor_created_at','<=', $to);
-        }
+        // if ($from = request()->get('from')) {
+        //     $query->whereDate('linen_oustanding_created_at', '>=', $from);
+        // }
+        // if ($to = request()->get('to')) {
+        //     $query->whereDate('linen_oustanding_created_at','<=', $to);
+        // }
         
-        $query->whereNull('linen_kotor_deleted_at');
+        // $query->whereNull('linen_oustanding_deleted_at');
 
-        $master = $query->first();
-        $detail = [];
-
-        if($master){
-
-            $detail = $master->detail()->get();
-        }
+        $master = $query->get();
 
         $date_from = Carbon::createFromFormat('Y-m-d', request()->get('from'));
         $date_to = Carbon::createFromFormat('Y-m-d', request()->get('to'));
-
-        return view('Report::page.linen_kotor.excel_linen_kotor_harian', [
+        return view('Report::page.linen_pending.excel_linen_pending_harian', [
             'master' => $master,
-            'location' => $this->location,
-            'product' => $this->product,
-            'detail' => $detail,
+            'status' => Views::status(OutstandingFacades::status())->toArray(),
             'date_from' => $date_from,
             'date_to' => $date_to,
         ]);

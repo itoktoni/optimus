@@ -51,6 +51,10 @@
                 <div class="title">
                     @yield('message')
                 </div>
+
+                <div class="container">
+                    @stack('redirect')
+                </div>
             </div>
         </div>
     </body>

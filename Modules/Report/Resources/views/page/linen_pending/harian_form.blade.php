@@ -76,6 +76,6 @@
 
 <hr>
 
-@includeIf(Views::form('excel_linen_bersih_harian', $template, $folder))
+@includeIf(Views::form('excel_linen_pending_harian', $template, $folder))
 
 @endif

@@ -125,7 +125,7 @@ class KotorRequest extends GeneralRequest
         return [
             'linen_kotor_key' => 'required|unique:linen_kotor',
             'linen_kotor_company_id' => 'required|exists:system_company,company_id',
-            'rfid.*' => 'required|exists:item_linen,item_linen_rfid|unique:linen_outstanding,linen_outstanding_rfid',
+            // 'rfid.*' => 'required|exists:item_linen,item_linen_rfid|unique:linen_outstanding,linen_outstanding_rfid',
         ];
     }
 }

@@ -6,6 +6,7 @@ use Modules\Linen\Dao\Models\KotorDetail;
 use Modules\Linen\Dao\Models\Outstanding;
 use Modules\System\Dao\Interfaces\CrudInterface;
 use Modules\System\Plugins\Alert;
+use Modules\System\Plugins\Notes;
 
 class KotorCreateService
 {
@@ -21,6 +22,7 @@ class KotorCreateService
             if(isset($check['status']) && $check['status']){
 
                 Alert::create();
+                $check = Notes::create(array_keys($data['outstanding']));
             }
             else{
                 $message = env('APP_DEBUG') ? $check['data'] : $check['message'];

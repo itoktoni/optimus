@@ -10,6 +10,7 @@ use Modules\Linen\Dao\Facades\OutstandingFacades;
 use Modules\Linen\Dao\Repositories\DeliveryRepository;
 use Modules\Report\Dao\Repositories\ReportLinenKotorHarianRepository;
 use Modules\Report\Dao\Repositories\ReportLinenKotorRumahSakitRepository;
+use Modules\Report\Dao\Repositories\ReportLinenPendingHarianRepository;
 use Modules\Report\Dao\Repositories\ReportLinenRegisterRepository;
 use Modules\Report\Dao\Repositories\ReportLinenSummaryRepository;
 use Modules\Report\Http\Services\ReportSummaryService;
@@ -28,7 +29,7 @@ class LinenPendingController extends Controller
     public static $model;
     public static $summary;
 
-    public function __construct(ReportLinenKotorHarianRepository $model, SingleService $service)
+    public function __construct(ReportLinenPendingHarianRepository $model, SingleService $service)
     {
         self::$model = self::$model ?? $model;
         self::$service = self::$service ?? $service;

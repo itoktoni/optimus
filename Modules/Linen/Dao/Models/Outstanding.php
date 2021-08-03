@@ -4,6 +4,7 @@ namespace Modules\Linen\Dao\Models;
 
 use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
+use Mehradsadeghi\FilterQueryString\FilterQueryString;
 use Modules\Item\Dao\Facades\LinenFacades;
 use Modules\Item\Dao\Models\Linen;
 use Modules\Linen\Dao\Facades\MasterOutstandingFacades;
@@ -13,10 +14,20 @@ use Wildside\Userstamps\Userstamps;
 
 class Outstanding extends Model
 {
-    use Userstamps;
+    use Userstamps, FilterQueryString;
 
     protected $table = 'linen_outstanding';
     protected $primaryKey = 'linen_outstanding_id';
+
+    protected $filters = [
+        'linen_outstanding_scan_company_id',
+        'linen_outstanding_ori_company_id',
+        'linen_outstanding_ori_location_id',
+        'linen_outstanding_product_id',
+        'linen_outstanding_status',
+        'linen_outstanding_description',
+        'linen_outstanding_created_by',
+    ];
 
     protected $fillable = [
         'linen_outstanding_id',
