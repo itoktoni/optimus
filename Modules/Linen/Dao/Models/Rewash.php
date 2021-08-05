@@ -79,8 +79,8 @@ class Rewash extends Model
     ];
 
     public $status = [
-        '1' => ['Bernoda', 'success'],
-        '2' => ['Bahan Usang', 'primary'],
+        '7' => ['Bernoda', 'success'],
+        '8' => ['Bahan Usang', 'primary'],
     ];
 
     public function status(){

@@ -4,7 +4,6 @@ namespace Modules\Linen\Http\Requests;
 
 use Modules\Item\Dao\Facades\LinenFacades;
 use Modules\System\Dao\Facades\CompanyFacades;
-use Modules\System\Dao\Facades\LocationFacades;
 use Modules\System\Http\Requests\GeneralRequest;
 
 class RewashRequest extends GeneralRequest
@@ -20,7 +19,6 @@ class RewashRequest extends GeneralRequest
     public function prepareForValidation()
     {
         $company = CompanyFacades::find($this->linen_rewash_company_id);
-
         $linen = LinenFacades::dataRepository()->whereIn('item_linen_rfid', $this->rfid)->with([
             'company', 'location', 'product'
         ])->get();
@@ -59,7 +57,6 @@ class RewashRequest extends GeneralRequest
             'detail' => $validate,
             'linen_rewash_company_name' => $company->company_name ?? '',
             'linen_rewash_total' => count($validate),
-            'linen_rewash_status' => 'required|in:1,2,3',,
         ]);
 
     }
@@ -76,6 +73,7 @@ class RewashRequest extends GeneralRequest
         return [
             'linen_rewash_key' => 'required|unique:linen_rewash',
             'linen_rewash_company_id' => 'required|exists:system_company,company_id',
+            'linen_rewash_status' => 'required|in:7,8',
             'rfid.*' => 'required',
         ];
     }
