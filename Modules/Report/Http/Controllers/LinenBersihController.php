@@ -49,7 +49,7 @@ class LinenBersihController extends Controller
         $linen = LinenFacades::dataRepository();
         $preview = $service->data($linen, $request);
 
-        $master = $location = $product = $detail = $date_from = $date_to = null;
+        $master = $location = $product = $detail = $date_from = $date_to = $kotor = $company = null;
 
         if (request()->has('company_id')) {
             $query = self::$model->dataRepository()->with('detail');
