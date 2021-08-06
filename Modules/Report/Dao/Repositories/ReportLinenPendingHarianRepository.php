@@ -120,8 +120,28 @@ class ReportLinenPendingHarianRepository extends OutstandingRepository implement
     {
         $query = $this->dataRepository();
         
-        if ($company_id = request()->get('company_id')) {
-            $query->where('linen_oustanding_company_id', $company_id);
+        if ($linen_outstanding_ori_company_id = request()->get('linen_outstanding_ori_company_id')) {
+            $query->where('linen_outstanding_ori_company_id', $linen_outstanding_ori_company_id);
+        }
+
+        if ($linen_outstanding_scan_company_id = request()->get('linen_outstanding_scan_company_id')) {
+            $query->where('linen_outstanding_scan_company_id', $linen_outstanding_scan_company_id);
+        } 
+
+        if ($linen_outstanding_ori_location_id = request()->get('linen_outstanding_ori_location_id')) {
+            $query->where('linen_outstanding_ori_location_id', $linen_outstanding_ori_location_id);
+        }  
+
+        if ($linen_outstanding_product_id = request()->get('linen_outstanding_product_id')) {
+            $query->where('linen_outstanding_product_id', $linen_outstanding_product_id);
+        } 
+
+        if ($report_linen_status = request()->get('report_linen_status')) {
+            $query->where('report_linen_status', $report_linen_status);
+        } 
+
+        if ($linen_outstanding_description = request()->get('linen_outstanding_description')) {
+            $query->where('linen_outstanding_description', $linen_outstanding_description);
         } 
         
         if ($key = request()->get('key')) {
@@ -139,8 +159,9 @@ class ReportLinenPendingHarianRepository extends OutstandingRepository implement
 
         $master = $query->get();
 
-        $date_from = Carbon::createFromFormat('Y-m-d', request()->get('from'));
-        $date_to = Carbon::createFromFormat('Y-m-d', request()->get('to'));
+        $date_from = Carbon::createFromFormat('Y-m-d', date('Y-m-d'));
+        $date_to = Carbon::createFromFormat('Y-m-d', date('Y-m-d'));
+        
         return view('Report::page.linen_pending.excel_linen_pending_harian', [
             'master' => $master,
             'status' => Views::status(OutstandingFacades::status())->toArray(),

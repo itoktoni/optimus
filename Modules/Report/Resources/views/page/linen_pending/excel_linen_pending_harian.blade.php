@@ -20,6 +20,7 @@
         <tr>
             <td width="30">No.</td>
             <td width="150">Nama Linen</td>
+            <td width="130">Rumah Sakit</td>
             <td width="130">Lokasi Ruangan</td>
             <td width="100">ID RFID Tag</td>
             <td width="100">Transaksi Terakhir</td>
@@ -30,6 +31,9 @@
         <tr>
             <td>{{ $loop->iteration }} </td>
             <td>{{ $item->linen_outstanding_product_name ?? '' }} </td>
+            <td>
+                {{  $item->linen_outstanding_ori_company_name }}
+            </td> 
             <td>
                 {{  $item->linen_outstanding_ori_location_name }}
             </td>

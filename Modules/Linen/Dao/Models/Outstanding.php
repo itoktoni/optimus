@@ -199,8 +199,8 @@ class Outstanding extends Model
                 $model->linen_outstanding_ori_company_id = $linen->item_linen_company_id;
                 $model->linen_outstanding_ori_company_name = $linen->company->company_name ?? '';
 
-                // $model->linen_outstanding_ori_location_id = $linen->item_linen_location_id;
-                // $model->linen_outstanding_ori_location_name = $linen->location->location_name ?? '';
+                $model->linen_outstanding_ori_location_id = $linen->item_linen_location_id;
+                $model->linen_outstanding_ori_location_name = $linen->location->location_name ?? '';
             }
 
             $model->linen_outstanding_created_name = auth()->user()->name ?? '';
