@@ -118,7 +118,7 @@ class LinenBersihController extends Controller
             'preview' => $preview,
             'model' => $linen->getModel(),
             'master' => $master,
-            'kotor' => $kotor,
+            'kotor' => $kotor ?? [],
             'location' => $location,
             'product' => $product,
             'detail' => $detail,
