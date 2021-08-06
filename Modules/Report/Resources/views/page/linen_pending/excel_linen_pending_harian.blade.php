@@ -1,4 +1,4 @@
-@if(!empty($detail))
+@if(!empty($master))
 
 <table>
     <tr>
