@@ -150,7 +150,7 @@ class ReportLinenSummaryRepository extends LinenRepository implements FromView, 
 
         // $query = $query->orderBy($this->model->getKeyName(), 'ASC');
         return view('Report::page.register_linen.excel_report_summary', [
-            'export' => $query->get()
+            'preview' => $query->get()
         ]);
     }
 }

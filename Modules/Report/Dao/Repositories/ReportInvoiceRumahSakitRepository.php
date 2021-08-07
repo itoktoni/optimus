@@ -78,13 +78,11 @@ class ReportInvoiceRumahSakitRepository extends DeliveryRepository implements Fr
     {
         $query = $this->dataRepository()->with('detail');
         
-        if ($company_id = request()->get('company_id')) {
-            $query->where('linen_delivery_company_id', $company_id);
-        }
+        // if ($company_id = request()->get('company_id')) {
+        //     $query->where('linen_delivery_company_id', $company_id);
+        // }
 
-        if ($key = request()->get('key')) {
-            $query->where('linen_delivery_key', $key);
-        }
+       
         
         // if ($from = request()->get('from')) {
         //     $query->whereDate('linen_delivery_reported_date', '>=', $from);
@@ -93,10 +91,13 @@ class ReportInvoiceRumahSakitRepository extends DeliveryRepository implements Fr
         //     $query->whereDate('linen_delivery_reported_date','<=', $to);
         // }
         
+        if ($key = request()->get('key')) {
+            $query->where('linen_delivery_key', $key);
+        }
         $query->whereNull('linen_delivery_deleted_at');
 
         $master = $query->first();
-        $detail = $master->detail();
+        // dd($detail);
         // $query = $query->orderBy($this->model->getKeyName(), 'ASC');
         return view('Report::page.invoice.excel_report_invoice', [
             'master' => $master,

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Modules\Item\Dao\Facades\LinenFacades;
 use Modules\Item\Dao\Repositories\ProductRepository;
+use Modules\Linen\Dao\Facades\DeliveryFacades;
 use Modules\Linen\Dao\Repositories\DeliveryRepository;
 use Modules\Report\Dao\Repositories\ReportInvoiceRumahSakitRepository;
 use Modules\Report\Dao\Repositories\ReportLinenRegisterRepository;
@@ -35,12 +36,15 @@ class InvoiceController extends Controller
     private function share($data = [])
     {
         $company = Views::option(new CompanyRepository());
-        $delivery = Views::option(new DeliveryRepository());
+        $delivery = Views::option(new DeliveryRepository(),false,true);
 
+        $data_delivery = $delivery->mapWithKeys(function($data, $item){
+            return [$data->linen_delivery_key => $data->linen_delivery_key.' - '.$data->linen_delivery_company_name];
+        });
         $view = [
            
             'company' => $company,
-            'delivery' => $delivery,
+            'delivery' => $data_delivery,
         ];
 
         return array_merge($view, $data);
@@ -48,11 +52,20 @@ class InvoiceController extends Controller
 
     public function rumahSakit(Request $request, PreviewService $service)
     {
-        $linen = LinenFacades::dataRepository();
-        $preview = $service->data($linen, $request);
+        $linen = DeliveryFacades::dataRepository()->with('detail');
+
+        $master = $detail = $previw = [];
+        if ($key = request()->get('key')) {
+            $linen->where('linen_delivery_key', $key);
+            $linen->whereNull('linen_delivery_deleted_at');
+            $master = $linen->first();
+        }
+
         return view(Views::form(__FUNCTION__,config('page'), config('folder')))->with($this->share([
-            'preview' => $preview,
+            'preview' => $master,
             'model' => $linen->getModel(),
+            'master' => $master,
+            'detail' => $master->detail()->get()->groupBy('linen_grouping_detail_product_id')
         ]));
     }
 
@@ -60,7 +73,7 @@ class InvoiceController extends Controller
     {
         if ($request->get('action') == 'preview') {
             $data = $request->except('_token');
-            return redirect()->route('report_rumah_sakit', $data)->withInput();
+            return redirect()->route('report_invoice_rumah_sakit', $data)->withInput();
         }
         return $service->generate(self::$model, $request, 'excel_report_invoice');
     }

@@ -4,6 +4,7 @@ namespace Modules\Report\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Modules\Item\Dao\Facades\LinenFacades;
 use Modules\Item\Dao\Repositories\ProductRepository;
 use Modules\Report\Dao\Repositories\ReportLinenRegisterRepository;
@@ -54,8 +55,12 @@ class RegisterLinenController extends Controller
 
     public function detail(Request $request, PreviewService $service)
     {
+        $preview = null;
         $linen = LinenFacades::dataRepository();
-        $preview = $service->data($linen, $request);
+        if(request()->all()){
+
+            $preview = $service->data($linen, $request);
+        }
         
         return view(Views::form(__FUNCTION__,config('page'), config('folder')))->with($this->share([
             'preview' => $preview,
@@ -74,8 +79,43 @@ class RegisterLinenController extends Controller
 
     public function summary(Request $request, PreviewService $service)
     {
+        $preview = null;
         $linen = LinenFacades::dataRepository();
-        $preview = $service->data($linen, $request);
+        if(request()->all()){
+
+            $query = $linen->whereNull('item_linen_deleted_at');
+            if ($item_linen_company_id = request()->get('item_linen_company_id')) {
+                $query->where('item_linen_company_id', $item_linen_company_id);
+            }
+            if ($item_linen_location_id = request()->get('item_linen_location_id')) {
+                $query->where('item_linen_location_id', $item_linen_location_id);
+            }
+            if ($item_linen_product_id = request()->get('item_linen_product_id')) {
+                $query->where('item_linen_product_id', $item_linen_product_id);
+            }
+            if ($item_linen_created_by = request()->get('item_linen_created_by')) {
+                $query->where('item_linen_created_by', $item_linen_created_by);
+            }
+            if ($item_linen_updated_by = request()->get('item_linen_updated_by')) {
+                $query->where('item_linen_updated_by', $item_linen_updated_by);
+            }
+            if ($item_linen_rent = request()->get('item_linen_rent')) {
+                $query->where('item_linen_rent', $item_linen_rent);
+            }
+            if ($item_linen_status = request()->get('item_linen_status')) {
+                $query->where('item_linen_status', $item_linen_status);
+            }
+            if ($from = request()->get('from')) {
+                $query->whereDate('item_linen_created_at', '>=', $from);
+            }
+            if ($to = request()->get('to')) {
+                $query->whereDate('item_linen_created_at','<=', $to);
+            }
+
+            $preview =  $query->addSelect(DB::raw('count(item_linen_id) as qty'))
+            ->groupBy('item_linen_company_id', 'item_linen_product_id')->get();
+            
+        }
         
         return view(Views::form(__FUNCTION__ ,config('page'), config('folder')))->with($this->share([
             'preview' => $preview,

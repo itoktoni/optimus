@@ -1,4 +1,4 @@
-@if(!empty($master))
+@if(!empty($preview))
 
 <table>
     <tr>
@@ -14,7 +14,7 @@
     </tr>
 </table>
 
-@if(!empty($master))
+@if(!empty($preview))
 <table id="datatable" class="responsive table-striped table-condensed table-bordered table-hover">
     <thead>
         <tr>
@@ -27,7 +27,7 @@
         </tr>
     </thead>
     <tbody>
-            @foreach($master as $item)
+            @foreach($preview as $item)
         <tr>
             <td>{{ $loop->iteration }} </td>
             <td>{{ $item->linen_outstanding_product_name ?? '' }} </td>

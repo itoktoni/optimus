@@ -58,8 +58,13 @@ class LinenPendingController extends Controller
 
     public function harian(Request $request, PreviewService $service)
     {
+        $preview = null;
         $linen = OutstandingFacades::dataRepository();
-        $preview = $service->data($linen, $request);
+        if(request()->all()){
+
+            $preview = $service->data($linen, $request);
+        }
+
         return view(Views::form(__FUNCTION__,config('page'), config('folder')))->with($this->share([
             'preview' => $preview,
             'model' => $linen->getModel(),

@@ -18,7 +18,7 @@
         <td colspan="7">Tgl Transaksi : {{ date('d/m/Y') }}</td>
     </tr>
 </table>
-<table>
+<table id="datatable" class="responsive table-striped table-condensed table-bordered table-hover">
     <thead>
         <tr>
             <td>No.</td>
@@ -56,3 +56,35 @@
         @endforeach
     </tbody>
 </table>
+
+<style>
+    table{
+        border: 1px solid lightgray;
+        overflow-x: auto;
+        white-space: nowrap;
+        margin-bottom: 10px;
+    }
+
+    table tbody{
+        width: 100%;
+    }
+
+    table thead{
+        font-weight: bold;
+        border-bottom: 1px solid lightgray;
+    }
+
+    table tfoot{
+        border-top: 1px solid lightgray;
+        font-weight: bold;
+    }
+
+    table tr td{
+        padding: 10px;
+
+    }
+
+    table:nth-child(3) tr td:nth-child(1){
+        width: 50px;
+    }
+</style>
