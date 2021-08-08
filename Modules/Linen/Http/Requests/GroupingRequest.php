@@ -4,6 +4,7 @@ namespace Modules\Linen\Http\Requests;
 
 use Modules\Item\Dao\Facades\LinenFacades;
 use Modules\Linen\Dao\Facades\OutstandingFacades;
+use Modules\Linen\Dao\Models\GroupingDetail;
 use Modules\System\Dao\Facades\CompanyFacades;
 use Modules\System\Dao\Facades\LocationFacades;
 use Modules\System\Http\Requests\GeneralRequest;
@@ -71,9 +72,16 @@ class GroupingRequest extends GeneralRequest
 
     public function withValidator($validator)
     {
-        // $validator->after(function ($validator) {
-        //     $validator->errors()->add('system_action_code', 'The title cannot contain bad words!');
-        // });
+        $validator->after(function ($validator) {
+
+            $data = GroupingDetail::whereIn('linen_grouping_detail_rfid', $this->rfid)->whereNull('linen_grouping_detail_delivery')->get();
+            if($data){
+                foreach($data as $error){
+
+                    $validator->errors()->add('linen_grouping_detail_rfid : ', 'RFID '.$error->linen_grouping_detail_rfid.' sudah masuk barcode : '.$error->linen_grouping_detail_barcode);
+                }
+            }
+        });
     }
 
     public function rules()
