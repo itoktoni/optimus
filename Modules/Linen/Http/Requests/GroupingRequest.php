@@ -24,10 +24,9 @@ class GroupingRequest extends GeneralRequest
         $location = LocationFacades::find($this->linen_grouping_location_id);
 
         $linen = OutstandingFacades::dataRepository()->whereIn('linen_outstanding_rfid', $this->rfid)->get();
-
         if ($linen) {
             $linen = $linen->mapWithKeys(function ($data_linen) {
-                return [$data_linen['item_linen_rfid'] => $data_linen];
+                return [$data_linen['linen_outstanding_rfid'] => $data_linen];
             });
         }
 
