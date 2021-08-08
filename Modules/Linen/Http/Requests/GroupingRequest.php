@@ -82,7 +82,7 @@ class GroupingRequest extends GeneralRequest
             'linen_grouping_barcode' => 'required|unique:linen_grouping',
             'linen_grouping_location_id' => 'required|exists:system_location,location_id',
             'linen_grouping_company_id' => 'required|exists:system_company,company_id',
-            'rfid.*' => 'required',
+            'rfid.*' => 'required|exists:linen_outstanding,linen_outstanding_rfid',
         ];
     }
 }
