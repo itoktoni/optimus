@@ -35,7 +35,7 @@ class OutstandingBatchRequest extends GeneralRequest
             }
 
             $validate = collect($this->rfid)->mapWithKeys(function ($item) use ($linen, $company, $session, $status) {
-
+                dd($item);
                 $user = auth()->user();
                 $data = [
                     'linen_outstanding_rfid' => $item,

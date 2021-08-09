@@ -47,10 +47,10 @@ class LinenKotorController extends Controller
     public function harian(Request $request, PreviewService $service)
     {
         $linen = LinenFacades::dataRepository();
-        $preview = $service->data($linen, $request);
-        $master = $location = $product = $detail = $date_from = $date_to = null;
-
-        if(request()->has('company_id')){
+        $master = $preview = $location = $product = $detail = $date_from = $date_to = null;
+        
+        if(request()->all()){
+            $preview = $service->data($linen, $request);
             $query = self::$model->dataRepository()->with('detail');
 
             if ($company_id = request()->get('company_id')) {
