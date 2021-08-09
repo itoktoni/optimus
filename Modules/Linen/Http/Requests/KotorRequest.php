@@ -2,8 +2,10 @@
 
 namespace Modules\Linen\Http\Requests;
 
+use App\Console\Commands\Console;
 use App\Models\User;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Log;
 use Modules\Item\Dao\Facades\LinenFacades;
 use Modules\Linen\Dao\Models\Grouping;
 use Modules\System\Dao\Facades\CompanyFacades;
@@ -34,6 +36,7 @@ class KotorRequest extends GeneralRequest
                 return [$data_linen['item_linen_rfid'] => $data_linen];
             });
         }
+        Log::debug($linen);
 
         $kotor = $linen->map(function ($item) use($company, $key) {
 
