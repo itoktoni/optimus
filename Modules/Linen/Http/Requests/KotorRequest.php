@@ -27,9 +27,7 @@ class KotorRequest extends GeneralRequest
         $key = $this->linen_kotor_key;
         $session = $this->linen_kotor_session;
         $company = CompanyFacades::find($this->linen_kotor_company_id);
-        $linen = LinenFacades::dataRepository()->whereIn('item_linen_rfid', $this->rfid)->with([
-            'company', 'location', 'product'
-        ])->get();
+        $linen = LinenFacades::dataRepository()->whereIn('item_linen_rfid', $this->rfid)->get();
 
         if ($linen) {
             $linen = $linen->mapWithKeys(function ($data_linen) {
