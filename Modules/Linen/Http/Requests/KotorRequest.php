@@ -33,7 +33,7 @@ class KotorRequest extends GeneralRequest
 
         if ($linen) {
             $linen = $linen->mapWithKeys(function ($data_linen) {
-                return [$data_linen['item_linen_rfid'] => $data_linen];
+                return [$data_linen['item_linen_id'] => $data_linen];
             });
         }
         Log::debug($linen);
