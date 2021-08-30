@@ -28,6 +28,10 @@ class KotorRequest extends GeneralRequest
         $linen = LinenFacades::dataRepository()->whereIn('item_linen_rfid', $this->rfid)->with([
             'company', 'location', 'product'
         ])->get();
+        
+        $stock = $linen->mapToGroups(function($items){
+            return [$items->item_linen_product_id => $items];
+        });
 
         if ($linen) {
             $linen = $linen->mapWithKeys(function ($data_linen) {
@@ -105,6 +109,7 @@ class KotorRequest extends GeneralRequest
 
         $this->merge([  
             'kotor' => $kotor,
+            'stock' => $stock,
             'outstanding' => $outstanding,
             'linen_kotor_company_name' => $company->company_name ?? '',
             'linen_kotor_status' => 1,

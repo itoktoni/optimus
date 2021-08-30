@@ -29,6 +29,10 @@ class RewashRequest extends GeneralRequest
             });
         }
 
+        $stock = $linen->mapToGroups(function($items){
+            return [$items->item_linen_product_id => $items];
+        });
+
         $validate = $linen->map(function ($item) use($company) {
 
             $user = auth()->user();
@@ -55,6 +59,7 @@ class RewashRequest extends GeneralRequest
 
         $this->merge([  
             'detail' => $validate,
+            'stock' => $stock,
             'linen_rewash_company_name' => $company->company_name ?? '',
             'linen_rewash_total' => count($validate),
         ]);

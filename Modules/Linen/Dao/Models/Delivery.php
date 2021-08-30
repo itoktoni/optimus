@@ -76,7 +76,7 @@ class Delivery extends Model
         'linen_delivery_company_id' => [false => 'Company'],
         'linen_delivery_company_name' => [true => 'Company'],
         'linen_delivery_total' => [true => 'Total'],
-        'linen_delivery_total_detail' => [true => 'Detail'],
+        'linen_delivery_total_detail' => [false => 'Detail'],
         'linen_delivery_reported_date' => [true => 'Report Date'],
         'linen_delivery_created_by' => [false => 'Created At'],
         'linen_delivery_created_at' => [true => 'Created At'],
@@ -117,6 +117,12 @@ class Delivery extends Model
             $company = $model->linen_delivery_company_id;
             $model->linen_delivery_company_name = CompanyFacades::find($company)->company_name ?? '';
             
+        });
+
+        parent::created(function($model){
+
+            $delivery = $model->detail;
+            dd($delivery);
         });
     }    
 }

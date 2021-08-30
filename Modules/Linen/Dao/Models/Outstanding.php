@@ -94,6 +94,7 @@ class Outstanding extends Model
         'linen_outstanding_key' => [true => 'No. Transaksi'],
         'linen_outstanding_id' => [false => 'Code', 'width' => 50],
         'linen_outstanding_rfid' => [true => 'No. Seri RFID', 'width' => 180],
+        'linen_outstanding_product_id' => [false => 'Product'],
         'linen_outstanding_product_name' => [true => 'Product'],
         'linen_outstanding_scan_company_name' => [true => 'Scan R.S'],
         'linen_outstanding_ori_company_name' => [true => 'Original R.S'],

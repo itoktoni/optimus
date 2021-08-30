@@ -7,6 +7,8 @@ use Modules\Item\Dao\Repositories\CompanyProductRepository;
 use Modules\Item\Dao\Repositories\ProductRepository;
 use Modules\Item\Dao\Repositories\SizeRepository;
 use Modules\Item\Dao\Repositories\UnitRepository;
+use Modules\Item\Http\Requests\CompanyProductRequest;
+use Modules\System\Dao\Facades\CompanyFacades;
 use Modules\System\Dao\Repositories\CompanyRepository;
 use Modules\System\Http\Requests\DeleteRequest;
 use Modules\System\Http\Requests\GeneralRequest;
@@ -39,6 +41,16 @@ class CompanyProductController extends Controller
         $size = Views::option(new SizeRepository());
         $master = request()->all();
 
+        if(request()->get('company_id') || isset($data['model'])){
+
+            $id = request()->get('company_id') ?? $data['model']->item_linen_company_id;
+
+            $data_company = CompanyFacades::where(CompanyFacades::getKeyName(), $id)->first();
+            if(isset($data_company->products)){
+                $product = $data_company->products->pluck('item_product_name', 'item_product_id');
+            }
+        }
+
         $view = [
             'company' => $company,
             'product' => $product,
@@ -61,7 +73,7 @@ class CompanyProductController extends Controller
         return view(Views::create())->with($this->share());
     }
 
-    public function save(GeneralRequest $request, CreateService $service)
+    public function save(CompanyProductRequest $request, CreateService $service)
     {
         $data = $service->save(self::$model, $request);
         return Response::redirectBack($data);
@@ -84,7 +96,7 @@ class CompanyProductController extends Controller
         ]));
     }
 
-    public function update($code, GeneralRequest $request, UpdateService $service)
+    public function update($code, CompanyProductRequest $request, UpdateService $service)
     {
         $data = $service->update(self::$model, $request, $code);
         return Response::redirectBack($data);

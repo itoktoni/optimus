@@ -2,11 +2,11 @@
 
 namespace Modules\Linen\Http\Services;
 
-use Modules\Linen\Dao\Facades\MasterOutstandingFacades;
+use Modules\Linen\Dao\Facades\MasterStockFacades;
 use Modules\System\Plugins\Alert;
 use Modules\System\Plugins\Notes;
 
-class OutstandingBatchService
+class StockBatchService
 {
     public function save($repository, $data)
     {

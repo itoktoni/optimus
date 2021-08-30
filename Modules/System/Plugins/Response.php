@@ -47,7 +47,7 @@ class Response
         return redirect()->away($path);
     }
 
-    public static function redirectTo($path, $params = false)
+    public static function redirectTo($path, $params = false, $data)
     {
         if ($params) {
             return redirect()->to($path, $params);
@@ -55,8 +55,11 @@ class Response
         return redirect()->to($path);
     }
 
-    public static function redirectToRoute($route, $params = false)
+    public static function redirectToRoute($data, $route, $params = false)
     {
+        if(request()->wantsJson()){
+            return self::sentJson($data);
+        }
         if ($params) {
             return redirect()->route($route, $params);
         }

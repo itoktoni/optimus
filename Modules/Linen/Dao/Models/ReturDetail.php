@@ -12,8 +12,6 @@ use Wildside\Userstamps\Userstamps;
 
 class ReturDetail extends Model
 {
-    use SoftDeletes, Userstamps;
-
     protected $table = 'linen_retur_detail';
     protected $primaryKey = 'linen_retur_detail_id';
 

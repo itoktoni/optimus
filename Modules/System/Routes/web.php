@@ -123,7 +123,6 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
 auth mechanizme
  */
 Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
-Route::get('register', 'PublicController@register')->name('register');
 Route::get('reset', [TeamController::class, 'reset_redis'])->name('reset');
 Route::get('reboot', [TeamController::class, 'reset_routing'])->name('reboot');
 

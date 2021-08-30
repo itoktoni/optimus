@@ -4,14 +4,14 @@ namespace Modules\Linen\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Modules\Item\Dao\Repositories\ProductRepository;
-use Modules\Linen\Dao\Repositories\OutstandingRepository;
-use Modules\Linen\Http\Requests\OutstandingBatchRequest;
-use Modules\Linen\Http\Requests\OutstandingMasterRequest;
-use Modules\Linen\Http\Requests\OutstandingPatchRequest;
-use Modules\Linen\Http\Services\OutstandingBatchService;
-use Modules\Linen\Http\Services\OutstandingDataService;
-use Modules\Linen\Http\Services\OutstandingMasterService;
-use Modules\Linen\Http\Services\OutstandingPatchService;
+use Modules\Linen\Dao\Repositories\StockRepository;
+use Modules\Linen\Http\Requests\StockBatchRequest;
+use Modules\Linen\Http\Requests\StockMasterRequest;
+use Modules\Linen\Http\Requests\StockPatchRequest;
+use Modules\Linen\Http\Services\StockBatchService;
+use Modules\Linen\Http\Services\StockDataService;
+use Modules\Linen\Http\Services\StockMasterService;
+use Modules\Linen\Http\Services\StockPatchService;
 use Modules\System\Dao\Repositories\CompanyRepository;
 use Modules\System\Dao\Repositories\LocationRepository;
 use Modules\System\Dao\Repositories\TeamRepository;
@@ -25,13 +25,13 @@ use Modules\System\Plugins\Helper;
 use Modules\System\Plugins\Response;
 use Modules\System\Plugins\Views;
 
-class OutstandingController extends Controller
+class StockController extends Controller
 {
     public static $template;
     public static $service;
     public static $model;
 
-    public function __construct(OutstandingRepository $model, SingleService $service)
+    public function __construct(StockRepository $model, SingleService $service)
     {
         self::$model = self::$model ?? $model;
         self::$service = self::$service ?? $service;
@@ -60,15 +60,19 @@ class OutstandingController extends Controller
 
     public function index()
     {
+        // return view(Views::index())->with([
+        //     'fields' => Helper::listData(self::$model->datatable),
+        // ]);
+
         return view(Views::index(config('page'), config('folder')))->with($this->share([
             'fields' => Helper::listData(self::$model->datatable),
         ]));
     }
 
-    public function create()
-    {
-        return view(Views::create())->with($this->share());
-    }
+    // public function create()
+    // {
+    //     return view(Views::create())->with($this->share());
+    // }
 
     public function save(GeneralRequest $request, CreateService $service)
     {
@@ -76,13 +80,7 @@ class OutstandingController extends Controller
         return Response::redirectBack($data);
     }
 
-    public function master(OutstandingMasterRequest $request, OutstandingMasterService $service)
-    {
-        $data = $service->save(self::$model, $request);
-        return Response::redirectBack($data);
-    }
-
-    public function batch(OutstandingBatchRequest $request, OutstandingBatchService $service)
+    public function batch(StockBatchRequest $request, StockBatchService $service)
     {
         if(request()->get('type') == 'update'){
 
@@ -97,7 +95,7 @@ class OutstandingController extends Controller
         return Response::redirectBack($data);
     }
 
-    public function data(OutstandingDataService $service)
+    public function data(StockDataService $service)
     {
         return $service
             ->setModel(self::$model)

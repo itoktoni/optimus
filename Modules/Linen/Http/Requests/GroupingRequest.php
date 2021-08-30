@@ -34,8 +34,8 @@ class GroupingRequest extends GeneralRequest
         $validate = $linen->map(function ($item) use($company, $location) {
 
             $user = auth()->user();
-            $data = [
 
+            $data = [
                 'linen_grouping_detail_rfid' => $item->linen_outstanding_rfid,
                 'linen_grouping_detail_product_id' => $item->linen_outstanding_product_id ?? '',
                 'linen_grouping_detail_product_name' => $item->linen_outstanding_product_name ?? '',

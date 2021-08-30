@@ -4,34 +4,39 @@ namespace Modules\Linen\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Modules\Item\Dao\Repositories\ProductRepository;
-use Modules\Linen\Dao\Repositories\OutstandingRepository;
+use Modules\Linen\Dao\Models\Grouping;
+use Modules\Linen\Dao\Models\GroupingDetail;
+use Modules\Linen\Dao\Repositories\OpnameRepository;
+use Modules\Linen\Http\Requests\OpnameRequest;
 use Modules\Linen\Http\Requests\OutstandingBatchRequest;
 use Modules\Linen\Http\Requests\OutstandingMasterRequest;
-use Modules\Linen\Http\Requests\OutstandingPatchRequest;
+use Modules\Linen\Http\Services\OpnameBatchService;
+use Modules\Linen\Http\Services\OpnameCreateService;
+use Modules\Linen\Http\Services\OpnameDataService;
+use Modules\Linen\Http\Services\OpnameSingleService;
 use Modules\Linen\Http\Services\OutstandingBatchService;
-use Modules\Linen\Http\Services\OutstandingDataService;
 use Modules\Linen\Http\Services\OutstandingMasterService;
-use Modules\Linen\Http\Services\OutstandingPatchService;
 use Modules\System\Dao\Repositories\CompanyRepository;
 use Modules\System\Dao\Repositories\LocationRepository;
 use Modules\System\Dao\Repositories\TeamRepository;
 use Modules\System\Http\Requests\DeleteRequest;
 use Modules\System\Http\Requests\GeneralRequest;
-use Modules\System\Http\Services\CreateService;
+use Modules\System\Http\Services\DataService;
 use Modules\System\Http\Services\DeleteService;
 use Modules\System\Http\Services\SingleService;
 use Modules\System\Http\Services\UpdateService;
+use Modules\System\Plugins\Alert;
 use Modules\System\Plugins\Helper;
 use Modules\System\Plugins\Response;
 use Modules\System\Plugins\Views;
 
-class OutstandingController extends Controller
+class OpnameController extends Controller
 {
     public static $template;
     public static $service;
     public static $model;
 
-    public function __construct(OutstandingRepository $model, SingleService $service)
+    public function __construct(OpnameRepository $model, SingleService $service)
     {
         self::$model = self::$model ?? $model;
         self::$service = self::$service ?? $service;
@@ -45,7 +50,7 @@ class OutstandingController extends Controller
         $location = Views::option(new LocationRepository());
         $company = Views::option(new CompanyRepository());
         $user = Views::option(new TeamRepository());
-        
+
         $view = [
             'status' => $status,
             'description' => $description,
@@ -54,7 +59,7 @@ class OutstandingController extends Controller
             'company' => $company,
             'user' => $user,
         ];
-        
+
         return array_merge($view, $data);
     }
 
@@ -70,47 +75,52 @@ class OutstandingController extends Controller
         return view(Views::create())->with($this->share());
     }
 
-    public function save(GeneralRequest $request, CreateService $service)
+    public function save(GeneralRequest $request, OpnameCreateService $service)
     {
         $data = $service->save(self::$model, $request);
-        return Response::redirectBack($data);
-    }
+        $route_name = config('module').'_edit';
+        $code = $data['data']->linen_opname_key ?? null;
+        
+        if($code){
 
-    public function master(OutstandingMasterRequest $request, OutstandingMasterService $service)
-    {
-        $data = $service->save(self::$model, $request);
-        return Response::redirectBack($data);
-    }
-
-    public function batch(OutstandingBatchRequest $request, OutstandingBatchService $service)
-    {
-        if(request()->get('type') == 'update'){
-
-            $data = $service->update(self::$model, $request);
-
-        }
-        else{
-
-            $data = $service->save(self::$model, $request);
+            return Response::redirectToRoute($data, $route_name, ['code' => $code]);
         }
 
         return Response::redirectBack($data);
     }
 
-    public function data(OutstandingDataService $service)
+    public function batch(OpnameRequest $request, OpnameBatchService $service)
+    {
+        $data = $service->save(self::$model, $request);
+        return Response::redirectBack($data);
+    }
+
+    public function data(OpnameDataService $service)
     {
         return $service
-            ->setModel(self::$model)
             ->EditStatus([
-                'linen_outstanding_status' => self::$model->status,
-                'linen_outstanding_description' => self::$model->description,
-            ])->make();
+                'linen_opname_status' => self::$model->status,
+            ])
+            ->setModel(self::$model)->make();
+    }
+
+    public function deleteDetail($code)
+    {
+
+        $data = Grouping::where('linen_grouping_barcode', $code)->delete();
+        $data = GroupingDetail::where('linen_grouping_detail_barcode', $code)->delete();
+        Alert::delete($code);
+        return Response::redirectBack($code);
     }
 
     public function edit($code)
     {
+        $data = $this->get($code, ['summary', 'detail']);
+
         return view(Views::update())->with($this->share([
-            'model' => $this->get($code),
+            'model' => $data,
+            'summary' => $data->summary ?? [],
+            'detail' => $data->detail ?? [],
         ]));
     }
 

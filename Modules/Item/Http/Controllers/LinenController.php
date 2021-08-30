@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Response as FacadesResponse;
 use Kirschbaum\PowerJoins\PowerJoins;
+use Modules\Item\Dao\Facades\CompanyProductFacades;
 use Modules\Item\Dao\Facades\LinenFacades;
 use Modules\Item\Dao\Repositories\LinenRepository;
 use Modules\Item\Dao\Repositories\ProductRepository;
@@ -49,10 +50,16 @@ class LinenController extends Controller
         $status = Views::status(self::$model->status, true);
         $rent = Views::status(self::$model->rent, true);
 
-        if($id = request()->get('company_id')){
+        if(request()->get('company_id') || isset($data['model'])){
+
+            $id = request()->get('company_id') ?? $data['model']->item_linen_company_id;
+
             $data_company = CompanyFacades::where(CompanyFacades::getKeyName(), $id)->first();
             if(isset($data_company->locations)){
                 $location = $data_company->locations->pluck('location_name', 'location_id');
+            }
+            if(isset($data_company->products)){
+                $product = $data_company->products->pluck('item_product_name', 'item_product_id');
             }
         }
 

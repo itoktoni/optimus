@@ -2,6 +2,8 @@
 
 namespace Modules\Linen\Http\Services;
 
+use Illuminate\Support\Facades\DB;
+use Modules\Linen\Dao\Facades\StockFacades;
 use Modules\Linen\Dao\Models\KotorDetail;
 use Modules\Linen\Dao\Models\Outstanding;
 use Modules\System\Dao\Interfaces\CrudInterface;
@@ -18,6 +20,15 @@ class KotorCreateService
             $check = $repository->saveRepository($data->all());
             KotorDetail::insert($data['kotor']);
             Outstanding::insert($data['outstanding']);
+            
+            if($data->stock){
+                foreach($data->stock as $key_stock => $stock){
+                    $update_stock = StockFacades::where('linen_stock_company_id', $data->linen_kotor_company_id)
+                    ->where('linen_stock_item_product_id', $key_stock)->update([
+                        'linen_stock_qty' => DB::raw('linen_stock_qty - '.count($stock))
+                    ]);
+                }
+            }
 
             if(isset($check['status']) && $check['status']){
 
@@ -28,6 +39,7 @@ class KotorCreateService
                 $message = env('APP_DEBUG') ? $check['data'] : $check['message'];
                 Alert::error($message);
             }
+
         } catch (\Throwable $th) {
             Alert::error($th->getMessage());
             return $th->getMessage();

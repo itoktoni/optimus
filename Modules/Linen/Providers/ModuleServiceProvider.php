@@ -50,6 +50,9 @@ class ModuleServiceProvider extends ServiceProvider
         });  
         $this->app->bind('kotor_facades', function () {
             return new \Modules\Linen\Dao\Repositories\KotorRepository();
+        }); 
+        $this->app->bind('stock_facades', function () {
+            return new \Modules\Linen\Dao\Repositories\StockRepository();
         });
     }
 
