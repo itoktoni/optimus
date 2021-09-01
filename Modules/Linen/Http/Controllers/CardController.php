@@ -4,14 +4,14 @@ namespace Modules\Linen\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Modules\Item\Dao\Repositories\ProductRepository;
-use Modules\Linen\Dao\Repositories\StockRepository;
-use Modules\Linen\Http\Requests\StockBatchRequest;
-use Modules\Linen\Http\Requests\StockMasterRequest;
-use Modules\Linen\Http\Requests\StockPatchRequest;
-use Modules\Linen\Http\Services\StockBatchService;
-use Modules\Linen\Http\Services\StockDataService;
-use Modules\Linen\Http\Services\StockMasterService;
-use Modules\Linen\Http\Services\StockPatchService;
+use Modules\Linen\Dao\Repositories\CardRepository;
+use Modules\Linen\Http\Requests\CardBatchRequest;
+use Modules\Linen\Http\Requests\CardMasterRequest;
+use Modules\Linen\Http\Requests\CardPatchRequest;
+use Modules\Linen\Http\Services\CardBatchService;
+use Modules\Linen\Http\Services\CardDataService;
+use Modules\Linen\Http\Services\CardMasterService;
+use Modules\Linen\Http\Services\CardPatchService;
 use Modules\System\Dao\Repositories\CompanyRepository;
 use Modules\System\Dao\Repositories\LocationRepository;
 use Modules\System\Dao\Repositories\TeamRepository;
@@ -26,13 +26,13 @@ use Modules\System\Plugins\Helper;
 use Modules\System\Plugins\Response;
 use Modules\System\Plugins\Views;
 
-class StockController extends Controller
+class CardController extends Controller
 {
     public static $template;
     public static $service;
     public static $model;
 
-    public function __construct(StockRepository $model, SingleService $service)
+    public function __construct(CardRepository $model, SingleService $service)
     {
         self::$model = self::$model ?? $model;
         self::$service = self::$service ?? $service;
@@ -61,7 +61,7 @@ class StockController extends Controller
 
     public function index()
     {
-        return view(Views::index(config('page'), config('folder')))->with($this->share([
+        return view(Views::index())->with($this->share([
             'fields' => Helper::listData(self::$model->datatable),
         ]));
     }
@@ -72,24 +72,24 @@ class StockController extends Controller
     //     return Response::redirectBack($data);
     // }
 
-    public function data(StockDataService $service)
+    public function data(DataService $service)
     {
         return $service
             ->setModel(self::$model)->make();
     }
 
-    // public function edit($code)
-    // {
-    //     return view(Views::update())->with($this->share([
-    //         'model' => $this->get($code),
-    //     ]));
-    // }
+    public function edit($code)
+    {
+        return view(Views::update())->with($this->share([
+            'model' => $this->get($code),
+        ]));
+    }
 
-    // public function update($code, GeneralRequest $request, UpdateService $service)
-    // {
-    //     $data = $service->update(self::$model, $request, $code);
-    //     return Response::redirectBack($data);
-    // }
+    public function update($code, GeneralRequest $request, UpdateService $service)
+    {
+        $data = $service->update(self::$model, $request, $code);
+        return Response::redirectBack($data);
+    }
 
     // public function show($code)
     // {

@@ -6,6 +6,7 @@ use Modules\System\Plugins\Notes;
 use Modules\System\Plugins\Response;
 use Modules\System\Plugins\Lang;
 use Modules\System\Plugins\Alert;
+use Modules\System\Plugins\Cards;
 use Modules\System\Plugins\Helper;
 use Modules\System\Providers\CacheableAuthUserServiceProvider;
 
@@ -274,6 +275,7 @@ return [
         'Notes' => Notes::class,
         'Lang' => Lang::class,
         'Alert' => Alert::class,
+        'Cards' => Cards::class,
         'Chrome' => Chrome::class,
         'PdfFacade' => Barryvdh\DomPDF\PdfFacade::class,
         'DotenvEditor' => Jackiedo\DotenvEditor\Facades\DotenvEditor::class,

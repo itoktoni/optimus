@@ -18,7 +18,9 @@ use Mehradsadeghi\FilterQueryString\FilterQueryString;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Modules\Item\Dao\Facades\CompanyProductFacades;
 use Modules\Item\Dao\Facades\LinenFacades;
+use Modules\Linen\Dao\Facades\CardFacades;
 use Modules\System\Dao\Models\Company;
+use Modules\System\Plugins\Cards;
 
 class Linen extends Model
 {
@@ -44,13 +46,17 @@ class Linen extends Model
         'item_linen_rent',
         'item_linen_session',
         'item_linen_location_id',
+        'item_linen_location_name',
         'item_linen_company_id',
+        'item_linen_company_name',
         'item_linen_product_id',
+        'item_linen_product_name',
         'item_linen_created_at',
         'item_linen_updated_at',
         'item_linen_counter',
         'item_linen_update_by',
         'item_linen_created_by',
+        'item_linen_created_name',
         'item_linen_deleted_by',
     ];
 
@@ -81,14 +87,11 @@ class Linen extends Model
         'item_linen_id' => [false => 'Code', 'width' => 50],
         'item_linen_rfid' => [true => 'No. Seri RFID', 'width' => 200],
         'item_linen_product_id' => [false => 'Product Id'],
-        'item_product_name' => [true => 'Product Name'],
+        'item_linen_product_name' => [true => 'Product Name'],
         'item_linen_company_id' => [false => 'Company Id'],
+        'item_linen_company_name' => [true => 'Company Name'],
         'item_linen_location_id' => [false => 'Location Id'],
-        'company_id' => [false => 'Company Id'],
-        'company_name' => [true => 'Company Name'],
-        'location_id' => [false => 'Location Id'],
-        'location_name' => [true => 'Location Name'],
-        'name' => [true => 'Register By'],
+        'item_linen_location_name' => [true => 'Location Name'],
         'item_linen_session' => [false => 'Key'],
         'item_linen_counter' => [true => 'Counter', 'width' => 50],
         'item_linen_created_at' => [false => 'Created At'],
@@ -171,6 +174,12 @@ class Linen extends Model
             if(empty($model->item_linen_status)){
                 $model->item_linen_status = 1;
             }
+
+            $model->item_linen_company_name = CompanyFacades::find($model->item_linen_company_id)->company_name ?? '';
+            $model->item_linen_product_name = ProductFacades::find($model->item_linen_product_id)->item_product_name ?? '';
+            $model->item_linen_location_name = LocationFacades::find($model->item_linen_location_id)->location_name ?? '';
+            $model->item_linen_created_name = auth()->user()->name ?? '';
+            
         });
 
         parent::saved(function($model){
@@ -178,8 +187,11 @@ class Linen extends Model
             $total = LinenFacades::getTotal($model->item_linen_company_id, $model->item_linen_product_id)->count();
             $realisasi = CompanyProductFacades::getRealisasi($model->item_linen_company_id, $model->item_linen_product_id)->first();
             if($realisasi){
+                
                 $realisasi->company_item_realisasi = $total;
                 $realisasi->save();
+
+                Cards::stock($model->item_linen_company_id, $model->item_linen_product_id, $total);
             }
 
         });

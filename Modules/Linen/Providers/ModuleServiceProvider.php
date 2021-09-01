@@ -53,6 +53,9 @@ class ModuleServiceProvider extends ServiceProvider
         }); 
         $this->app->bind('stock_facades', function () {
             return new \Modules\Linen\Dao\Repositories\StockRepository();
+        }); 
+        $this->app->bind('card_facades', function () {
+            return new \Modules\Linen\Dao\Repositories\CardRepository();
         });
     }
 

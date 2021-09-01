@@ -18,7 +18,7 @@ class DeliveryCreateService
     {
         $check = false;
         try {
-            // $check = $repository->saveRepository($data->all());
+            $check = $repository->saveRepository($data->all());
             $key = $data->linen_delivery_key;
             
             Grouping::whereIn('linen_grouping_barcode', $data->barcode)->update([
@@ -31,6 +31,7 @@ class DeliveryCreateService
             })->update([
                 'linen_grouping_detail_delivery' => $key
             ]);
+
             $linen = LinenFacades::whereIn('item_linen_rfid', $data->detail)->update(['item_linen_counter' => DB::raw('item_linen_counter + 1')]);
             
             if($data->stock){

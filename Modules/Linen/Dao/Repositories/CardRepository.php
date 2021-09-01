@@ -1,19 +1,16 @@
 <?php
 
-namespace Modules\Item\Dao\Repositories;
+namespace Modules\Linen\Dao\Repositories;
 
 use Illuminate\Database\QueryException;
-use Modules\Item\Dao\Facades\ProductFacades;
-use Modules\Item\Dao\Models\Linen;
-use Modules\System\Dao\Facades\CompanyFacades;
-use Modules\System\Dao\Facades\LocationFacades;
-use Modules\System\Dao\Facades\TeamFacades;
+use Kirschbaum\PowerJoins\PowerJoins;
+use Modules\Linen\Dao\Models\MasterCard;
+use Modules\Linen\Dao\Models\Card;
 use Modules\System\Dao\Interfaces\CrudInterface;
 use Modules\System\Plugins\Helper;
 use Modules\System\Plugins\Notes;
-use Kirschbaum\PowerJoins\PowerJoins;
 
-class LinenRepository extends Linen implements CrudInterface
+class CardRepository extends Card implements CrudInterface
 {
     public function dataRepository()
     {
@@ -24,8 +21,34 @@ class LinenRepository extends Linen implements CrudInterface
     public function saveRepository($request)
     {
         try {
-            $activity = $this->create($request);
+            unset($request['_token']);
+            $activity = $this->updateOrCreate(['linen_outstanding_rfid' => $request['linen_outstanding_rfid']], $request);
             return Notes::create($activity);
+        } catch (QueryException $ex) {
+            return Notes::error($ex->getMessage());
+        }
+    }
+
+    public function batchSelectRepository($code)
+    {
+        return $this->select('linen_outstanding_rfid')->whereIn('linen_outstanding_rfid', $code);
+    }
+
+    public function batchSaveRepository($request)
+    {
+        try {
+            $activity = $this->insert($request);
+            return Notes::create(array_keys($request));
+        } catch (QueryException $ex) {
+            return Notes::error($ex->getMessage());
+        }
+    }
+
+    public function batchDeleteRepository($rfid)
+    {
+        try {
+            $activity = $this->whereIn('linen_outstanding_rfid' , $rfid)->delete();
+            return Notes::delete($activity);
         } catch (QueryException $ex) {
             return Notes::error($ex->getMessage());
         }
@@ -58,11 +81,6 @@ class LinenRepository extends Linen implements CrudInterface
             return $this->with($relation)->findOrFail($code);
         }
         return $this->findOrFail($code);
-    }
-
-    public function getTotal($company, $product){
-
-        return $this->where('item_linen_company_id', $company)->where('item_linen_product_id', $product);
     }
 
 }

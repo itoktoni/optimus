@@ -11,13 +11,14 @@ use Modules\System\Plugins\Helper;
 use Modules\System\Plugins\Notes;
 
 class StockRepository extends Stock implements CrudInterface
-{
-    use PowerJoins;
-    
+{    
     public function dataRepository()
     {
         $list = Helper::dataColumn($this->datatable);
-        return $this->select($list)->leftJoinRelationship('user');
+        return $this->select($list)->join('system_company_connection_item_product', function($join){
+            $join->on('system_company_connection_item_product.company_id', '=', 'linen_stock.linen_stock_company_id')
+            ->on('system_company_connection_item_product.item_product_id', '=', 'linen_stock.linen_stock_item_product_id');
+        });
     }
 
     public function saveRepository($request)

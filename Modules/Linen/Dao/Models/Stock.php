@@ -14,7 +14,7 @@ class Stock extends Model
 {
     protected $table = 'linen_stock';
     protected $primaryKey = 'linen_stock_id';
-    protected $keyType = 'string';
+    // protected $keyType = 'string';
 
     protected $fillable = [
         'linen_stock_id',
@@ -30,9 +30,8 @@ class Stock extends Model
     public $timestamps = false;
     public $incrementing = false;
     public $rules = [
-        'linen_stock_key' => 'required|unique:linen_stock',
+        'linen_stock_id' => 'required|unique:linen_stock',
         'linen_stock_company_id' => 'required|unique:system_company',
-        'barcode' => 'required',
     ];
 
     const CREATED_AT = 'linen_stock_created_at';
@@ -43,33 +42,16 @@ class Stock extends Model
     const UPDATED_BY = 'linen_stock_updated_by';
     const DELETED_BY = 'linen_stock_deleted_by';
 
-    protected $casts = [
-        'linen_stock_created_at' => 'datetime:Y-m-d H:i:s',
-        'linen_stock_updated_at' => 'datetime:Y-m-d H:i:s',
-        'linen_stock_deleted_at' => 'datetime:Y-m-d H:i:s',
-        'linen_stock_status' => 'string',
-        'linen_stock_total' => 'integer',
-    ];
-
-    protected $dates = [
-        'linen_stock_created_at',
-        'linen_stock_updated_at',
-        'linen_stock_deleted_at',
-    ];
-
-    public $searching = 'linen_stock_key';
+    public $searching = 'linen_stock_id';
     public $datatable = [
         'linen_stock_id' => [false => 'Code', 'width' => 50],
-        'linen_stock_key' => [true => 'No. DO'],
         'linen_stock_company_id' => [false => 'Company'],
-        'linen_stock_company_name' => [true => 'Company'],
-        'linen_stock_total' => [true => 'Total'],
-        'linen_stock_total_detail' => [true => 'Detail'],
-        'linen_stock_reported_date' => [true => 'Report Date'],
-        'linen_stock_created_by' => [false => 'Created At'],
-        'linen_stock_created_at' => [true => 'Created At'],
-        'name' => [true => 'Created By'],
-        'linen_stock_status' => [false => 'Status', 'width' => 50, 'class' => 'text-center', 'status' => 'status'],
+        'linen_stock_company_name' => [true => 'Company Name'],
+        'linen_stock_item_product_id' => [false => 'Company'],
+        'linen_stock_item_product_name' => [true => 'Product Name'],
+        'company_item_target' => [true => 'Target'],
+        'company_item_realisasi' => [true => 'Realisasi'],
+        'linen_stock_qty' => [true => 'Qty'],
     ];
 
     public $status = [
@@ -88,12 +70,12 @@ class Stock extends Model
 
     public function grouping(){
 
-		return $this->hasMany(Grouping::class, 'linen_grouping_stock', 'linen_stock_key');
+		return $this->hasMany(Grouping::class, 'linen_grouping_stock', 'linen_stock_id');
     }
 
     public function detail(){
 
-		return $this->hasMany(GroupingDetail::class, 'linen_grouping_detail_stock', 'linen_stock_key');
+		return $this->hasMany(GroupingDetail::class, 'linen_grouping_detail_stock', 'linen_stock_id');
     }
     
     public static function boot()

@@ -28,6 +28,9 @@ class Response
         if (request()->wantsJson()) {
             return self::sentJson($data);
         }
+        if(isset($data['name']) && $data['name'] == 'Update'){
+            return redirect()->route(config('module').'_index');
+        }
         return redirect()->back()->withInput();
     }
 

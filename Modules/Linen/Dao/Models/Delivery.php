@@ -122,7 +122,6 @@ class Delivery extends Model
         parent::created(function($model){
 
             $delivery = $model->detail;
-            dd($delivery);
         });
     }    
 }

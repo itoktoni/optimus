@@ -3,6 +3,7 @@
 namespace Modules\Linen\Http\Services;
 
 use Illuminate\Support\Facades\DB;
+use Modules\Linen\Dao\Facades\CardFacades;
 use Modules\Linen\Dao\Facades\StockFacades;
 use Modules\Linen\Dao\Models\KotorDetail;
 use Modules\Linen\Dao\Models\Outstanding;
@@ -27,6 +28,14 @@ class KotorCreateService
                     ->where('linen_stock_item_product_id', $key_stock)->update([
                         'linen_stock_qty' => DB::raw('linen_stock_qty - '.count($stock))
                     ]);
+
+                    // CardFacades::create([
+                    //     'linen_card_status' => 1,
+                    //     'linen_card_company_id' => $this->linen_kotor_company_id,
+                    //     'linen_card_item_product_id' => $key_stock,
+                    //     'linen_card_stock_company' => 1,
+                    //     'linen_card_stock_notes' => 'Tambahan 1 Stock Perusahaan',
+                    // ]);
                 }
             }
 

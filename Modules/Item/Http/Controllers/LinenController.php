@@ -18,6 +18,7 @@ use Modules\System\Dao\Facades\LocationFacades;
 use Modules\System\Dao\Models\Location;
 use Modules\System\Dao\Repositories\CompanyRepository;
 use Modules\System\Dao\Repositories\LocationRepository;
+use Modules\System\Dao\Repositories\TeamRepository;
 use Modules\System\Http\Requests\DeleteRequest;
 use Modules\System\Http\Requests\GeneralRequest;
 use Modules\System\Http\Services\CreateService;
@@ -49,6 +50,7 @@ class LinenController extends Controller
         $company = Views::option(new CompanyRepository());
         $status = Views::status(self::$model->status, true);
         $rent = Views::status(self::$model->rent, true);
+        $user = Views::option(new TeamRepository());
 
         if(request()->get('company_id') || isset($data['model'])){
 
@@ -69,6 +71,7 @@ class LinenController extends Controller
             'company' => $company,
             'status' => $status,
             'rent' => $rent,
+            'user' => $user,
         ];
 
         return array_merge($view, $data);
@@ -76,14 +79,8 @@ class LinenController extends Controller
 
     public function index()
     {
-        $data_user = LinenFacades::joinRelationship('user')->select('name','id')->distinct()->get();
-        $user = [];
-        if($data_user){
-            $user = $data_user->pluck('name', 'id')->prepend(__('- Select Option -'),'');
-        }
         return view(Views::index(config('page'), config('folder')))->with($this->share([
             'fields' => Helper::listData(self::$model->datatable),
-            'user' => $user
         ]));
     }
 
@@ -95,7 +92,7 @@ class LinenController extends Controller
     public function save(GeneralRequest $request, CreateService $service)
     {
         $data = $service->save(self::$model, $request);
-        return Response::redirectBack($data)->withInput();
+        return Response::redirectBackWithInput($data);
     }
 
     public function patch(GeneralRequest $request)
