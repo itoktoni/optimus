@@ -3,6 +3,7 @@
 namespace Modules\Linen\Http\Services;
 
 use Modules\Linen\Dao\Facades\OutstandingFacades;
+use Modules\Linen\Dao\Models\OpnameSummary;
 use Modules\Linen\Http\Resources\LinenCollection;
 use Modules\Linen\Http\Resources\OutstandingCollection;
 use Yajra\DataTables\Facades\DataTables;
@@ -16,11 +17,17 @@ class OpnameDataService extends DataService
 
         if (!request()->ajax()) {
             
-            $pagination = request()->get('linen_opname_key') ? $this->filter->paginate(request()->get('limit') ?? config('website.pagination')) : $this->filter->select([
-                'linen_opname_key',
-                'linen_opname_company_id',
-                'linen_opname_company_name',
-            ])->where('linen_opname_status', 1)->whereDate('linen_opname_date', date('Y-m-d'))->get();
+            if($opname = request()->get('linen_opname_key')){
+                $pagination = OpnameSummary::where('linen_opname_summary_master_id', $opname)->get(); 
+            }
+            else{
+                $pagination =  $this->filter->select([
+                    'linen_opname_key',
+                    'linen_opname_company_id',
+                    'linen_opname_company_name',
+                ])->where('linen_opname_status', 1)->whereDate('linen_opname_date', date('Y-m-d'))->get();
+            }
+            
             return $pagination;
         }
 
