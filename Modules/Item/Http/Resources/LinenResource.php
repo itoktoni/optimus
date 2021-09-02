@@ -21,7 +21,7 @@ class LinenResource extends JsonResource
        return [
            'item_linen_id' => $this->item_linen_id,
            'item_linen_rfid' => $this->item_linen_rfid,
-           'item_product_name' => $this->item_product_name,
+           'item_product_name' => $this->item_linen_product_name,
            'company_id' => $this->item_linen_company_id,
            'company_name' => $this->item_linen_company_name,
            'location_id' => $this->item_linen_location_id,
