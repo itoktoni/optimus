@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Modules\Item\Dao\Facades\LinenFacades;
+use Modules\Linen\Dao\Models\KotorDetail;
 use Modules\Linen\Dao\Repositories\KotorRepository;
 use Modules\Report\Dao\Repositories\ReportLinenKotorHarianRepository;
 use Modules\Report\Http\Requests\LinenKotorRequest;
@@ -51,24 +52,24 @@ class LinenKotorController extends Controller
         
         if(request()->all()){
             $preview = $service->data($linen, $request);
-            $query = self::$model->dataRepository()->with('detail');
+            $query = KotorDetail::query();
 
             if ($company_id = request()->get('company_id')) {
-                $query->where('linen_kotor_company_id', $company_id);
+                $query->where('linen_kotor_detail_ori_company_id', $company_id);
             }
 
             if ($key = request()->get('key')) {
-                $query->where('linen_kotor_key', $key);
+                $query->where('linen_kotor_detail_key', $key);
             }
 
             if ($from = request()->get('from')) {
-                $query->whereDate('linen_kotor_created_at', '>=', $from);
+                $query->whereDate('linen_kotor_detail_created_at', '>=', $from);
             }
             if ($to = request()->get('to')) {
-                $query->whereDate('linen_kotor_created_at', '<=', $to);
+                $query->whereDate('linen_kotor_detail_created_at', '<=', $to);
             }
 
-            $query->whereNull('linen_kotor_deleted_at');
+            $query->whereNull('linen_kotor_detail_deleted_at');
            
             $company = CompanyFacades::find(request()->get('company_id'));
             $location = $company->locations ?? [];
@@ -78,7 +79,7 @@ class LinenKotorController extends Controller
             $detail = [];
             if ($master) {
 
-                $detail = $master->detail()->get();
+                $detail = $master->get();
             }
 
             $date_from = Carbon::createFromFormat('Y-m-d', request()->get('from'));

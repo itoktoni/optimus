@@ -38,6 +38,7 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use Maatwebsite\Excel\Concerns\WithEvents;
 use Maatwebsite\Excel\Events\AfterSheet;
+use Modules\Linen\Dao\Models\KotorDetail;
 use Modules\Linen\Dao\Repositories\KotorRepository;
 use Modules\System\Dao\Facades\CompanyConnectionLocationFacades;
 use Modules\System\Dao\Facades\CompanyFacades;
@@ -104,21 +105,21 @@ class ReportLinenKotorHarianRepository extends KotorRepository implements FromVi
 
     public function view(): View
     {
-        $query = $this->dataRepository()->with('detail');
+        $query = KotorDetail::query();
         
         if ($company_id = request()->get('company_id')) {
-            $query->where('linen_kotor_company_id', $company_id);
+            $query->where('linen_kotor_detail_ori_company_id', $company_id);
         } 
         
         if ($key = request()->get('key')) {
-            $query->where('linen_kotor_key', $key);
+            $query->where('linen_kotor_detail_key', $key);
         }
         
         if ($from = request()->get('from')) {
-            $query->whereDate('linen_kotor_created_at', '>=', $from);
+            $query->whereDate('linen_kotor_detail_created_at', '>=', $from);
         }
         if ($to = request()->get('to')) {
-            $query->whereDate('linen_kotor_created_at','<=', $to);
+            $query->whereDate('linen_kotor_detail_created_at','<=', $to);
         }
         
         $query->whereNull('linen_kotor_deleted_at');
@@ -128,8 +129,9 @@ class ReportLinenKotorHarianRepository extends KotorRepository implements FromVi
 
         if($master){
 
-            $detail = $master->detail()->get();
+            $detail = $master->toSql();
         }
+        dd($detail);
 
         $date_from = Carbon::createFromFormat('Y-m-d', request()->get('from'));
         $date_to = Carbon::createFromFormat('Y-m-d', request()->get('to'));

@@ -1,3 +1,4 @@
+@if(!empty($master))
 <table>
     <tr>
         <td colspan="7">
@@ -88,3 +89,4 @@
         width: 50px;
     }
 </style>
+@endif

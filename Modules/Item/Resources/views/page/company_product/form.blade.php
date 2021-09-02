@@ -14,7 +14,6 @@ $('#company').change(function() {
 }); 
 </script>
 @endpush
-
 <div class="form-group">
     {!! Form::label('name', __('Company'), ['class' => 'col-md-2 col-sm-2 control-label']) !!}
     @if(isset($master['lock_id']))
@@ -25,7 +24,7 @@ $('#company').change(function() {
     </div>
     @else
     <div class="col-md-4 col-sm-4 {{ $errors->has('company_id') ? 'has-error' : ''}}">
-        {{ Form::select('company_id', $company, null, ['id' => 'company', 'class'=> 'form-control']) }}
+        {{ Form::select('company_id', $company, $master['company_id'] ?? null, ['id' => 'company', 'class'=> 'form-control']) }}
         {!! $errors->first('company_id', '<p class="help-block">:message</p>') !!}
     </div>
     @endif

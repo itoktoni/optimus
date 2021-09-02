@@ -40,7 +40,6 @@ class KotorRequest extends GeneralRequest
         }
 
         $kotor = $linen->map(function ($item) use($company, $key) {
-
             $user = auth()->user();
 
             $description = 1;

@@ -36,13 +36,13 @@ class InvoiceController extends Controller
     private function share($data = [])
     {
         $company = Views::option(new CompanyRepository());
-        $delivery = Views::option(new DeliveryRepository(),false,true);
+        $delivery = Views::option(new DeliveryRepository(), false, true);
 
-        $data_delivery = $delivery->mapWithKeys(function($data, $item){
-            return [$data->linen_delivery_key => $data->linen_delivery_key.' - '.$data->linen_delivery_company_name];
+        $data_delivery = $delivery->mapWithKeys(function ($data, $item) {
+            return [$data->linen_delivery_key => $data->linen_delivery_key . ' - ' . $data->linen_delivery_company_name];
         });
         $view = [
-           
+
             'company' => $company,
             'delivery' => $data_delivery,
         ];
@@ -61,11 +61,16 @@ class InvoiceController extends Controller
             $master = $linen->first();
         }
 
-        return view(Views::form(__FUNCTION__,config('page'), config('folder')))->with($this->share([
+        if ($master) {
+
+            $detail = $master->detail()->get()->groupBy('linen_grouping_detail_product_id');
+        }
+
+        return view(Views::form(__FUNCTION__, config('page'), config('folder')))->with($this->share([
             'preview' => $master,
             'model' => $linen->getModel(),
             'master' => $master,
-            'detail' => $master->detail()->get()->groupBy('linen_grouping_detail_product_id')
+            'detail' => $detail
         ]));
     }
 
