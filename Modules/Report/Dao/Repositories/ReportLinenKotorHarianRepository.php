@@ -76,29 +76,28 @@ class ReportLinenKotorHarianRepository extends KotorRepository implements FromVi
 
     public function registerEvents(): array
     {
-        $total_location = count($this->location)+4;
-        $total_product = count($this->product)+10;
+        $total_location = count($this->location) + 4;
+        $total_product = count($this->product) + 10;
         $alfa = Helper::getAlfabetByNumber($total_location);
-        $cell = $alfa.$total_location;
+        $cell = $alfa . $total_location;
 
         return [
-            AfterSheet::class    => function(AfterSheet $event) use($alfa, $total_product) {
-                $event->sheet->getDelegate()->mergeCells('A1:'.$alfa.'1');
-                $event->sheet->getDelegate()->mergeCells('A2:'.$alfa.'2');
-                $event->sheet->getDelegate()->mergeCells('A3:'.$alfa.'3');
+            AfterSheet::class    => function (AfterSheet $event) use ($alfa, $total_product) {
+                $event->sheet->getDelegate()->mergeCells('A1:' . $alfa . '1');
+                $event->sheet->getDelegate()->mergeCells('A2:' . $alfa . '2');
+                $event->sheet->getDelegate()->mergeCells('A3:' . $alfa . '3');
 
-                $event->sheet->getDelegate()->getStyle('A1:'.$alfa.'3')->getAlignment()->applyFromArray([
+                $event->sheet->getDelegate()->getStyle('A1:' . $alfa . '3')->getAlignment()->applyFromArray([
                     'horizontal' => 'center'
                 ]);
-                    
+
                 $event->sheet->getDelegate()->getColumnDimension('A')->setWidth(5);
                 $event->sheet->getDelegate()->getColumnDimension('B')->setAutoSize(true);
-                foreach(range('C', $alfa) as $columnID)
-                {
+                foreach (range('C', $alfa) as $columnID) {
                     $event->sheet->getDelegate()->getColumnDimension($columnID)->setWidth(5);
                 }
-                
-                $event->sheet->getDelegate()->getStyle('C8:'.$alfa.'8')->getAlignment()->setTextRotation(90);
+
+                $event->sheet->getDelegate()->getStyle('C8:' . $alfa . '8')->getAlignment()->setTextRotation(90);
             },
         ];
     }
@@ -106,30 +105,30 @@ class ReportLinenKotorHarianRepository extends KotorRepository implements FromVi
     public function view(): View
     {
         $query = KotorDetail::query();
-        
+
         if ($company_id = request()->get('company_id')) {
             $query->where('linen_kotor_detail_scan_company_id', $company_id);
-        } 
-        
+        }
+
         if ($key = request()->get('key')) {
             $query->where('linen_kotor_detail_key', $key);
         }
-        
+
         if ($from = request()->get('from')) {
             $query->whereDate('linen_kotor_detail_created_at', '>=', $from);
         }
         if ($to = request()->get('to')) {
-            $query->whereDate('linen_kotor_detail_created_at','<=', $to);
+            $query->whereDate('linen_kotor_detail_created_at', '<=', $to);
         }
-        
+
+
+        $detail = [];
+        if ($query->count() > 0) {
+
+            $detail = $query->get();
+        }
 
         $master = $query->first();
-        $detail = [];
-
-        if($master){
-
-            $detail = $master->get();
-        }
 
         $date_from = Carbon::createFromFormat('Y-m-d', request()->get('from'));
         $date_to = Carbon::createFromFormat('Y-m-d', request()->get('to'));
