@@ -122,7 +122,6 @@ class ReportLinenKotorHarianRepository extends KotorRepository implements FromVi
             $query->whereDate('linen_kotor_detail_created_at','<=', $to);
         }
         
-        $query->whereNull('linen_kotor_deleted_at');
 
         $master = $query->first();
         $detail = [];
