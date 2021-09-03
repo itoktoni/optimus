@@ -128,7 +128,7 @@ class ReportLinenKotorHarianRepository extends KotorRepository implements FromVi
 
         if($master){
 
-            $detail = $master->toSql();
+            $detail = $master->get();
         }
 
         $date_from = Carbon::createFromFormat('Y-m-d', request()->get('from'));
