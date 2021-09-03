@@ -92,10 +92,10 @@
         @foreach($preview as $linen)
         <tr>
             <td>{{ $linen->item_linen_rfid }}</td>
-            <td>{{ $linen->item_product_name }}</td>
-            <td>{{ $linen->company_name }}</td>
-            <td>{{ $linen->location_name }}</td>
-            <td>{{ $linen->name }}</td>
+            <td>{{ $linen->item_linen_product_name }}</td>
+            <td>{{ $linen->item_linen_company_name }}</td>
+            <td>{{ $linen->item_linen_location_name }}</td>
+            <td>{{ $linen->item_linen_created_name }}</td>
             <td>{{ $linen->item_linen_created_at }}</td>
         </tr>
         @endforeach

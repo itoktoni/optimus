@@ -93,6 +93,7 @@ class Linen extends Model
         'item_linen_location_id' => [false => 'Location Id'],
         'item_linen_location_name' => [true => 'Location Name'],
         'item_linen_session' => [false => 'Key'],
+        'item_linen_created_name' => [false => 'Key'],
         'item_linen_counter' => [true => 'Counter', 'width' => 50],
         'item_linen_created_at' => [false => 'Created At'],
         'item_linen_rent' => [true => 'Rental', 'width' => 50, 'class' => 'text-center', 'status' => 'rent'],

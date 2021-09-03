@@ -71,10 +71,10 @@ class ReportLinenRegisterRepository extends LinenRepository implements FromColle
     {
         return [
            $data->item_linen_rfid, 
-           $data->company_name, 
-           $data->location_name, 
-           $data->item_product_name, 
-           $data->name, 
+           $data->item_linen_company_name, 
+           $data->item_linen_location_name, 
+           $data->item_linen_product_name, 
+           $data->item_linen_created_name, 
            $data->item_linen_created_at ? $data->item_linen_created_at->isoFormat('dddd, D MMMM Y') : '', 
            $data->item_linen_updated_at ? $data->item_linen_updated_at->isoFormat('dddd, D MMMM Y') : '', 
            $data->rent[$data->item_linen_rent][0] ?? '', 
