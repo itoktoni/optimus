@@ -3,7 +3,7 @@
 $linen_kotor = $detail->where('linen_kotor_detail_description', 1);
 $linen_beda_rs = $detail->where('linen_kotor_detail_description', 2);
 $total_location = count($location)+6;
-$group_location = $linen_kotor->groupBy('linen_kotor_detail_scan_company_id');
+$group_location = $linen_kotor->groupBy('linen_kotor_detail_ori_location_id');
 @endphp
 
 <table>

@@ -108,7 +108,7 @@ class ReportLinenKotorHarianRepository extends KotorRepository implements FromVi
         $query = KotorDetail::query();
         
         if ($company_id = request()->get('company_id')) {
-            $query->where('linen_kotor_detail_ori_company_id', $company_id);
+            $query->where('linen_kotor_detail_scan_company_id', $company_id);
         } 
         
         if ($key = request()->get('key')) {
