@@ -1,14 +1,14 @@
 <table id="datatable" class="responsive table-striped table-condensed table-bordered table-hover">
     <thead>
         <tr>
-            <td style="width: 50px;">No.</td>
-            <td style="width: 200px;">Nama Linen</td>
-            <td>Nama Customer</td>
-            <td style="width: 80px;">Qty</td>
-            <td style="width: 80px;">Berat (Kg)</td>
-            <td style="width: 80px;">Total (Kg)</td>
-            <td style="width: 80px;">Target Stock</td>
-            <td style="width: 80px;">Selisih</td>
+            <td width="5">No.</td>
+            <td width="50">Nama Linen</td>
+            <td width="50">Nama Customer</td>
+            <td width="10">Qty</td>
+            <td width="10">Berat (Kg)</td>
+            <td width="10">Total (Kg)</td>
+            <td width="10">Target Stock</td>
+            <td width="10">Selisih</td>
         </tr>
     </thead>
     <tbody>
