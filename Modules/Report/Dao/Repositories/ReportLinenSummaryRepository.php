@@ -32,7 +32,7 @@ use Maatwebsite\Excel\Concerns\WithColumnFormatting;
 use Modules\Item\Dao\Repositories\LinenRepository;
 use Modules\Procurement\Dao\Repositories\PurchaseRepository;
 
-class ReportLinenSummaryRepository extends LinenRepository implements FromView, ShouldAutoSize
+class ReportLinenSummaryRepository extends LinenRepository implements FromView, ShouldAutoSize, WithColumnFormatting
 {
     public $model;
     public $detail;
@@ -48,6 +48,16 @@ class ReportLinenSummaryRepository extends LinenRepository implements FromView, 
         // $this->category = new Category();
         // $this->branch = new Branch();
         // $this->delivery = new Delivery();
+    }
+
+    public function columnFormats(): array
+    {
+        return [
+            'A' => NumberFormat::FORMAT_TEXT,
+            'B' => NumberFormat::FORMAT_TEXT,
+            'C' => NumberFormat::FORMAT_TEXT,
+            'G' => NumberFormat::FORMAT_DATE_YYYYMMDD,
+        ];
     }
 
     public function view(): View

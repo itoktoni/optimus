@@ -82,6 +82,17 @@ class ReportLinenRegisterRepository extends LinenRepository implements FromColle
         ];
     }
 
+    public function columnWidths(): array
+    {
+        return [
+            'A' => 30,
+            'B' => 100,            
+            'C' => 100,            
+            'D' => 30,            
+            'E' => 30,            
+        ];
+    }
+
     public function columnFormats(): array
     {
         return [
