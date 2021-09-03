@@ -130,7 +130,6 @@ class ReportLinenKotorHarianRepository extends KotorRepository implements FromVi
 
             $detail = $master->toSql();
         }
-        dd($detail);
 
         $date_from = Carbon::createFromFormat('Y-m-d', request()->get('from'));
         $date_to = Carbon::createFromFormat('Y-m-d', request()->get('to'));
