@@ -70,7 +70,7 @@ class LinenKotorController extends Controller
             }
 
             $query->whereNull('linen_kotor_detail_deleted_at');
-           
+
             $company = CompanyFacades::find(request()->get('company_id'));
             $location = $company->locations ?? [];
             $product = $company->products ?? [];
@@ -79,7 +79,7 @@ class LinenKotorController extends Controller
             $detail = [];
             if ($master) {
 
-                $detail = $master->get();
+                $detail = $query->get();
             }
 
             $date_from = Carbon::createFromFormat('Y-m-d', request()->get('from'));

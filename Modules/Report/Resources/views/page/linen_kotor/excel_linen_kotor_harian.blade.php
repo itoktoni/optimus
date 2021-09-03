@@ -14,7 +14,7 @@ $group_location = $linen_kotor->groupBy('linen_kotor_detail_ori_location_id');
     </tr>
     <tr>
         <td>
-            {{ $master->linen_kotor_company_name ?? '' }}
+            {{ $master->linen_kotor_detail_scan_company_name ?? '' }}
         </td>
     </tr>
     <tr>

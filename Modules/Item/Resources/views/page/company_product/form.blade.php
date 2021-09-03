@@ -1,19 +1,3 @@
-@push('javascript')
-<script>
-$('#company').change(function() {
-    var id = $("#company option:selected").val();
-    
-    var uri = window.location.toString();
-    var clean_uri = window.location.toString();
-	if (uri.indexOf("?") > 0) {
-	    clean_uri = uri.substring(0, uri.indexOf("?"));
-	    window.history.replaceState({}, document.title, clean_uri);
-    }
-    
-    window.location = clean_uri+'?company_id='+id;
-}); 
-</script>
-@endpush
 <div class="form-group">
     {!! Form::label('name', __('Company'), ['class' => 'col-md-2 col-sm-2 control-label']) !!}
     @if(isset($master['lock_id']))
